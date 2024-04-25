@@ -8,7 +8,6 @@ Created Date: 25Apr24
 
 import sys
 
-
 def check_special(password):
     # Check entered password for any special characters and return either True or False
     special_characters = "!@#$%^&*()-+?_=,<>/"
@@ -26,11 +25,14 @@ def check_lower(password):
     # Check entered password for any lowercase characters and return either True or False
     return any(char.islower() for char in password)
 
-def check_fail(check_lower, check_special, check_upper, check_num):
+def check_fail():
     # Take results of check_lower, check_special, check_upper, check_num and place into a list
     failed = []
-    checklist = [check_upper, check_lower, check_num, check_special]
-    
+    checklist = [check_upper(), check_lower(), check_num(), check_special()]
+    validate = all(checklist)
+    return validate
+
+
     # Check for any False returns and append them to empty list named "failed"
     for check in checklist:
         if not check:
@@ -41,7 +43,7 @@ def check_fail(check_lower, check_special, check_upper, check_num):
     return num_of_failed 
         
 
-def password_checker(checklist, num_of_failed):
+def password_checker():
     # Create while loop for the script to perform functions
     while True:
         try:
@@ -58,7 +60,7 @@ def password_checker(checklist, num_of_failed):
                 continue
             
             # Conducts validation for special characters, numbers, uppercase, and lowercase requirements; breaks out of loop if True
-            elif all(checklist):
+            elif check_fail().validate:
                 break
             
             # Returns number of missing character sets for user to try a new password
@@ -73,5 +75,7 @@ def password_checker(checklist, num_of_failed):
     # Returns accepted password to user and exits script        
     print(f'Your password, \'{password}\', is secure.')
     sys.exit(1)
-    
+
+
+# Runs password checker
 password_checker()
