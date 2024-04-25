@@ -8,22 +8,70 @@ Created Date: 25Apr24
 
 import sys
 
+
 def check_special(password):
+    # Check entered password for any special characters and return either True or False
     special_characters = "!@#$%^&*()-+?_=,<>/"
-    if any(c in special_characters for c in password):
-            return True
+    return any(c in special_characters for c in password)
     
 def check_num(password):
-     return any(char.isdigit() for char in inputString)
+    # Check entered password for any digits and return either True or False
+    return any(char.isdigit() for char in password)
 
-def password_checker():
-    try:
-        password = input('Enter your password: ')
-        if password.count() < 14:
-            print('Password must be at least 14 characters long. Please try again.')
-            continue
+def check_upper(password):
+    # Check entered password for any uppercase characters and return either True or False
+    return any(char.isupper() for char in password)
+
+def check_lower(password):
+    # Check entered password for any lowercase characters and return either True or False
+    return any(char.islower() for char in password)
+
+def check_fail(check_lower, check_special, check_upper, check_num):
+    # Take results of check_lower, check_special, check_upper, check_num and place into a list
+    failed = []
+    checklist = [check_upper, check_lower, check_num, check_special]
+    
+    # Check for any False returns and append them to empty list named "failed"
+    for check in checklist:
+        if not check:
+            failed = failed.append(check)
+    
+    # Count the number of elements in failed list
+    num_of_failed = failed.count()
+    return num_of_failed 
         
-    except KeyboardInterrupt as e:
-        sys.exit(1)    
+
+def password_checker(checklist, num_of_failed):
+    # Create while loop for the script to perform functions
+    while True:
+        try:
+            # User submits password
+            password = input('Enter your password, or type Q to quit: ')
+            
+            # If user wants to exit, exits cordially
+            if password.lower() == 'q':
+                sys.exit(1)
+                
+            # Validate password is meets length requirements.
+            elif password.count() < 14:
+                print('Password must be at least 14 characters long. Please try again.')
+                continue
+            
+            # Conducts validation for special characters, numbers, uppercase, and lowercase requirements; breaks out of loop if True
+            elif all(checklist):
+                break
+            
+            # Returns number of missing character sets for user to try a new password
+            else:
+                print(f"You are missing {num_of_failed} character sets. Please try again.")
+                continue
         
-        
+        # Conducts keyboard interruption of script
+        except KeyboardInterrupt as e:
+            sys.exit(1)
+    
+    # Returns accepted password to user and exits script        
+    print(f'Your password, \'{password}\', is secure.')
+    sys.exit(1)
+    
+password_checker()
