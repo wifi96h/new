@@ -9,11 +9,7 @@ Created Date: 25Apr24
 import sys
 
 # Global variables
-missing_chars = []
-special_char = False
-digit = False
-uppercase = False
-lowercase = False
+
     
 # Script intro
 print('Passwords are great, but you should be safe with them.\nPlease make sure your password includes special characters, digits, uppercase letters, and lowercase letters.')
@@ -21,6 +17,11 @@ print('Passwords are great, but you should be safe with them.\nPlease make sure 
 # Begin while loop to try for error handling.
 while True:
     try:
+        missing_chars = []
+        special_char = False
+        digit = False
+        uppercase = False
+        lowercase = False
         # User input
         user_input = input('Enter your password, or type Q to quit: ')
         
@@ -43,7 +44,7 @@ while True:
         # Verify if password is long enough
         elif len(user_input) < 14:
             print('\nYour password must be at least 14 characters long.')
-            sys.exit(1)
+            continue
         
         # Pull validation to see if its True; if True, break to end
         elif validation:
@@ -60,7 +61,7 @@ while True:
             if not lowercase:
                 missing_chars.append('lowercase letter')
             print(f"You are missing {len(missing_chars)} character sets. Please add a {', '.join(missing_chars)} to your password.")
-            sys.exit(1)
+            continue
     
     # input handling        
     except KeyboardInterrupt as e:
