@@ -14,18 +14,30 @@ The stop function must set the speed back to 0.
 Use the __str__() method to state the current speed.
 '''
 
-class Motorcycle():
-  def __init__(self, speedup, slowdown, stop_moving):
-    self.speedup = speedup
-    self.slowdown = slowdown
-    self.stop_moving = stop_moving
-  def speedup():
-    pass
-  def slowdown():
-    pass
-  def stop_moving():
-    pass
+from sys import exit
 
-while True:
-  try:
-    change = input(
+class Motorcycle():
+    ''' overall class to define motorcycle movement'''
+    def __init__(self):
+        self.current_speed = 0
+
+    def speedup(self, speed_change):
+        self.current_speed += speed_change
+    
+    def slowdown(self, speed_change):
+        self.current_speed -= speed_change
+        
+    def stop_moving(self):
+        self.current_speed = 0
+        
+    def __str__(self):
+        return f'Your current speed is {self.current_speed}.'
+
+harley = Motorcycle()
+harley.speedup(40)
+harley.slowdown(10)
+yamaha = Motorcycle()
+yamaha.speedup(60)
+yamaha.stop_moving()
+print(harley)
+print(yamaha)
