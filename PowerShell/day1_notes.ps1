@@ -19,6 +19,7 @@ cmdlet name  1st para                      2nd para              switch para
 
 **useful**
 get-command
+get-member
 get-help
   get-help <> -online
   get-help <> -showwindow
