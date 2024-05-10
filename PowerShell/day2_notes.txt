@@ -90,7 +90,7 @@ Greater Than
 
 Less Than
 
--ge, -cgt
+-ge, -cge
 	
 
 Greater Than or Equal To
