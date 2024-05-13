@@ -402,12 +402,12 @@ function Show-ProcessesOrNetwork {
         switch ($choice) {
             1 {
                 Write-Host "Running Processes:"
-                Get-Process
+                Get-Process | select-object -property id, name, handles, npm, pm, ws, cpu, path | format-table
                 break
             }
             2 {
                 Write-Host "Network Connections:"
-                Get-NetTCPConnection
+                Get-NetTCPConnection | format-table
                 break
             }
             3 { # Prompt the user for a Process Name to search for with the Get-Process cmdlet
@@ -446,7 +446,7 @@ function Show-ProcessesOrNetwork {
 
 Show-ProcessesOrNetwork
 
-Script Repurposing
+### Script Repurposing ###
 
 Now that we have created a good script for performing a couple of actions on a local host, let’s repurpose that script to use on remote hosts. If you have working logic developed, do not re-invent the wheel. Save yourself time and effort by repurposing existing scripts that you know will work. As you add more functionality to an existing script you will have to step through it and debug any errors or unexpected results you encounter.
 
@@ -588,7 +588,12 @@ function Show-ProcessesOrNetwork {
 Show-ProcessesOrNetwork
 
 	Take note of the commenting that was done in both scripts. It is extremely valuable to comment on your code, that way if you have a long period of time not using PowerShell, or you are sharing it with peers, everyone will be able to understand what is happening.
+
+###########################################
+
 Debugging
+
+###########################################
 
 PowerShell has built-in debugging functionality as well. It can be accomplished using the following cmdlets with your scripts in PowerShell ISE. If you want to debug scripts in PowerShell version 6 or newer, you will need to use debugging with visual studio code (VSCode). VSCode requires that you download a PowerShell extension for it to work.
 
@@ -609,10 +614,15 @@ PowerShell has built-in debugging functionality as well. It can be accomplished 
 To start the debugger, run your script, command, or function with one or more breakpoints set. When the breakpoint is reached, execution will stop, and control is turned over to the debugger. To stop the debugger, continue to run the script, command, or function until it finishes or type stop or t. We will not demonstrate PowerShell debugging as it is outside the scope of this course.
 
 To learn more about PowerShell debugging, please read about it here https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_debuggers?view=powershell-7.4
+
+##################################################
+
 Offensive and Defensive Tools
 
+##################################################
+
 PowerShell has a plethora of compatible offensive and defensive toolsets. This section will discuss some of them to provide awareness and some baseline knowledge but will not demonstrate their use as it is outside the scope of this course.
-Offensive Tools
+### Offensive Tools ###
 
 This is not an all-inclusive list, and it may be outdated. If you know of newer offensive tools used with PowerShell, please feel free to share with the class.
 
@@ -656,7 +666,7 @@ This is not an all-inclusive list, and it may be outdated. If you know of newer 
 
         Very commonly used by red teams and penetration testers due to its ease of use and high success rate.
 
-Defensive Tools
+### Defensive Tools ###
 
 As stated earlier, if you know of other commonly used defensive tools, please share with the class.
 
@@ -692,12 +702,17 @@ As stated earlier, if you know of other commonly used defensive tools, please sh
 
         AMSI is a useful and powerful built-in Windows feature, but it is vulnerable to bypass if an attacker has administrator credentials on a network.
 
+##################################################
+
 PowerShell Mitigations and Evasion
+
+##################################################
 
 In any computing environment, as an offensive or defensive cyberspace operations technician, it is important to understand ways to evade detection and ways to mitigate risks associated with PowerShell.
 
 Since PowerShell is so commonly used in enterprise environments, it will only benefit you to become knowledgeable on these subjects.
-Mitigations
+
+### Mitigations ###
 
     Deploy PowerShell 5.1 or Newer
 
@@ -725,7 +740,7 @@ Mitigations
 
         Windows 7 and Windows Server 2008 have many unresolved vulnerabilities that open up an environment to attack using PowerShell or other offensive tools.
 
-Evasion
+### Evasion ###
 
     Obfuscation
 
@@ -761,7 +776,12 @@ Evasion
 
         Attackers want to avoid as many detection mechanisms as possible, and with PowerShell script block logging is an important consideration.
 
+###################################
+
 Summary
+
+###################################
+
 Today we discussed
 
     Execution Policies
