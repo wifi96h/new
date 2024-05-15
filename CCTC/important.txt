@@ -2,7 +2,7 @@ ANRU-W-002
 password
 
 http://10.50.22.197:8000/challenges
-
+https://os.cybbh.io/public/os/latest/index.html
 
 Stack 8
 Admin station: 10.50.31.248
