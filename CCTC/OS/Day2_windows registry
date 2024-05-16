@@ -29,6 +29,8 @@ Table of Contents
     6. Security
     Additional Resources
 
+######################################################################################################################
+######################################################################################################################
 
 Terminal Learning Objectives
 1. Explain the Purpose of Windows Registry
@@ -38,8 +40,11 @@ Terminal Learning Objectives
 5. Identify Malicious Registry
 6. Complete Windows Registry CTFd Challenges PE
 
+################################################
 
 1. Windows Registry Introduction
+
+################################################
 
     The The Windows Registry is a central hierarchical database used in Windows to store information that is necessary to configure the system for one or more users, applications, and hardware devices.
 
@@ -67,11 +72,15 @@ Comparing the Registry in Windows to Linux
 
         System configurations in Windows are in HKEY_LOCAL_MACHINE, but in /etc (and a few other directories) in Linux.
 
+######################################
 
 2. Registry structure
 
+######################################
+
 The Registry is comprised of Registry Hives which contain Keys, Subkeys and Values.
-2.1 Registry Keys and Values
+
+### 2.1 Registry Keys and Values ###
 
 The registry is comprised of Keys, Subkeys and Values structured in a tree format.
 
@@ -97,7 +106,7 @@ HKEY_Local_Machine (HIVE)
 Structure of the Registry Link
 
 
-2.2 Registry Hives or Root Keys
+### 2.2 Registry Hives or Root Keys ###
 
 A registry hive is a group of keys and thier associated values that are loaded when the system is started or a specific user logs in.
 
@@ -156,17 +165,17 @@ SID = S-1-5-21-2948704478-3101701159-1111693228-1002
         Some HKEY_USERS are called Well Known SIDs.. They identify default accounts in Windows used for various purposes. In this example the 21 represents the subauthority within the domain identifier. Examples include:
 
             S-1-5-18 refers to LocalSystem account.
-
+		   ^^
             S-1-5-19 refers to LocalService account. It is used to run local services that do not require LocalSystem account.
-
+		  ^^
             S-1-5-20 refers to NetworkService account. It is used to run network services that do not require LocalSystem account.
-
+		  ^^
             S-1-5-21-domain-500 Refers to the built in local administrator account.
-
+		  ^^
     -1002 = RID A variable number of subauthority or relative identifier (RID) values that uniquely identify the trustee relative to the authority that issued the SID
 
 
-HKEY_CURRENT_USER (HKCU)
+# HKEY_CURRENT_USER (HKCU)
 
 HKEY_CURRENT_USER is the copy of the logged in user’s registry key based on thier SID from HKEY_USERS.
 
@@ -176,7 +185,7 @@ HKEY_USERS (HIVE)
     HKEY_USERS\S-1-5-21-3939661428-3032410992-3449649886-XXXX
 
 
-HKEY_CURRENT_CONFIG (HKCC)
+# HKEY_CURRENT_CONFIG (HKCC)
 
 HKEY_CURRENT_CONFIG is a symbolic link (pointer or shortcut or alias) to the following registry key:
 
@@ -208,7 +217,7 @@ HKCR Reference
 
 	HKLM and HKU are the only root keys that Windows physically stores on files.
 
-2.3 Registry Structure and Data Types
+### 2.3 Registry Structure and Data Types ###
 
 
 Table 1. Registry Path Hive and Supporting Files
@@ -288,10 +297,13 @@ Backup copy of hive created at the end of text-mode (console)
 
 Registry Memory Space
 
-
+##############################################
 
 3. Registry Manipulation
-3.1 View/manipulate the registry with a GUI
+
+##############################################
+
+### 3.1 View/manipulate the registry with a GUI ###
 
     regedit.exe
 
@@ -324,7 +336,7 @@ Using Regedit.exe to query the Registry
 	We have successfully queried a key using regedit.exe
 
 
-3.2 View/manipulate the registry via CMDLINE
+### 3.2 View/manipulate the registry via CMDLINE ###
 
     reg.exe
 
@@ -374,7 +386,7 @@ Reg delete - Deletes Keys
 
 reg delete HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run /v testme
 
-3.3 Registry Manipulation with PowerShell
+### 3.3 Registry Manipulation with PowerShell ###
 
 
     Certain Root Hives are loaded automatically into PSDrives (HKLM: and HKCU:); navigation of the registry is very similar to folder⇒file
@@ -402,7 +414,7 @@ Minimum commands to know
         New-Itemproperty cmdlet creates a new property for a specified item and sets its value. Typically, this cmdlet is used to create new registry values, because registry values are properties of a registry key item.
 
 
-3.3.1 Reading Registry Objects with PowerShell
+# 3.3.1 Reading Registry Objects with PowerShell #
 Get-ChildItem - Reads sub keys from the input value
 
 Get-ChildItem HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run 
@@ -421,9 +433,9 @@ Get-item HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
     Notice how the output of the command is different than Get-ChildItem.
 
         It reads key values, not sub keys.
+	*****  SecurityHealth : C:\WINDOWS\system32\SecurityHealthSystray.exe ***** is a legitimate service
 
-
-3.3.2 Creating Registry objects with Powershell
+# 3.3.2 Creating Registry objects with Powershell #
 New-Item - Creates a new sub key associated within a hive
 
 New-Item "HKLM:\Software\Microsoft\Office\14.0\Security\Trusted Documents\TrustRecords" -Force
@@ -442,7 +454,7 @@ New-ItemProperty HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run -Name Test 
 	Outside of the scope of the class but in case you want to know more about that byte array
 
 
-3.3.3 Modifying Registry objects with PowerShell
+# 3.3.3 Modifying Registry objects with PowerShell #
 Rename-ItemProperty - Modifies a value associated with a sub key
 
 Rename-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run -Name SecurityHealth -NewName Test
@@ -456,7 +468,7 @@ Set-ItemProperty - Change the value of a sub key
 Set-ItemProperty HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run -Name Test -Value Bacon.exe
 
 
-3.4 Sethc.exe Demonstration
+### 3.4 Sethc.exe Demonstration ###
 
     Demo: Demonstrate the application of a registry "tweak" via the GUI and CMD-line using sethc.exe.
 
@@ -530,8 +542,12 @@ Using Autoruns to view the created Registry key
 	Name the file "Totally Legit Windows Update" and save it to your Desktop
 	Delete the sethc.exe key using the GUI
 
+######################################
 
 4. Powershell PSDrives
+
+#####################################
+
 What is a PowerShell PSDrive?
 
     A Windows PowerShell drive is a data store location that you can access like a file system drive in Windows PowerShell.
@@ -655,7 +671,7 @@ cd S:
 	Changing directories to our link '\\live.sysinternals.com\Tools'.
 Map to an Internal Server
 
-New-PSDrive -Name FileServer -PSProvider FileSystem -Root "\\file-server\warrior share"
+**** New-PSDrive -Name FileServer -PSProvider FileSystem -Root "\\file-server\warrior share" ****
 
 Disable the task manager using the Regedit GUI
 	In regedit, navigate to HKCU/SOFTWARE/MICROSOFT/WINDOWS/CURRENTVERSION/POLICIES
@@ -665,18 +681,20 @@ Disable the task manager using the Regedit GUI
 	Try to open task Manager (you will see that you cannot)
 	Remove the new key by right clicking the key and selecting delete
 
+############################################
 
 5. Registry Locations of Interest
 
+############################################
 
-5.1 Do I need to remember all of the locations in the Registry?
+### 5.1 Do I need to remember all of the locations in the Registry? ###
 
     The Registry in a Windows 10 Computer has over 3 million entries; it is impossible to know them all.
 
     It is more important to understand the concepts supporting the Windows Registry than to know millions of keys.
 
 
-5.2 Registry Changes
+### 5.2 Registry Changes ###
 
     Changes to the registry often require a restart, as many programs read the registry values upon load.
 
@@ -687,31 +705,31 @@ Disable the task manager using the Regedit GUI
         It is also important to note that some parts of the registry are always loaded into memory.
 
 
-5.3 Forensically Relevant Keys
+### 5.3 Forensically Relevant Keys ###
 
     These are keys that hold any type of information that can be used to gather intelligence or track events.
 
     These are some but not all of the keys that can be considered relevant to you or your mission set.
 
-    SANS Registry Cheat Sheet
+    SANS Registry Cheat Sheet <https://training.13cubed.com/downloads>
 
 Why do we care?
 
-    We are looking for keys that can be used for Persistence
+    We are looking for keys that can be used for Persistence <https://attack.mitre.org/tactics/TA0003/#:~:text=Persistence%20consists%20of%20techniques%20that,could%20cut%20off%20their%20access>
 
         Persistence consists of techniques that adversaries use to keep access to systems across restarts, changed credentials, and other interruptions that could cut off their access
 
-    As well as Privilege Escalation.
+    As well as Privilege Escalation. <https://attack.mitre.org/tactics/TA0004/#:~:text=Privilege%20Escalation%20consists%20of%20techniques,follow%20through%20on%20their%20objectives>
 
         Privilege Escalation consists of techniques that adversaries use to gain higher-level permissions on a system or network.
 
 
-Microsoft Edge Internet URL history and Browser Artifacts and Forensics
+Microsoft Edge Internet URL history and Browser Artifacts and Forensics <https://www.digitalforensics.com/blog/an-overview-of-web-browser-forensics/>
 
     HKEY_CLASSES_ROOT\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\Children\001\Internet Explorer\DOMStorage
 
 
-USB history / USB Forensics
+USB history / USB Forensics <https://securityevil.blogspot.com/2018/05/usb-forensic-find-history-of-every.html>
 
     HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Enum\USB
 
@@ -722,7 +740,7 @@ USB history / USB Forensics
         This registry key specifically deals with USB storage devices, such as USB flash drives, external hard drives, etc. It contains information about connected USB storage devices, including details like device instance paths, hardware IDs, and other configuration information.
 
 
-Recent MRU history / MRU in forensics
+Recent MRU history / MRU in forensics <https://www.sans.org/blog/opensavemru-and-lastvisitedmru/>
 
     HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\ComDlg32\OpenSavePidlMRU
 
@@ -733,22 +751,22 @@ Recent MRU history / MRU in forensics
         For instance, files (e.g. .txt, .pdf, htm, .jpg) that are recently opened or saved files from within a web browser (including IE and Firefox) are maintained.
 
 
-Recent Files with LNK files
+Recent Files with LNK files <https://www.sans.org/blog/opensavemru-and-lastvisitedmru/>
 
     HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs
 
 
-Windows User Profiles User Account Forensics
+Windows User Profiles User Account Forensics <https://cybermeisam.medium.com/blue-team-system-live-analysis-part-7-windows-user-account-forensics-categorization-and-87f94d131c1e>
 
 HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList
 
 
-Saved Network Profiles and How to decode Network history
+Saved Network Profiles and How to decode Network history <https://hatsoffsecurity.com/2014/05/23/network-history-and-decoding-system-time/>
 
 HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\NetworkList\Profiles
 
 
-Windows Virtual Memory and why it is important
+Windows Virtual Memory and why it is important <https://azurecloudai.blog/2020/03/03/side-channel-attack-mitigation-via-gpo/>
 
 HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management
 
@@ -761,18 +779,19 @@ Recent search terms using Windows default search and Cortana
 
     HKEY_CURRENT_USER\Software\Microsoft\Windows Search\ProcessedSearchRoots
 
-        Index of Search results by SID
+        Index of Search results by SID <https://learn.microsoft.com/en-us/windows/win32/search/-search-3x-wds-extidx-csm-searchroots>
 
     HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Search
 
-        Recent files searched
+        Recent files searched <https://df-stream.com/2017/10/recentapps/>
 
 
-5.4 Registry locations that can be utilized for persistence
+### 5.4 Registry locations that can be utilized for persistence ###
 
-Persistence According to MITRE
+Persistence According to MITRE <https://attack.mitre.org/tactics/TA0003/#:~:text=Persistence%20consists%20of%20techniques%20that,could%20cut%20off%20their%20access>
 
-Boot or Logon Autostart Execution: Registry Run Keys / Startup Folder - MITRE
+Boot or Logon Autostart Execution: Registry Run Keys / Startup Folder - MITRE <https://attack.mitre.org/techniques/T1547/001/>
+
 Table 6. System-wide and per-user autoruns
 
 HKLM\Software\Microsoft\Windows\CurrentVersion\Run
@@ -792,7 +811,7 @@ HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders
 HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon
 
 
-5.5 Critical Registry Locations
+### 5.5 Critical Registry Locations ###
 
 These are keys that have value for red and blue teams to be taken advantage of.
 
@@ -811,10 +830,13 @@ These are keys that have value for red and blue teams to be taken advantage of.
 
         Group policy Logon/Logoff Scripts defined here
 
+###################################
 
 6. Security
 
-    Each key in the registry of Windows NT versions can have an associated Security Descriptor.
+###################################
+
+    Each key in the registry of Windows NT versions can have an associated Security Descriptor. <https://learn.microsoft.com/en-us/windows/win32/secauthz/security-descriptors>
 
     The security descriptor contains an Access Control List (ACL) that describes which user groups or individual users are granted or denied access permissions.
 
@@ -893,6 +915,8 @@ The right to read the DACL.
 
     Windows Resource Protection uses security to deny Administrators and the system WRITE access to some sensitive keys to protect the integrity of the system from malware and accidental modification.
 
+###############################################################################################################
+###############################################################################################################
 
 Additional Resources
 
