@@ -1121,7 +1121,7 @@ Receive-Job <job #>                                                             
 ### 6.1 Locating .NET API Functions ### 
 NET APIs are broken into namespaces. They are located at the link below:
 
-Microsoft .NET API Browser
+Microsoft .NET API Browser <https://learn.microsoft.com/en-us/dotnet/api/?view=netframework-4.8>
 
 
 ### 6.2 Using a Namespace ### 
@@ -1170,17 +1170,17 @@ invoke-webrequest -uri "http://downloads.volatilityfoundation.org/releases/2.6/v
 
 References
 
-Reference guide containing syntax and examples for the most prevalent computing commands
+Reference guide containing syntax and examples for the most prevalent computing commands <https://ss64.com/>
 
-About Windows Management Instrumentation Classes (WMI)
+About Windows Management Instrumentation Classes (WMI) <https://learn.microsoft.com/en-us/windows/win32/wmisdk/about-wmi?redirectedfrom=MSDN>
 
-Helpful Powershell Command References
+Helpful Powershell Command References <https://ss64.com/ps/>
 
-CIM CLasses Powershell Reference
+CIM CLasses Powershell Reference <https://learn.microsoft.com/en-us/windows/win32/wmisdk/cimclas>
 
-Powershell Microsoft Resources
+Powershell Microsoft Resources <https://learn.microsoft.com/en-us/powershell/scripting/learn/more-powershell-learning?view=powershell-7.4&viewFallbackFrom=powershell-7.1>
 
-Powershell Examples/Help
+Powershell Examples/Help <https://www.tutorialspoint.com/powershell/index.htm>
 
 This page was built using a slightly modified version of the Antora default UI.
 The source code for this UI is licensed under the terms of the MPL-2.0 license and can be found at https://git.cybbh.space/common/contributing
