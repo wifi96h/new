@@ -1,1 +1,38 @@
+Admin Station
+10.50.31.248
 
+andy.dwyer:BurtMacklinFBI
+######################################
+SSH
+
+Domain controller
+10.8.0.1
+
+File Server
+10.8.0.3
+
+Workstation 2
+10.8.0.4
+
+andy.dwyer:BurtMacklinFBI
+########################################
+RDP
+
+Workstation 1
+10.8.0.5
+
+student:password
+########################################
+SSH
+
+Terra
+10.8.0.6
+
+garviel:luna
+########################################
+SSH
+
+Minas Tirith
+10.8.0.7
+
+bombadil:jolly
