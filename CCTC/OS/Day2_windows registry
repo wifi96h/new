@@ -1,0 +1,918 @@
+
+Cyber Common Technical Core - OS Module Public Repo
+Windows Registry FG
+Cyber
+
+
+U.S. Army Cyber School 2021
+Cyber Common Technical Core (CCTC)
+Table of Contents
+
+    Terminal Learning Objectives
+    1. Windows Registry Introduction
+    2. Registry structure
+        2.1 Registry Keys and Values
+        2.2 Registry Hives or Root Keys
+        2.3 Registry Structure and Data Types
+    3. Registry Manipulation
+        3.1 View/manipulate the registry with a GUI
+        3.2 View/manipulate the registry via CMDLINE
+        3.3 Registry Manipulation with PowerShell
+        3.4 Sethc.exe Demonstration
+    4. Powershell PSDrives
+    5. Registry Locations of Interest
+        5.1 Do I need to remember all of the locations in the Registry?
+        5.2 Registry Changes
+        5.3 Forensically Relevant Keys
+        5.4 Registry locations that can be utilized for persistence
+        5.5 Critical Registry Locations
+    6. Security
+    Additional Resources
+
+
+Terminal Learning Objectives
+1. Explain the Purpose of Windows Registry
+2. Discuss Windows Registry Tools
+3. Identify Windows Registry for Suspicious Activity
+4. Identify Forensically Relevant Keys
+5. Identify Malicious Registry
+6. Complete Windows Registry CTFd Challenges PE
+
+
+1. Windows Registry Introduction
+
+    The The Windows Registry is a central hierarchical database used in Windows to store information that is necessary to configure the system for one or more users, applications, and hardware devices.
+
+    Think of the Windows Registry like a huge Rolodex.
+
+        everything in Windows has a card/place with all of it’s information.
+
+        Includes location, information, settings, options, and other values for programs and hardware installed
+
+Why is the registry important?
+
+    Anyone can hide all sorts of data including passwords, malicious code, and executable/binary files in the Registry.
+
+    They can effectively hide data in registry keys’ value entries.
+
+    By using different encoding techniques, they could obfuscate or hide data from forensic examiners.
+
+    It is important to know what right looks like and the places that are most likely to be compromised by a malicious actor.
+
+Comparing the Registry in Windows to Linux
+
+    The registry in Windows is like a combination of multiple directories in Linux.
+
+        For example: Driver information is kept in the registry in Windows, but in /dev in Linux.
+
+        System configurations in Windows are in HKEY_LOCAL_MACHINE, but in /etc (and a few other directories) in Linux.
+
+
+2. Registry structure
+
+The Registry is comprised of Registry Hives which contain Keys, Subkeys and Values.
+2.1 Registry Keys and Values
+
+The registry is comprised of Keys, Subkeys and Values structured in a tree format.
+
+    Keys - are known as Registry Hives and can contain subkeys and values.
+
+    Subkeys - can contain subkeys and values
+
+    Values - contain data in specific formats.
+
+
+Example Registry Layout
+
+HKEY_Local_Machine (HIVE)
+              ├──SOFTWARE (Key)
+              ├──BCD00000 (Key)
+              ├──HARDWARE (Key)
+              └──SYSTEM   (Key)
+                      └──RegisteredApplications (Subkey)
+                                        ├── File Explorer : Data (value)
+                                        ├── Paint : Data (value)
+                                        └──Wordpad : Data (value)
+
+Structure of the Registry Link
+
+
+2.2 Registry Hives or Root Keys
+
+A registry hive is a group of keys and thier associated values that are loaded when the system is started or a specific user logs in.
+
+There are five Registry Hives
+
+    HKEY_LOCAL_MACHINE
+
+    HKEY_USERS
+
+    HKEY_CURRENT_USERS
+
+    HKEY_CURRENT_CONFIG
+
+    HKEY_CLASSES_ROOT
+
+HKEY_LOCAL_MACHINE (HKLM)
+
+Contains configuration information for the entire computer. Its values are read every time the machine is started regardless of the user who logs in. Its subkeys are :
+
+    HARDWARE - contains a database of installed devices along with their drivers
+
+    SAM - Security Account Manager stores user and group accounts along with NTLM hashes of passwords
+
+    Security - Local Security policy accessed by lsass.exe used to determine rights and permissions for users on the machine
+
+    System - Contains keys pertaining to system startup such as programs started on boot or driver load order.
+
+Reference for HKEY_LOCAL_MACHINE
+
+
+HKEY_USERS (HKU)
+
+Contains all all user profiles on the system. Contains one key per user on the system. Each key is named after the SID(Security Identifier) of the user.
+	SID values are unique to each user on the machine.
+
+HKEY_USERS contains some of the following information:
+
+    User Environment settings for the desktop
+
+    Shortcuts
+
+    File associations
+
+A SID has four components:
+
+SID = S-1-5-21-2948704478-3101701159-1111693228-1002
+
+    S represents SID
+
+    1 revision level (1) - Indicates the version of the SID structure that’s used in a particular SID.
+
+    An identifier authority (5, NT Authority) - Identifier Authority: This is a series of digits that identifies the entity that issued the SID. In the case of Active Directory, the identifier authority is always "5" for the Security IDentifier Authority (SID Authority).
+
+    A domain identifier 21-2948704478-3101701159-1111693228 (48 bit (6 byte) numbers)
+
+        Some HKEY_USERS are called Well Known SIDs.. They identify default accounts in Windows used for various purposes. In this example the 21 represents the subauthority within the domain identifier. Examples include:
+
+            S-1-5-18 refers to LocalSystem account.
+
+            S-1-5-19 refers to LocalService account. It is used to run local services that do not require LocalSystem account.
+
+            S-1-5-20 refers to NetworkService account. It is used to run network services that do not require LocalSystem account.
+
+            S-1-5-21-domain-500 Refers to the built in local administrator account.
+
+    -1002 = RID A variable number of subauthority or relative identifier (RID) values that uniquely identify the trustee relative to the authority that issued the SID
+
+
+HKEY_CURRENT_USER (HKCU)
+
+HKEY_CURRENT_USER is the copy of the logged in user’s registry key based on thier SID from HKEY_USERS.
+
+HKEY_USERS (HIVE)
+              └──SID (S-1-5-21-3939661428-3032410992-3449649886-XXXX) (Key)
+
+    HKEY_USERS\S-1-5-21-3939661428-3032410992-3449649886-XXXX
+
+
+HKEY_CURRENT_CONFIG (HKCC)
+
+HKEY_CURRENT_CONFIG is a symbolic link (pointer or shortcut or alias) to the following registry key:
+
+HKEY_Local_Machine (HIVE)
+              └──SYSTEM (Key)
+                      └──CurrentControlSet (Subkey)
+                                    └── Hardware Profiles (Subkey)
+                                                └── Current (Subkey)
+
+    HKEY_LOCAL_MACHINE\System\CurrentControlSet\Hardware Profiles\Current
+
+
+HKEY_CLASSES_ROOT (HKCR)
+
+HKEY_CLASSES_ROOT is a symbolic link (pointer or shortcut or alias) to the following registry key:
+
+HKEY_Local_Machine (HIVE)
+              └──Software (Key)
+                      └──Classes (Subkey)
+
+    HKEY_LOCAL_MACHINE\Software\Classes
+
+Contains file name extension associations and COM class registration information such as ProgIDs, CLSIDs, and IIDs.
+
+It is primarily intended for compatibility with the registry in 16-bit Windows
+
+HKCR Reference
+
+
+	HKLM and HKU are the only root keys that Windows physically stores on files.
+
+2.3 Registry Structure and Data Types
+
+
+Table 1. Registry Path Hive and Supporting Files
+
+HKLM\SAM
+	
+
+SAM, SAM.LOG
+
+HKLM\SECURITY
+	
+
+SECURITY, SECURITY.LOG
+
+HKLM\SOFTWARE
+	
+
+software, software.LOG, software.sav
+
+HKLM\SYSTEM
+	
+
+system, system.LOG, system.sav
+
+HKLM\HARDWARE
+	
+
+(Dynamic/Volatile Hive)
+
+HKU\.DEFAULT
+	
+
+default, default.LOG, default.sav
+
+HKU\SID
+	
+
+NTUSER.DAT
+
+HKU\SID_CLASSES
+	
+
+UsrClass.dat, UsrClass.dat.LOG
+
+    The above Table shows the registry path and their corresponding hives on disk.
+
+        All hives in HKLM are stored in %SYSTEMROOT%\System32\config\ (%SYSTEMROOT% usually refers to C:\WINDOWS).
+
+        HKLM\HARDWARE is a dynamic hive that is created each time the system boots and it is created and managed entirely in memory.
+
+        HKU\SID hive file is stored in user home directory, which is %USERPROFILE%\NTUSER.DAT.
+
+        HKU\SID_CLASSES hive file correspond to "%USERPROFILE%\Application Data\Local\Microsoft\Windows\UsrClass.dat"
+
+Table 2. Types of extensions and what they mean (Might be hidden)
+
+No extension
+	
+
+Actual Hive File
+
+.alt extension
+	
+
+Backup copy of hive, used in Windows 2000
+
+.log extension
+	
+
+Transaction log of changes to a hive
+
+.sav extension
+	
+
+Backup copy of hive created at the end of text-mode (console)
+
+
+Registry Memory Space
+
+
+
+3. Registry Manipulation
+3.1 View/manipulate the registry with a GUI
+
+    regedit.exe
+
+        GUI
+
+        Located at C:\Windows\regedit.exe
+
+        Can connect to a remote registry, but only using the PC’s workgroup or domain Name
+
+            Needs the RemoteRegistry Service (svchost.exe / regsvc.dll) to be running to work
+
+        Commonly disabled using group policy
+
+        Can load hives files from disk to the active registry
+
+        Can export binary .hiv files as well as text .reg files
+
+        Can only query HKLM and HKU remotely
+
+	Regedit.exe shares similarities with the C: drive file hierarchy. Keys can be manipulated just like files.
+Using Regedit.exe to query the Registry
+	Click on the search bar and type in regedit.exe
+	If prompted by UAC, click yes
+	Click on the drop down for HKEY_CURRENT_USER
+	Click the drop down for Software
+	Click the drop down for Microsoft
+	Click the drop down for Windows
+	Click the drop down for CurrentVersion
+	Click the drop down for Run
+	We have successfully queried a key using regedit.exe
+
+
+3.2 View/manipulate the registry via CMDLINE
+
+    reg.exe
+
+        CLI
+
+        Located at C:\Windows\System32\reg.exe
+
+        Can connect to a remote registry, using the PC’s NetBios Name or IP address
+
+            Does not have to be in workgroup/domain. Only need username/password
+
+            Needs the RemoteRegistry Service (svchost.exe / regsvc.dll) to be running to work
+
+        Can load hives files from disk to the active registry
+
+        Available in XP and beyond
+
+        Can only export text .reg files
+
+        Can only query HKLM and HKU remotely
+
+Reg.exe Syntax
+
+More Reg.exe Syntax
+Reg.exe help
+
+reg /?                    #Displays help for all of the reg.exe commands
+reg query /?              #Displays help for the `reg query`
+reg add /?                #Displays help for `reg add`
+reg delete /?             #Displays help for `reg delete`
+
+Reg query - Reads keys from specific registry locations
+
+reg query HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+
+Reg add - Adds keys to specific registry locations
+
+reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run /v testme /t REG_SZ /d C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+
+    The /v stands for Value; In this case the name of this Key Value.
+
+    The /t stands for Type; Types can be any of the Data Types that we went over earlier.
+
+    The /d stands for Data; Is what is the actual Data or in this case a command to open a file every time the system is ran.
+
+Reg delete - Deletes Keys
+
+reg delete HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run /v testme
+
+3.3 Registry Manipulation with PowerShell
+
+
+    Certain Root Hives are loaded automatically into PSDrives (HKLM: and HKCU:); navigation of the registry is very similar to folder⇒file
+
+Minimum commands to know
+
+    Query
+
+        Get-ChildItem cmdlet gets the items in one or more specified locations.
+
+        Get-ItemProperty cmdlet gets the items in one or more specified locations.
+
+        Get-Item cmdlet gets the item at the specified location. It doesn’t get the contents of the item at the location unless you use a wildcard character (*) to request all the contents of the item.
+
+    Modify
+
+        Set-ItemProperty cmdlet changes the value of the property of the specified item. example, changing setting to :true or :false.
+
+        Remove-ItemProperty cmdlet to delete registry values and the data that they store.
+
+    Create
+
+        New-Item cmdlet creates a new item and sets its value. In the registry, New-Item creates registry keys and entries.
+
+        New-Itemproperty cmdlet creates a new property for a specified item and sets its value. Typically, this cmdlet is used to create new registry values, because registry values are properties of a registry key item.
+
+
+3.3.1 Reading Registry Objects with PowerShell
+Get-ChildItem - Reads sub keys from the input value
+
+Get-ChildItem HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run 
+
+Get-ChildItem HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\ 
+
+	The returns nothing because it is listing the sub keys of \Run.
+
+    Run has no sub keys, only values.
+
+	Returns sub keys of \CurrentVersion
+Get-Item - Reads the value of the inputted object
+
+Get-item HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+
+    Notice how the output of the command is different than Get-ChildItem.
+
+        It reads key values, not sub keys.
+
+
+3.3.2 Creating Registry objects with Powershell
+New-Item - Creates a new sub key associated within a hive
+
+New-Item "HKLM:\Software\Microsoft\Office\14.0\Security\Trusted Documents\TrustRecords" -Force
+
+    Creates a new sub key in Trusted Documents for document.doc
+
+	Trusted documents is for documents with active content i.e. embedded macros.
+New-ItemProperty - Creates a new value associated with a sub key
+
+New-ItemProperty "HKLM:\Software\Microsoft\Office\14.0\Security\Trusted Documents\TrustRecords" -Name "%USERPROFILE%Downloads/test-document.doc" -PropertyType Binary -Value ([byte[]](0x30,0x31,0xFF)) 
+
+New-ItemProperty HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run -Name Test -PropertyType String -Value C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe 
+
+	Creates a new value in the \TrustRecords key
+	Creates a value in the \Run key
+	Outside of the scope of the class but in case you want to know more about that byte array
+
+
+3.3.3 Modifying Registry objects with PowerShell
+Rename-ItemProperty - Modifies a value associated with a sub key
+
+Rename-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run -Name SecurityHealth -NewName Test
+
+Remove-ItemProperty - Removes a value associated with a sub key
+
+Remove-ItemProperty -Path "HKLM:\Software\Microsoft\Office\14.0\Security\Trusted Documents\TrustRecords" -Name "%USERPROFILE%Downloads/test-document.doc"
+
+Set-ItemProperty - Change the value of a sub key
+
+Set-ItemProperty HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run -Name Test -Value Bacon.exe
+
+
+3.4 Sethc.exe Demonstration
+
+    Demo: Demonstrate the application of a registry "tweak" via the GUI and CMD-line using sethc.exe.
+
+    What is sethc.exe?
+
+        Windows contains a feature called stick keys, which is an accessibility feature to help Windows users who have physical disabilities.
+
+            It essentially serializes keystrokes instead of pressing multiple keys at a time, so it allows the user to press and release a modifier key, such as Shift, Ctrl, Alt, or the Windows key, and have it remain active until any other key is pressed.
+
+            You activate stick keys by pressing the Shift key 5 times. When you activate stick keys, you are launching a file, C:\Windows\System32\sethc.exe, which executes as SYSTEM.
+
+        While this exploit is protected by current AV, you still might see it in customer networks who don’t follow DISA STIGs.
+
+
+	
+Create a new Registry key using PowerShell
+This will create a backdoor onto a box which will trigger Windows Defender. So first we need to disable it.
+Disable Windows Defender Real Time Protection
+
+Set-MpPreference -DisableRealtimeMonitoring $TRUE
+
+Sometimes, the previous command may not work as expected. In such cases, you can follow these steps:
+	Click the Windows button in the lower-left corner of your desktop.
+	Navigate to "Virus & threat protection."
+	Under "Virus & threat protection settings," click "Manage settings."
+	Finally, toggle off "Real-Time protection." These steps will help you turn off real-time protection using the Windows Security interface.
+Create a new Registry key using New-Item in PowerShell
+
+new-item "HKLM:\Software\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe"
+
+Create a new Registry key property using New-ItemProperty in PowerShell
+
+New-ItemProperty -path "HKLM:\Software\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe" -Name Debugger -Type String -Value C:\Windows\System32\cmd.exe
+
+Calling our new value in order to privilege escalate
+
+    Rapidly press the SHIFT key 5 times
+
+    A command shell opens
+
+    Type whoami
+
+    You should be army\john.huntsman or whoever your user account is
+
+    Now log off the system and press the SHIFT key 5 times
+
+    A command shell opens
+
+    Type whoami
+
+    Now you are NT AUTHORITY\SYSTEM
+
+	As SYSTEM user, we could open the Registry and copy the SAM database to access password hashes
+Create a network share to Sysinternals
+
+net use * http://live.sysinternals.com
+
+    The net use command allows us to map a network location and navigate it like it is a local directory.
+
+    You can run net use and it will show detailed information about currently mapped drives and devices.
+
+        Additionally you can run net use /help for a listing of most common parameters.
+
+Type *autoruns -accepteula*
+
+	If we are running remote operations on a target, if we run a SysInternals command for the first time, we will be prompted by a popup to accept the EULA. The -accepteula switch will prevent this and prevent us from being discovered.
+Using Autoruns to view the created Registry key
+	In Autoruns, click on the Image Hijacks Button
+	Right click on the sethc.exe and select Jump to Entry…​
+	Right click on the sethc.exe key and select export
+	Name the file "Totally Legit Windows Update" and save it to your Desktop
+	Delete the sethc.exe key using the GUI
+
+
+4. Powershell PSDrives
+What is a PowerShell PSDrive?
+
+    A Windows PowerShell drive is a data store location that you can access like a file system drive in Windows PowerShell.
+
+        You cannot access them by using other Windows tools, such as File Explorer or Cmd.exe.
+
+    Basically, a PSDrive creates a temporary or permanent way for PowerShell to navigate the registry just like you could navigate the file system.
+
+    Another way to create/use a remote connection is to use PSDrive (PowerShell Drive).
+
+    A group of providers connect different forms of storage to PowerShell and make them look like and perform like a file system.
+
+
+Finding current PSDrives
+
+Get-PSDrive
+
+    To create a new Windows PowerShell drive, you must supply three parameters:
+
+    A Name for the drive (you can use any valid Windows PowerShell name)
+
+    The PSProvider (use "FileSystem" for file system locations, "Registry" for registry locations, and it could also be a shared folder on a remote server.)
+
+    The Root, that is, the path to the root of the new drive.
+
+
+Table 3. What are PSDrive Providers
+
+Providers: "Registry" - for registry locations, "FileSystem" for file system locations
+
+Certificate: for any installed digital certificates
+
+Alias: for aliases used by PowerShell
+
+Function: Provides access to the functions defined in PowerShel
+
+Variable: supports the variables that PowerShell creates, including the automatic variables, the preference variables, and the variables that you create.
+
+WSMAN: (Web Services Manager)lets you add, change, clear, and delete WS-Management configuration data on local or remote computers.
+
+Environment: Provides access to the Windows environment variable.
+Table 4. What are PSDrive Names?
+
+PSDrive uses Names for each drive.
+
+Names of the drive can be longer than just a letter and can be as explanatory as you want.
+
+PowerShell needs a : (colon) after the name to change directory to the drive.
+Table 5. What’s this all a Root?
+
+Root specifies the data store location to which a PowerShell drive is mapped of a local computer, a remote computer, or even a website.
+
+When Root is a UNC (Universal Naming Convention) path, such as \\Server\Share, the credential specified in the value of the Credential parameter is used to create the PSDrive.
+Show all Environmental Variables in the Env: directory
+
+Get-ChildItem Env:
+
+Show all Environmental Variables in the GUI
+	Control Panel > System > click on Advanced system settings.
+	Then click on Environmental Variables.
+	The results should be the same as GCI ENV.
+Make a directory for our demo
+
+mkdir demo
+
+Creating a PSDrive
+
+New-PSDrive -Name Demo -PSProvider FileSystem -Root c:\Demo   #Review command: Get-Help New-PSDrive for this syntax.
+
+Show the difference from changing directory to C:\Demo and Demo:
+
+cd C:\Demo
+cd Demo:
+
+Creating an invalid PSDrive
+
+New-PSDrive -Name HKU -PSProvider Registry -Root HKEY_USER
+
+	This will create an error. Try and mount the new drive and watch it error out. PowerShell will allow you to create a directory with a Root location that doesn’t exist.
+Mounting invalid PSDrive
+
+gci HKU:
+Get-ChildItem HKU:
+
+Delete the bad PSDrive
+
+Remove-PSDrive HKU
+
+Now create the drive correctly
+
+New-PSDrive -Name HKU -PSProvider Registry -Root HKEY_USERS
+
+Changing directories with PowerShell
+
+cd Registry::HKEY_LOCAL_MACHINE 
+cd HKU: 
+C: 
+
+	Changing directories the default way in PowerShell
+	Changing directories after mounting with PSDrive
+	Changing back to c:\ drive
+PSDrive Can be used to create shortcuts to commonly used file locations too.
+
+New-PSDrive -Name Desktop -PSProvider FileSystem -Root C:\users\student\Desktop
+cd Desktop:
+
+Creating a Shortcut to the Run Key
+
+New-PSDrive -Name HKLM-Run -PSProvider Registry -Root HKEY_Local_Machine\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+cd HKLM-Run:
+
+	We can also map network shares with New-PSDrive.
+Emulating net use functionality with New-PSDrive
+
+[String]$WebDAVShare = '\\live.sysinternals.com\Tools'          
+New-PSDrive -Name S -PSProvider FileSystem -Root $WebDAVShare   
+cd S:                                                           
+
+	Creating a string variable of '\\live.sysinternals.com\Tools' as if we do not it will fail out.
+	Using our new Variable $WebDAVShare we can now successfully create the drive.
+	Changing directories to our link '\\live.sysinternals.com\Tools'.
+Map to an Internal Server
+
+New-PSDrive -Name FileServer -PSProvider FileSystem -Root "\\file-server\warrior share"
+
+Disable the task manager using the Regedit GUI
+	In regedit, navigate to HKCU/SOFTWARE/MICROSOFT/WINDOWS/CURRENTVERSION/POLICIES
+	Make a new key called "System" by right clicking and selecting New then Key
+	Add a new DWORD value to that key called "DisableTaskMgr" by right clicking and selecting New then DWORD
+	Double click the new value and change the 0 to a 1
+	Try to open task Manager (you will see that you cannot)
+	Remove the new key by right clicking the key and selecting delete
+
+
+5. Registry Locations of Interest
+
+
+5.1 Do I need to remember all of the locations in the Registry?
+
+    The Registry in a Windows 10 Computer has over 3 million entries; it is impossible to know them all.
+
+    It is more important to understand the concepts supporting the Windows Registry than to know millions of keys.
+
+
+5.2 Registry Changes
+
+    Changes to the registry often require a restart, as many programs read the registry values upon load.
+
+    Whether the entire system needs to be restarted, or just a program, depends on the registry setting changes.
+
+        Some changes do take effect immediately, as we saw with the disable taskmgr key that was created.
+
+        It is also important to note that some parts of the registry are always loaded into memory.
+
+
+5.3 Forensically Relevant Keys
+
+    These are keys that hold any type of information that can be used to gather intelligence or track events.
+
+    These are some but not all of the keys that can be considered relevant to you or your mission set.
+
+    SANS Registry Cheat Sheet
+
+Why do we care?
+
+    We are looking for keys that can be used for Persistence
+
+        Persistence consists of techniques that adversaries use to keep access to systems across restarts, changed credentials, and other interruptions that could cut off their access
+
+    As well as Privilege Escalation.
+
+        Privilege Escalation consists of techniques that adversaries use to gain higher-level permissions on a system or network.
+
+
+Microsoft Edge Internet URL history and Browser Artifacts and Forensics
+
+    HKEY_CLASSES_ROOT\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\Children\001\Internet Explorer\DOMStorage
+
+
+USB history / USB Forensics
+
+    HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Enum\USB
+
+        This registry key contains information about all USB devices that have been connected to the system at some point, regardless of whether they are currently connected or not. It includes information about the USB controllers, hubs, and individual devices. Each device is typically identified by a unique identifier (like a device instance path or hardware ID).
+
+    HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Enum\USBSTOR
+
+        This registry key specifically deals with USB storage devices, such as USB flash drives, external hard drives, etc. It contains information about connected USB storage devices, including details like device instance paths, hardware IDs, and other configuration information.
+
+
+Recent MRU history / MRU in forensics
+
+    HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\ComDlg32\OpenSavePidlMRU
+
+        MRU is the abbreviation for most-recently-used.
+
+        This key maintains a list of recently opened or saved files via typical Windows Explorer-style common dialog boxes (i.e. Open dialog box and Save dialog box).
+
+        For instance, files (e.g. .txt, .pdf, htm, .jpg) that are recently opened or saved files from within a web browser (including IE and Firefox) are maintained.
+
+
+Recent Files with LNK files
+
+    HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs
+
+
+Windows User Profiles User Account Forensics
+
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList
+
+
+Saved Network Profiles and How to decode Network history
+
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\NetworkList\Profiles
+
+
+Windows Virtual Memory and why it is important
+
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management
+
+    This key maintains Windows virtual memory (paging file) configuration.
+
+    The paging file (usually C:\pagefile.sys) may contain evidence/important information that could be removed once the suspect computer is shutdown.
+
+
+Recent search terms using Windows default search and Cortana
+
+    HKEY_CURRENT_USER\Software\Microsoft\Windows Search\ProcessedSearchRoots
+
+        Index of Search results by SID
+
+    HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Search
+
+        Recent files searched
+
+
+5.4 Registry locations that can be utilized for persistence
+
+Persistence According to MITRE
+
+Boot or Logon Autostart Execution: Registry Run Keys / Startup Folder - MITRE
+Table 6. System-wide and per-user autoruns
+
+HKLM\Software\Microsoft\Windows\CurrentVersion\Run
+
+HKLM\Software\Microsoft\Windows\CurrentVersion\RunOnce
+
+HKU\<SID>\Software\Microsoft\Windows\CurrentVersion\Run
+
+HKU\<SID>\Software\Microsoft\Windows\CurrentVersion\RunOnce
+
+HKLM\SYSTEM\CurrentControlSet\services
+
+HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders
+
+HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders
+
+HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon
+
+
+5.5 Critical Registry Locations
+
+These are keys that have value for red and blue teams to be taken advantage of.
+
+    HKLM\BCD00000000
+
+        Replacement of old boot.ini file
+
+    HKLM\SAM\SAM
+
+        Use "psexec -s -i regedit" from administrator cmd.exe to view the SAM
+
+            It opens a new regedit.exe window with system permissions
+            	PSEXEC is a SYSINTERNALS tool.
+
+    HKU\<SID>\Software\Policies\Microsoft\Windows\System\Scripts
+
+        Group policy Logon/Logoff Scripts defined here
+
+
+6. Security
+
+    Each key in the registry of Windows NT versions can have an associated Security Descriptor.
+
+    The security descriptor contains an Access Control List (ACL) that describes which user groups or individual users are granted or denied access permissions.
+
+    An ACL is a list of Access Control Entries (ACE). The security descriptor can be explicit or inherited from a parent object.
+
+        Each ACE in an ACL identifies a trustee and specifies the access rights allowed, denied, or audited for that trustee.
+
+        The security descriptor for a securable object can contain two types of ACLs: a DACL and a SACL.
+
+            A Discretionary Access Control List (DACL) identifies the trustees that are allowed or denied access to a secured object.
+
+            A System Access Control List (SACL) enables administrators to log attempts to access a secured object.
+
+Table 7. Registry permissions
+
+Permission
+	
+
+Description
+
+Query Value
+	
+
+The right to read the registry key value.
+
+Set Value
+	
+
+The right to write a new value
+
+Create Subkey
+	
+
+The right to create subkeys.
+
+Enumerate
+	
+
+Subkeys Allow the enumeration of subkeys.
+
+Notify
+	
+
+The right to request change notifications for registry keys or subkeys.
+
+Create Link
+	
+
+Reserved by the operating system.
+
+Delete
+	
+
+The right to delete a key.
+
+Write DACL
+	
+
+The right to modify permissions of the container’s DACL.
+
+Write Owner
+	
+
+The right to modify the container’s owner.
+
+Read Control
+	
+
+The right to read the DACL.
+
+    Special ACEs on the security descriptor can also implement Mandatory Integrity Control for the registry key and subkeys.
+
+        A process running at a lower integrity level cannot write, change or delete a registry key/value, even if the account of the process has otherwise been granted access through the ACL.
+
+	An example would be if Internet Explorer is running in Protected Mode and can read medium and low integrity registry keys/values of the currently logged on user, but it can only modify low integrity keys.
+
+    Windows Resource Protection uses security to deny Administrators and the system WRITE access to some sensitive keys to protect the integrity of the system from malware and accidental modification.
+
+
+Additional Resources
+
+Microsoft, "Windows registry information for advanced users" Microsoft, 11 Sep 2017
+Available: https://support.microsoft.com/en-us/help/256986/windows-registry-information-for-advanced-users
+
+Microsoft, "RegistryKey Class" Microsoft, 21 Nov 2017
+Available: https://msdn.microsoft.com/en-us/library/microsoft.win32.registrykey(v=vs.110).aspx
+
+Microsoft, "RegistryKey.OpenRemoteBaseKey Method (RegistryHive, String)" Microsoft, 21 Nov 2017
+Available: https://msdn.microsoft.com/en-us/library/8zha3xws(v=vs.110).aspx
+
+Microsoft, "Microsoft Reg Command options and syntax" Microsoft, 04 Nov 2017
+Available: https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/reg
+
+Microsoft, "Run and RunOnce Registry Keys" Microsoft, 31 May 2018,
+https://docs.microsoft.com/en-us/windows/win32/setupapi/run-and-runonce-registry-keys
+
+Wikipedia Windows Registry
+Available: https://en.wikipedia.org/wiki/Windows_Registry#Structure
+
+This page was built using a slightly modified version of the Antora default UI.
+The source code for this UI is licensed under the terms of the MPL-2.0 license and can be found at https://git.cybbh.space/common/contributing
