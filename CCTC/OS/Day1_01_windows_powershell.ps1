@@ -11,7 +11,7 @@ get-childitem .\Videos | measure-object
 Compare-Object -ReferenceObject (Get-Content -Path file1.txt) -DifferenceObject (Get-Content -Path file2.txt)
 
 # The password is the 21st line from the top, in ASCII alphabetically-sorted, descending order of the words.txt file.
-
+get-content words.txt |  sort-object -descending | select-object -first 21
 
 # Count the number of unique words in words.txt
 get-content words.txt | measure-object -words | select-object -unique
