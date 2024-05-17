@@ -56,6 +56,7 @@ BASH (Bourne Again Shell) is a CLI (Command Line Interface) that processes comma
 
 However, CLI programs are still used extensively in many different technical occupations. They are less user friendly, require knowledge of CLI specific syntax, and can’t do certain typical user functions like browsing the web. The CLI provides three significant advantages over GUI programs - speed, scaling, and automation. CLI programs consume fewer resources then their graphical counterparts, they accept scripts to automate mundane or repetitive task, and given enough expertise multiple commands can be executed at the same time. It’s imperative for anyone operating in today’s cyberspace to be fluent in the functionality and power of the modern command line.
 
+*** MobaXterm ***
 #############################################
 
 1. Commands, Arguments, and Help
@@ -96,6 +97,8 @@ Other commands to help gain situational awareness:
 
     hostname or uname -a displays the name of the host you are currently on.
 
+    file displays file type
+
     whoami shows the user you are currently logged in as (useful after gaining access through service exploitation).
 
     w or who shows who else is logged in.
@@ -111,6 +114,9 @@ Other commands to help gain situational awareness:
     nft list tables or iptables -L to view firewall rules.
 
     sudo -l displays commands the user may run with elevated permissions.
+	** GTFO Bins **
+
+    whereis <file> provides the path to the file: i.e. whereis cat
 
 	Depending on the age and distribution of Linux some commands may not be installed or require privilege escalation through sudo to run.
 
@@ -195,6 +201,10 @@ DESCRIPTION
 _truncated_
 
 	The man command with ls as an argument.
+
+	** use '?keyword' to search for specific word in man page **
+	** use man -k <keyword> to search for a quick search **
+
 
 
 ### 1.4 Variables and Command substitution ### 
@@ -296,6 +306,7 @@ ls: cannot open directory '/etc/polkit-1/localauthority': Permission denied
 
 The primary benefit of terminals is the automation of repetitive tasks and processing logical statements. These statements and loops execute automatically using pre-programmed conditions that control how and even if they execute. They are invaluable to understand and their usefulness is limited to ones imagination and patience.
 	If Statements, For Loops, and While Loops don’t have good man page entries because they are built into the bash man page. Highly recommend using online resources. <https://www.tutorialspoint.com/unix/shell_scripting.htm>
+
 ### 2.1 For Loops ### 
 
 For Loops go by many names such as Counting Loops and Interactive Loops, but they all do the same thing - execute a command or commands multiple times with a changing variable as an argument. A complete for loop will have the following:
@@ -475,6 +486,7 @@ Linux Filesystem Hierarchy Standard Wiki <https://en.wikipedia.org/wiki/Filesyst
 Linux Filesystem Hierarchy Standard Detailed <https://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html>
 
 
+
 ### 3.2 Files and Folders ### 
 
 In a file system, there are two types of objects - files and folders. Folders are a container for files, whilst files are containers for data. Everything without exception falls into one of those two categories.
@@ -598,49 +610,11 @@ Access to objects in Linux by is controlled via strict file permissions metadata
 Each U.G.O permission group has three corresponding permissions of Read, Write, and Execute. Any combination of permissions can be applied to any permissions group. These permissions also have numeric representations of 4, 2, and 1. Permissions when represented by letters, as in rwx, are referred to as Relative, and permissions when represented by numbers, as in 421 are referred to as Octal.
 
 It’s also important to understand that file permissions do not overrule directory permissions. If a user does not have read rights to a directory, it also cannot read any of its files even if the file’s permissions allow it
-Table 1. Linux Permissions broken out Perm 	Relative 	Octal 	On a File 	On a Directory
-
-read
-	
-
-r
-	
-
-4
-	
-
-Read the contents of the file
-	
-
-List the contents of the directory
-
-write
-	
-
-w
-	
-
-2
-	
-
-Write content into a file
-	
-
-Create/delete in the directory
-
-exe
-	
-
-x
-	
-
-1
-	
-
-Run the file as an executable
-	
-
-Move into the directory
+Table 1. Linux Permissions broken out 
+|	Perm	|	Relative	|	Octal	|	On a File	|	On a Directory	|
+|	read	|	r		|	4	|	Read the contents of the file	|	List the contents of the directory	|
+|	write	|	w	|	2	|	Write content into a file	|	Create/delete in the directory	|
+|	exe	|	x	|	1	|	Run the file as an executable	|	Move into the directory	|
 
 
 Showing Linux Permissions with ls -lisa
@@ -733,6 +707,8 @@ student@linux-opstation-kspt:~$ grep -R 'network' /etc/
 	The -R is recursive.
 	Grep is a command that looks for a string of characters then presents the results to your screen. Grep is commonly used in conjunction with piping outputs from previous commands. But can also be used as a standalone command, with it’s own options/switches.
 
+** grep allows for regex **
+** find allows for recursive **
 
 ### 4.2 Awk ### 
 
@@ -755,6 +731,10 @@ _truncated_
 	The output from ls -l is verbose, maybe all of that information isn’t needed?
 	Lets send the output from ls -l into awk, then set the delimiter to blank space, then tell it to print fields $3,$4,$9, finally send them to a csv file.
 
+** awk -F: '{print $2}' employee.txt **
+** awk -F: -v OFS='-' '{print $1, $2}' employee.txt **
+
+** awk -F: -v OFS="-" '$1 != "Bob" {print $2,$3}' employee.txt
 
 Crate a variable of all the news articles on https://dailymail.co.uk`
 
@@ -802,6 +782,9 @@ Police 7 shot near transit station north Philadelphia
 	Using sed to replace standard input from sed that matches the - (dash) character with a space.
 	These are very limited examples, designed to show you the basics. With either Sed or Awk, the only limit is your imagination.
 
+** sed 's/sample/edited' example.txt ** does one at a time
+** sed 's/sample/edited/g' example.txt ** does all with global variable
+** find /home/student -type f -exec grep "network" {} \; ** find files in student where "network" exists in the file
 
 ### 4.4 Regular Expressions ### 
 
