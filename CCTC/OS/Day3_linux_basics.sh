@@ -24,3 +24,14 @@ ls -la /media/Bibliotheca/Bibliotheca_tribus
 
 # Using the commands ls and grep, identify the number of directories in /etc/ that end in .d
 ls /etc/ | grep -E '\.d$' | wc -l
+
+# Use regular expressions to match patterns similar to valid and invalid IP addresses.
+# The answer is the count/number of lines that match in the file.
+grep -P '^[[:digit:]]{1,3}.[[:digit:]]{1,3}.[[:digit:]]{1,3}.[[:digit:]]{1,3}$' numbers | wc -l
+
+# Use regular expressions to match valid IP addresses. The flag is the number of addresses.
+grep -P '^((25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)$' numbers | wc -l
+
+# Use regular expressions to match patterns that look similar to a MAC Address. Flag is a count of the number of matches.
+grep -P '^([0-9A-Za-z]{2}-){5}([0-9A-Za-z]{2})$' numbers | wc -l
+
