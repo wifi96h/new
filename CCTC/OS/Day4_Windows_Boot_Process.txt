@@ -1,0 +1,548 @@
+
+Cyber Common Technical Core - OS Module Public Repo
+Windows Boot Process FG
+Cyber
+Table of Contents
+
+    Terminal Learning Objectives
+        1. Describe the Windows Boot Process
+        2. Identify the Windows Logon Process
+        3. Discuss Analyzing Boot Configurations with BCDEdit
+        4. Complete Windows Boot CTFd Challenges PE
+    1. Boot Process Overview
+    2. BIOS and UEFI
+        2.1 BIOS Master Boot Record
+        2.2 UEFI Boot Manager
+    3. Windows System Initialization
+        3.1 Loading the Operating System Kernel
+        3.2 Initializing the Kernel
+    4. Starting Subsystems
+        4.1 Kernel Subsystems
+        4.2 User Subsystems
+            4.2.1 User Subsystem Session 0
+            4.2.2 User Subsystem Session 1
+    5. Windows BCDEdit Demo
+    Trivia: BCDEdit
+    6. Additional References
+
+###############################################################################################################
+###############################################################################################################
+
+Terminal Learning Objectives
+1. Describe the Windows Boot Process
+2. Identify the Windows Logon Process
+3. Discuss Analyzing Boot Configurations with BCDEdit
+4. Complete Windows Boot CTFd Challenges PE
+
+#################################################
+
+1. Boot Process Overview
+
+################################################
+600
+Figure 1. The Windows Boot Process
+
+
+The Boot process is a series of automated tasks that take a computer from pushing the power button to logging into the Desktop. It is a lengthy process, but only certain portions of it can be interacted with easily. The process is broken down into the following steps:
+
+    Hardware Initialization
+
+    Loading the Boot Sector or Boot Manager
+
+    Loading the Operating System from the Boot Sector
+
+
+Why Do we care about the Boot process?
+
+    Rootkits are a type of malware that hide themselves and other applications. They typically run in kernel mode, so they have the same privileges as the operating system and can sometimes start before it. Because traditionally, anti-malware software doesn’t load until after the kernel and boot drivers do, rootkits often exploit weaknesses in the startup process:
+
+    Firmware Rootkits overwrite the PC’s BIOS or other hardware firmware so the rootkit can start before the OS even loads
+
+    Bootkits replace the OS bootloader to load the bootkit before the OS
+
+    Kernel rootkits replace a portion of the OS kernel so the rootkit can start when the OS loads
+
+    Driver rootkits pretend to be a boot driver that the OS uses to communicate with PC
+
+    Avenues of Attack An exposed operating system can be easily used to further Offensive goals such as pivots or compromised to steal data
+
+##################################
+
+2. BIOS and UEFI
+
+##################################
+
+BIOS and UEFI are firmware that ensure critical hardware like SATA devices (Hard Drives), Display Adapters, and SDRAM(Synchronous dynamic random-access memory) are functional then, locates the MBR(Master Boot Record) or GPT(GUID Partition Tables).
+
+Firmware is software coded non-volatile memory devices such as:
+
+    ROM (Read only memory)
+
+    EPROM (Electronically Programmable Read only memory)
+
+    EEPROM (Electronically Erasable Programmable read only memory)
+
+    Flash memory
+
+BIOS and UEFI do the same thing, but minor differences make UEFI more popular than BIOS in the current day. Without getting into low level specifics some of the benefits of UEFI:
+
+    UEFI Boots much faster than BIOS systems, especially for Windows machines.
+
+    UEFI Firmware is usually loaded into flash memory or EEPROM, making it easier to update and patch.
+
+    UEFI offers SECURED BOOT mode which only allows verified drivers to load.
+
+    UEFI offers drive support of up to 9 zettabytes, while BIOS only works with 2 terabytes.
+
+References for UEFI Features
+
+
+### 2.1 BIOS Master Boot Record ### 
+
+Once the BIOS checks hardware, it finds the MBR (Master Boot Record). The MBR contains Disk Partitions like /dev/sda1 or DISK 1 C:\
+
+The partition contains code that starts the first stage of loading an Operating System, called a Boot Loader
+
+    Boot Loaders
+
+        Windows 2003 and older used NTLDR or New Technology Loader
+
+        Windows 7 Service Pack 1 and newer uses bootmgr or New Technology Loader
+
+From this point the Boot Loader takes over and starts the Operating System
+
+​
+### 2.2 UEFI Boot Manager ### 
+
+UEFI does the same hardware checks as BIOS, but instead of using the MBR it reads an EFI Partition. The EFI Partition contains UEFI Boot Managers
+
+    Windows bootmgfw.efi or Windows Boot Manager
+
+From this point onwards, the UEFI Boot Manager takes over and starts the Operating System
+
+
+Detecting BIOS or UEFI on Windows
+
+Q: How can I tell if my machine is running BIOS or UEFI?
+
+findstr /C:"Detected boot environment" "C:\Windows\Panther\Setupact.log"
+Get-Content C:\Windows\Panther\Setupact.log | Select-String "Detected boot environment"
+
+
+    A2: Use the bcedit command
+
+bcdedit | findstr /i winload
+
+	winload.exe = BIOS, winload.efi = UEFI
+
+
+    A: Check the GUI
+
+Msinfo32.exe
+
+	Look at BIOS Mode (Legacy means the system is UEFI compatible but running in BIOS mode)​
+
+######################################
+
+3. Windows System Initialization
+
+######################################
+
+This is a simplified version of the Windows Boot Process from the kernel (ntoskrnl.exe) to the execution of LogonUi.exe (the process that prompts for user interaction). It is broken into five steps.
+
+    Loading the Operating System Kernel
+
+    Initializing the Kernel
+
+    Starting Subsystems
+
+    Starting Session 0
+
+    Starting Session 1
+
+
+### 3.1 Loading the Operating System Kernel ### 
+
+On UEFI Systems
+
+bootmgfw.efi reads a BCD (Boot Configuration Data) located in the EFI system partition to load the file winload.efi
+
+
+On BIOS Systems
+
+bootmgr or NTLDR reads the file \Boot\BCD to locate winload.exe
+
+    The purpose of both winload programs is to load basic drivers and start the next part of the Windows Boot Process - loading the Kernel.
+
+
+Winload.exe loads the Windows kernel:
+
+    Loads essential drivers required to read data from disk
+
+    Loads the windows kernel (ntoskernel.exe) and dependencies
+
+Winresume.exe reads previously saved data from hiberfil.sys (hibernation mode) to restore a previous Windows instance.
+
+    On UEFI systems, winresume.exe is named winresume.efi, and is located at \windows\system32\boot.
+
+
+### 3.2 Initializing the Kernel ### 
+
+The kernel, as previously discussed, is the heart of the Operating System. Without it, the system cannot function.
+
+In Windows, the kernel is named Ntoskrnl.exe and is a critical system file. It does the following tasks during the boot process:
+
+    Loads the Windows Registry
+
+    Loads device drivers
+
+    Starts the system pagefile located at C:\pagefile.sys
+
+    Loads hal.dll
+
+        hal.dll provides abstraction between hardware interfaces and Ntoskrnl.exe
+
+Once the kernel is done loading it spawns System which hosts threads that only run in kernel mode responsible things like drivers. System then spawns the session management processes smss.exe and csrss.exe
+
+​################################
+
+4. Starting Subsystems
+
+################################
+
+smss.exe (Session Manager Subsystem) does the following tasks:
+
+    Loads environmental variables like %APPDATA% and %COMPUTERNAME%
+
+    Populates the pagefile located in C:\pagefile.sys
+
+    Starts the kernel and user mode sub systems.
+
+    Starts a csrss.exe to manage processes and threads for each User Subsystem.
+
+​
+### 4.1 Kernel Subsystems ### 
+
+The kernel subsystem creates and manages every resource available to Windows by interacting with drivers on the system. It controls things like:
+
+    System power state
+
+    Process creation and threads
+
+    Graphical rendering
+
+    Access Control Lists via the Security Reference Monitor
+
+It is important to understand - users cannot interact directly with any kernel-mode process or even see them
+
+​
+### 4.2 User Subsystems ### 
+	This is the first part of Windows that a user is able to manipulate.
+
+The user subsystem manages all user applications like process creation, internet connectivity, and object access through API calls to hal.dll
+
+User Subsystems run in Session 0 and Session 1
+Tree
+Figure 2. User Subsession 0 and 1 Process Tree
+
+##### 4.2.1 User Subsystem Session 0 ##### 
+
+Session 0 is for security and high privilege processes such as services. They are run in a separate session to isolate them from individual user’s processes.
+
+    smss.exe installs the Win32 subsystem kernel and user mode components (win32k.sys - kernel; winsrv.dll - user; and csrss.exe - user.)
+
+        csrss.exe - The Client/Server Runtime Subsystem supports process / thread creation and management.
+
+        wininit.exe marks itself as critical, initializes the Windows temp directory, loads the rest of the registry, and starts user mode scheduling. It also installs programs that require a reboot to finish the install process. It also starts:
+
+            lsm.exe - the Local Session Manager (LSM) handles all sessions of a system (both remote desktop sessions and local system sessions.)
+
+            lsass.exe - the Local Security Authority Subsystem (LSASS) provides user authentication services, manages the local security policy, and generates access tokens.
+
+            services.exe the Services Control Manager (SCM) loads AutoStart services, using LSASS to authenticate if they run as something other than System.
+
+        wininit.exe then waits for system shutdown to undo everything it started.
+
+By why does any of this matter?
+
+    Processes in User Subsystem Session 0 are created using the highest permissions available to a User in Windows - SYSTEM
+
+        System has more permissions than an administrative account
+
+        represents the Windows Operating System
+
+        *Can be tricked into executing malicious commands via services
+
+Mitre ATT&CK: System Services
+
+Mitre ATT&CK: Hijack Execution Flow: Services Registry
+
+
+1. Showing the Spooler Service using SC
+
+sc query spooler
+
+SERVICE_NAME: Spooler
+DISPLAY_NAME: Print Spooler
+        TYPE               : 110  WIN32_OWN_PROCESS  (interactive)
+        STATE              : 4  RUNNING
+                                (STOPPABLE, NOT_PAUSABLE, IGNORES_SHUTDOWN)
+        WIN32_EXIT_CODE    : 0  (0x0)
+        SERVICE_EXIT_CODE  : 0  (0x0)
+        CHECKPOINT         : 0x0
+        WAIT_HINT          : 0x0
+
+
+2. Showing the Service Control Manager registry key
+
+reg query HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services | findstr Spooler
+
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Spooler
+
+
+3. Showing the contents of the Spooler Service Registry Key
+
+reg query HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Spooler
+
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Spooler
+    DisplayName    REG_SZ    @%systemroot%\system32\spoolsv.exe,-1
+    Group    REG_SZ    SpoolerGroup
+    ImagePath    REG_EXPAND_SZ    %SystemRoot%\System32\spoolsv.exe 
+    Description    REG_SZ    @%systemroot%\system32\spoolsv.exe,-2
+    ObjectName    REG_SZ    LocalSystem 
+
+	The spooler service executable. What happens if someone changes that to a malicious binary?
+	The account who runs the Spooler Service!
+
+
+Showing Services
+
+C:\Windows> tasklist /svc
+
+Image Name                     PID Session Name        Session#
+========================= ======== ================ ===========
+svchost.exe                   1040 EventSystem, fdPHost, FontCache, netprofm,
+                                   nsi, WdiServiceHost
+svchost.exe                   1076 AeLookupSvc, Appinfo, AppMgmt, BITS,
+                                   CertPropSvc, EapHost, gpsvc, iphlpsvc,
+                                   ProfSvc, Schedule, SCPolicySvc, SENS,
+                                   ShellHWDetection, Themes, Winmgmt, wuauserv
+CTAudSvc.exe                  1216 CTAudSvcService
+igfxCUIService.exe            1328 igfxCUIService2.0.0.0
+svchost.exe                   1388 CryptSvc, Dnscache, LanmanWorkstation,
+                                   NlaSvc, WinRM
+spoolsv.exe                   1568 Spooler
+svchost.exe                   1604 FDResPub, QWAVE, SCardSvr, SSDPSRV
+svchost.exe                   1644 BFE, DPS, MpsSvc
+armsvc.exe                    1768 AdobeARMservice
+
+
+##### 4.2.2 User Subsystem Session 1 ##### 
+
+Session 1 is for the first interactive user (note: each session gets its own copy of csrss.exe.) Session 1 and up are standard user sessions. This includes everyone from the default Administrator to custom accounts created. It is the entire desktop experience on Windows.
+
+It does the following, in order, for Session 1 and up:
+
+    Spawn a Session 1 ( or higher) csrss.exe
+
+    Spawn Winlogon.exe which by default prompts for credentials with logonui.exe
+
+    Spawn userinit.exe which creates an account token and creates a custom environment
+
+    Spawn explorer.exe as the customized graphical environment.
+
+Why does any of this matter?
+
+Hundreds of Processes in User Subsystem Session 1 and up are started automatically as a standard user to include administrative accounts. This potentially opens up the system to vulnerabilities such as:
+
+    Mitre ATT&CK: Boot or Logon AutoStart Execution via Registry Keys
+
+    Mitre ATT&CK: Boot or Logon Initialization Scripts
+
+    Mitre ATT&CK: PowerShell Profile Script Execution
+
+The potential damage of these vulnerabilities is limited to the permissions of the account it executed on.
+
+################################
+
+5. Windows BCDEdit Demo
+
+################################
+
+Q: What can I do if the Windows boot settings became corrupted?
+
+A: Fix it with the bcdedit command
+BCDEdit command help
+
+c:\demo>bcdedit /?
+
+What does a normal bcdedit output look like?
+
+c:\demo>bcdedit
+
+Windows Boot Manager
+--------------------
+identifier              {bootmgr}
+device                  partition=C:
+description             Windows Boot Manager
+locale                  en-US
+inherit                 {globalsettings}
+default                 {current}
+resumeobject            {2bd08882-0f8f-11e9-94b6-0002c9550dce}
+displayorder            {current}
+toolsdisplayorder       {memdiag}
+timeout                 29
+
+Windows Boot Loader
+-------------------
+identifier              {current}
+device                  partition=C:
+path                    \windows\system32\winload.exe
+description             Windows 7 - Tiger Paw
+locale                  en-US
+inherit                 {bootloadersettings}
+recoverysequence        {91061b50-0fa8-11e9-aa6e-00155d49334a}
+displaymessageoverride  Recovery
+recoveryenabled         Yes
+allowedinmemorysettings 0x15000075
+osdevice                partition=C:
+systemroot              \windows
+resumeobject            {2bd08882-0f8f-11e9-94b6-0002c9550dce}
+nx                      OptIn
+bootmenupolicy          Standard
+
+DEMO BCDEdit
+Backup & Restore Current BCD settings
+
+c:\demo>bcdedit /export C:\Lion_BCD
+c:\demo>bcdedit /import C:\Lion_BCD
+
+    Whenever you want to make a change to a specific Boot Loader entry use the {Identifier}
+
+Modify Description of Current Boot loader
+
+c:\demo>bcdedit /set {<identifier>} description "Windows 7 - Lion Den" (1)
+
+(1) Point out that the Description is nothing more than a "label"
+Create New partition
+
+c:\demo>bcdedit /create {ntldr} /d "Windows XP Pro SP2 - Tiger Paw"
+
+-Specify the Partition
+
+c:\demo>bcdedit /set {ntldr} device partition=C:
+
+-Specify the Path to ntldr
+
+c:\demo>bcdedit /set {ntldr} path \ntldr
+
+-Specify the Display Order
+
+c:\demo>bcdedit /displayorder {ntldr} /addfirst
+
+Now Show the added Partition
+
+c:\demo>bcdedit
+
+Windows Boot Manager
+--------------------
+identifier              {bootmgr}
+device                  partition=C:
+description             Windows Boot Manager
+locale                  en-US
+inherit                 {globalsettings}
+default                 {current}
+resumeobject            {2bd08882-0f8f-11e9-94b6-0002c9550dce}
+displayorder            {ntldr}
+                        {current}
+toolsdisplayorder       {memdiag}
+timeout                 29
+
+Windows Legacy OS Loader
+------------------------
+identifier              {ntldr}
+device                  partition=C:
+path                    \ntldr
+description             Windows XP Pro SP2 - Tiger Paw
+
+Windows Boot Loader
+-------------------
+identifier              {current}
+device                  partition=C:
+path                    \windows\system32\winload.exe
+description             Windows 7 - Lion Den
+locale                  en-US
+inherit                 {bootloadersettings}
+recoverysequence        {91061b50-0fa8-11e9-aa6e-00155d49334a}
+displaymessageoverride  Recovery
+recoveryenabled         Yes
+allowedinmemorysettings 0x15000075
+osdevice                partition=C:
+systemroot              \windows
+resumeobject            {2bd08882-0f8f-11e9-94b6-0002c9550dce}
+nx                      OptIn
+bootmenupolicy          Standard
+
+Delete the Legacy Operating System ( /f = force)
+
+bcdedit /delete {ntldr} /f
+
+Add, Remove & Change Additional Options
+
+    Add Safeboot Value
+
+_Output_Truncated_
+Windows Boot Loader
+-------------------
+identifier              {current}
+device                  partition=C:
+path                    \windows\system32\winload.exe
+description             Windows 7 - Tiger Paw
+locale                  en-US
+inherit                 {bootloadersettings}
+recoverysequence        {91061b50-0fa8-11e9-aa6e-00155d49334a}
+displaymessageoverride  Recovery
+recoveryenabled         Yes
+allowedinmemorysettings 0x15000075
+osdevice                partition=C:
+systemroot              \windows
+resumeobject            {2bd08882-0f8f-11e9-94b6-0002c9550dce}
+nx                      OptIn
+safeboot                Minimal
+bootmenupolicy          Standard
+
+bcdedit /deletevalue {current} safeboot (1)
+bcdedit /set {bootmgr} timeout 29 (2)
+
+(1) Will delete the Safeboot value
+
+(2) Will change the Timeout Value
+
+Trivia: BCDEdit
+
+Q: How many Boot Managers are present and how many should there be?
+
+A: There is only one and there should be only one
+
+What would be indicated if more than 1 Boot Loader was present?
+
+A: More than one boot loader present would indicate a dual boot system
+
+Q: What does the identifier {current} indicate?
+
+A: This is the default boot loader which would load if no user selection was made if multiple boot loaders were present
+
+####################################
+
+6. Additional References
+
+####################################
+
+1. Microsoft Windows Security
+
+2. BIOS/MBR Boot Process
+
+3. Windows Booting Process
+
+This page was built using a slightly modified version of the Antora default UI.
+The source code for this UI is licensed under the terms of the MPL-2.0 license and can be found at https://git.cybbh.space/common/contributing
