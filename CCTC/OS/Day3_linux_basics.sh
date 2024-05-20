@@ -9,6 +9,8 @@ cat /etc/passwd | awk -F: '{print $5}'
 # Find the user with a unique login shell.
 cat /etc/passwd | awk -F: '{print $7}'
 cat /etc/passwd | head -n 20
+# -or-
+cat /etc/passwrd | grep -v "/usr/sbin/nologin"
 
 # Find the directory named Bibliotheca. Enter the absolute path to the directory.
 find -iname bibliotheca
@@ -21,6 +23,8 @@ ls -la /media/Bibliotheca/Bibliotheca_unus
 
 # Identify the file within /media/Bibliotheca where the owning group has more rights than the owning user.
 ls -la /media/Bibliotheca/Bibliotheca_tribus
+# -or-
+find ./ -type f -exec ls -l {} \; | grep -e '-.*rw'
 
 # Using the commands ls and grep, identify the number of directories in /etc/ that end in .d
 ls /etc/ | grep -E '\.d$' | wc -l
@@ -34,4 +38,11 @@ grep -P '^((25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[0-
 
 # Use regular expressions to match patterns that look similar to a MAC Address. Flag is a count of the number of matches.
 grep -P '^([0-9A-Za-z]{2}-){5}([0-9A-Za-z]{2})$' numbers | wc -l
+
+# Find the warp and read its secrets for the flag.
+find ./.warp* | grep secret
+
+# Use awk to create a separate CSV (comma separated value) file that contains columns 1-6.
+# The flag is an MD5 hash of the new file
+awk -F '\t' ' OFS="," {print $1,$2,$3,$4,$5,$6}' connections | md5sum
 
