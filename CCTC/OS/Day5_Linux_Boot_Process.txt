@@ -40,17 +40,25 @@ Terminal Learning Objectives
 2. Identify the Linux Logon Process
 3. Complete Linux Boot CTFd Challenges PE
 
-
+################################################################################################################
+################################################################################################################
 
 The boot process is a sequence of events that bring a computer from an off state to full functional. At each stage different programs run to fulfill specific tasks. A skilled adversary can change each stage of the process to further their goals. Understanding all the configuration options at every stage can mean the difference between a completely locked down system, and one with default security vulnerabilities at all levels.
 
+######################################
 
 1. Boot Process Overview
+
+#######################################
+
 Tree
 Figure 1. Linux Boot Process
 
+#######################################
 
 2. BIOS and UEFI
+
+#######################################
 
 BIOS and UEFI are firmware that ensure critical hardware like SATA devices (Hard Drives), Display Adapters, and SDRAM(Synchronous dynamic random-access memory) are functional then, locates the MBR(Master Boot Record) or GPT(GUID Partition Tables).
 	The BIOS runs and exits before the Linux system even starts. Flash memory on the motherboard contains the BIOS. Remember that firmware is different from software.
@@ -59,7 +67,8 @@ Firmware is software coded non-volatile memory devices such as: . ROM (Read only
 	Non-volatile memory does not clear itself after a restart, while volatile memory does.
 
 
-2.1 Differences between BIOS and UEFI Firmware
+### 2.1 Differences between BIOS and UEFI Firmware ### 
+
 	Someone is going to ask about the difference between BIOS and UEFI.
 
 BIOS and UEFI do the same thing, but minor differences make UEFI more popular than BIOS in the current day. Without getting into low level specifics some of the benefits of UEFI:
@@ -72,15 +81,18 @@ BIOS and UEFI do the same thing, but minor differences make UEFI more popular th
 
     UEFI offers drive support of up to 9 zettabytes', while BIOS only works with 2 terabytes.
 
-References for UEFI Features
+References for UEFI Features <https://en.wikipedia.org/wiki/UEFI#Features>
 
+################################
 
 3. 1st Stage Bootloaders
+
+################################
 
 1st Stage Bootloaders are the Master Boot Records(MBR) and the GUID Partition Tables (GPT) because they are the first part of loading an operating system. They locate and finish loading the 2nd stage bootloader known as GRUB
 
 
-3.1 Master Boot Record (MBR)
+### 3.1 Master Boot Record (MBR) ### 
 
 The Master Boot Record contains information on partitions locations on the hard drive. Partitions contain the 2nd stage bootloader known as the GRUB(Grand Unified Bootloader).
 	Boot Sector and MBR are the same thing. The MBR is a Boot Sector.
@@ -88,86 +100,31 @@ The Master Boot Record contains information on partitions locations on the hard 
 Once the BIOS loads the bootstrap in the MBR. The bootstrap is the initial section of code that contains a bootloader known as GRUB broken into two stages. The first stage is GRUB stage 1, which loads Grub Stage 2 from the selected active partition. Grub Stage 2 is not located in the MBR, but further in the hard drive.
 
 
-3.1.1 Master Boot Record Layout
+##### 3.1.1 Master Boot Record Layout ##### 
 
 The first 512 bytes of a hard drive contains the Master Boot Record. It contains the following information:
 
-    Bootstrap Code
+   1. Bootstrap Code
 
-    Partition entry 1
+   2. Partition entry 1
 
-    Partition entry 2
+   3. Partition entry 2
 
-    Partition entry 3
+   4. Partition entry 3
 
-    Partition entry 4
+   5. Partition entry 4
 
-    Boot signature
+   6. Boot signature
 
-Table 1. MBR Layout Address 	Description 	Size (bytes)
-
-0x0000 (0)
-	
-
-Bootstrap Code Area
-	
-
-446
-
- 
-
- 
-
- 
-
-0x01BE (446)
-	
-
-Partition Entry #1
-	
-
-Partition table(for primary partitions)
-	
-
-16
-
-0x01CE (462)
-	
-
-Partition Entry #2
-	
-
-16
-
-0x01DE (478)
-	
-
-Partition Entry #3
-	
-
-16
-
-0x01EE (494)
-	
-
-Partition Entry #4
-	
-
-16
-
-0x01FF (510)
-	
-
-0x55
-	
-
-Boot signature
-	
-
-2
-	
-
-Total=512 bytes
+Table 1. MBR Layout 
+|	Address	| 	Description	| 	Size (bytes)	|
+|	0x0000 (0)	|	Bootstrap Code Area	|	446	|
+|	0x01BE (446)	|	Partition Entry #1	|	Partition table(for primary partitions)	|	16	|
+|	0x01CE (462)	|	Partition Entry #2	|	16	|
+|	0x01DE (478)	|	Partition Entry #3	|	16	|
+|	0x01EE (494)	|	Partition Entry #4	|	16	|
+|	0x01FF (510)	|	0x55	|	Boot signature	|	2	|
+								|	Total=512 bytes	|
 
 
 Locate the hard drive and partition in Linux
@@ -208,9 +165,9 @@ _truncated_
 	The first partition of the hard drive in 0x01be shown as 80
 	The second partition entry is blank!
 
-MBR Layout Forensics Reference
+MBR Layout Forensics Reference <http://www.invoke-ir.com/2015/05/ontheforensictrail-part2.html>
 
-Wikipedia Entry on MBR Disk Layouts
+Wikipedia Entry on MBR Disk Layouts <https://en.wikipedia.org/wiki/Master_boot_record#Disk_partitioning>
 
 
 Making a copy of the MBR with dd — Run this on Ops Station
@@ -222,6 +179,9 @@ student@linux-opstation-kspt:~$ sudo !!
 1+0 records out
 512 bytes copied, 0.00026952 s, 1.9 MB/s
 student@linux-opstation-kspt:~$ file MBRcopy 
+
+** can use: dd if=mbroken bs=1 count=32 skip=462 | hash&stuff ## i.e. dd if=mbroken bs=1 count=5 skip=416 | md5hash **
+
 MBRcopy: DOS/MBR boot sector
 
 	Execute dd which copies 512 bytes once from /dev/vda to a file in my current directory called MBR
@@ -229,102 +189,34 @@ MBRcopy: DOS/MBR boot sector
 	!! represents the previous command. Run it with sudo permissions.
 	Execute file to read the file signature from the MBR file
 	Linux knows this is a MBR because of the file signature in the first 2 bytes of the file. Its always in hex address 0x00 and 0x01
+
 Supporting Concept 1: Reading Hexadecimal Addresses
 
 Understanding the format of a hexadecimal addresses, or hex, is essential to many Cyber Security fields. Luckily they are easy to understand it is only a a new way of counting! We have all learned to count to 10 in decimal notation, Hexadecimal notation requires us to count by 16 instead.
 
 
-Table 2. Decimal to Hexadecimal Notation Chart Decimal 	Hexadecimal
+Table 2. Decimal to Hexadecimal Notation Chart 
+|	Decimal	| 	Hexadecimal	|
+|	0	|	0x0	|
+|	1	|	0x1	|
+|	2	|	0x2	|
+|	3	|	0x3	|
+|	4	|	0x4	|
+|	5	|	0x5	|
+|	6	|	0x6	|
+|	7	|	0x7	|
+|	8	|	0x8	|
+|	9	|	0x9	|
+|	10	|	0xA	|
+|	11	|	0xB	|
+|	12	|	0xC	|
+|	13	|	0xD	|
+|	14	|	0xE	|
+|	15	|	0xF	|
+|	16	|	0x10	|
+|	17	|	0x11	|
 
-0
-	
 
-0x0
-
-1
-	
-
-0x1
-
-2
-	
-
-0x2
-
-3
-	
-
-0x3
-
-4
-	
-
-0x4
-
-5
-	
-
-0x5
-
-6
-	
-
-0x6
-
-7
-	
-
-0x7
-
-8
-	
-
-0x8
-
-9
-	
-
-0x9
-
-10
-	
-
-0xA
-
-11
-	
-
-0xB
-
-12
-	
-
-0xC
-
-13
-	
-
-0xD
-
-14
-	
-
-0xE
-
-15
-	
-
-0xF
-
-16
-	
-
-0x10
-
-17
-	
-
-0x11
 	Two digit numbers in hexadecimal have a 16ths place. That means the first 1 in 0x11 in hex is actually a 16. To put it in perspective, a two digit number in decimal notation has a max value of 99 whilst in hexadecimal notation a two digit number has a largest value of 255 or 0xFF
 	0x0 is usually used in computers to let the system know that this number is in hex format. It also happens to be a handy way to let other humans know that a number is in hex. For example: 0x0000001B is the exact same thing as 0x1B
 
@@ -351,7 +243,7 @@ Sample Hex Dump
 In the example above: the hex position of 0x00 contains cd and 0x02 contains ac
 
 
-3.2 GUID Partition Tables (GPT)
+### 3.2 GUID Partition Tables (GPT) ### 
 
 Much like UEFI is a newer version of BIOS, GPT(Guid Partition Tables) is a new version of MBR. Once again they do the exact same thing. Yet, GPT has quite a few advantages compared to an MBR.
 
@@ -363,15 +255,19 @@ Much like UEFI is a newer version of BIOS, GPT(Guid Partition Tables) is a new v
 
     GPT Supports partitions up to 9 zettabytes. Which is ridiculous.
 
-Understanding GPT Partition Tables
+Understanding GPT Partition Tables <https://www.linux.com/training-tutorials/using-new-guid-partition-table-linux-goodbye-ancient-mbr/>
 
+#######################################
 
 4. 2nd Stage Bootloader (GRUB)
 
-The MBR in Grub Stage 1 loads the 2nd stage bootloader, named Grub Stage 2 or GRUB. GRUB Stage 2 rests inside the selected active partition mounted in /boot or in a completely separate partition.
-4.1 GRUB
+#######################################
 
-GRUB(Grand Unified Bootloader) has one purpose - to load the Linux Kernel a user choses from a location in the hard drive. The GRUB has two stages which load it from two separate locations.
+The MBR in Grub Stage 1 loads the 2nd stage bootloader, named Grub Stage 2 or GRUB. GRUB Stage 2 rests inside the selected active partition mounted in /boot or in a completely separate partition.
+
+### 4.1 GRUB ### 
+
+GRUB (Grand Unified Bootloader) has one purpose - to load the Linux Kernel a user choses from a location in the hard drive. The GRUB has two stages which load it from two separate locations.
 On BIOS Systems using MBR
 
     Stage 1 : boot.img located in the first 440 bytes of the MBR loads…​
@@ -391,12 +287,13 @@ On UEFI Systems using GPT
 
         /boot/grub/grub.cfg Which displays a list of Linux kernels available to load on the system
 
-GRUB 2 Chain Loading Process Resource 1
+GRUB 2 Chain Loading Process Resource 1 <https://en.wikipedia.org/wiki/GNU_GRUB#Version_2_(GRUB_2)>
 
-GRUB Deep Dive at GNU.org
+GRUB Deep Dive at GNU.org <https://www.gnu.org/software/grub/manual/grub/grub.html#Images>
+
 Looking at Grub configuration in Linux to find the Kernel
 
-student@linux-opstation-kspt:/$ cat /boot/grub/grub.cfg 
+student@linux-opstation-kspt:/$ cat /boot/grub/grub.cfg  ** # can also add a | grep to find what you are looking for **
 _truncated_
 set linux_gfx_mode=auto
 export linux_gfx_mode
@@ -422,15 +319,19 @@ _truncated_
 	This entry in /boot/grub/grub.cfg should be around line 107.
 	Do not change this file. If you do, your system may to fail to boot.
 
-More information on the GNU Linux Command
+More information on the GNU Linux Command <https://www.gnu.org/software/grub/manual/grub/grub.html#GNU_002fLinux>
 
+############################
 
 5. Linux Kernel
+
+############################
 
 The Kernel is the heart of a Operating System. It has complete control on everything within it such as memory management, device management, Input/output Device request control, and managing process scheduling with the Central processing unit.
 
 The Linux Kernel originated from the Unix kernel and is unique from Windows in that it is :
-1. A Monolithic Kernel
+
+ # 1. A Monolithic Kernel
 
     System calls all functionality to the user such as CPU scheduling, memory management, and file management. A systemcall is a way in which a program requests services from the kernel. Everything that occurs on the system occurs through a systemcall
 
@@ -462,10 +363,10 @@ write(1, "root:x:0:0:root:/root:/bin/bash\n"..., 1875 <unfinished ...>
 	write systemcall to write all the 1875 bytes from /etc/passwd to stdout.
 	ltrace is showing library calls from the GNU C++ Library Shared Object. The truncated section is all the system calls for memory management. This is normal because systemcalls are usually made by functions in C libraries.
 
-Linux System Calls
+Linux System Calls <https://man7.org/linux/man-pages/man2/syscalls.2.html>
 
 
-2. Modular
+ # 2. Modular
 
     Modules are extensions to base functionality of the Linux Operating System. This modularity allows for modifications baseline system functionality without rebuilding the kernel and failures will not stop the machine from starting.
 
@@ -491,87 +392,43 @@ virtio_gpu             53248  3
 	Modules for Virtual Input / Output Devices used in Openstack instances.
 	Any functionality that relies on the module will stop. But, the system will still function.
 
+#########################
 
 6. Init
 
+#########################
+
 The kernel, once loaded, is hard coded to reach out and execute /sbin/init. This starts the process of bringing the system to a desired level of functionality using Initialization Daemons. There are two main initialization daemons now : Systemd and SysV.
 
-Stack Overflow article on how the kernel knows to load /sbin/init
+Stack Overflow article on how the kernel knows to load /sbin/init <https://serverfault.com/questions/372007/linux-kernel-and-the-init-process>
 
-See Line 798 for hard coded /sbin/init
+See Line 798 for hard coded /sbin/init <https://elixir.bootlin.com/linux/v2.6.24/source/init/main.c>
 
 A term used in Init is a Run Level. A Run Level defines the state of a machine after it has completed booting and is prompting for a user login. Run levels numbered from zero(0) to six(6) have special meaning, but they are not rigid in definition.
-Table 3. Run Level meanings Run Level 	Meaning 	Description
 
-0
-	
-
-Halt
-	
-
-Shutdown the system
-
-1
-	
-
-Single User
-	
-
-Allow a single user to login session with No network functionality. Used to troubleshoot.
-
-2
-	
-
-Multi-user mode
-	
-
-Allow multiple user to login sessions with No network functionality.
-
-3
-	
-
-Multi-user mode with networking
-	
-
-Allow multiple user to login sessions with complete networking functionality
-
-4
-	
-
-Not used/user-definable
-	
-
-Nothing, can be set to anything
-
-5
-	
-
-Multi-user mode with networking and GUI Desktop
-	
-
-Allow multiple user to login sessions with complete networking functionality and a graphical desktop instead of a Bash terminal
-
-6
-	
-
-Reboot
-	
-
-Restart the system
+Table 3. Run Level meanings 
+|	Run Level	| 	Meaning		| 	Description	|
+|	0	|	Halt	|	Shutdown the system	|
+|	1	|	Single User	|	Allow a single user to login session with No network functionality. Used to troubleshoot.	|
+|	2	|	Multi-user mode	|	Allow multiple user to login sessions with No network functionality.	|
+|	3	|	Multi-user mode with networking	|	Allow multiple user to login sessions with complete networking functionality	|
+|	4	|	Not used/user-definable	|	Nothing, can be set to anything	|
+|	5	|	Multi-user mode with networking and GUI Desktop	|	Allow multiple user to login sessions with complete networking functionality and a graphical desktop instead of a Bash terminal	|
+|	6	|	Reboot	|	Restart the system	|
 
 
-6.1 SysV
+### 6.1 SysV ### 
 
 SysV initialization is a legacy system initialization method, but it is still used today in many older systems Linux systems or Unix machines like Oracle’s Solaris. It starts with the kernel executing the first process on the machine, or the Initialization daemon. In SysV machines it is the /etc/init program. Then, init reads /etc/inittab to start creating processes in groups called Run Levels. The processes that each Run Level starts are defined in /etc/rc*.d
 
 
-6.1.1 SysV Init Daemon
+##### 6.1.1 SysV Init Daemon #####
 
 The program /etc/init is the first process to start in SysV Linux machines. The kernel spawns /sbin/init. Its role is to initialize the system to a target run level specified in /etc/inittab.
 
 The file /etc/inittab is a text file that contains Run Level entries as variables read by /etc/init. Entries numbered 0-6 specify a directory with scripts to start at the specified Run Level. By default the system will try to start the initdefault run level. If that fails to start, the machine will display an error, then execute the scripts in the 0(halt) run level.
 
-Oracle Documentation on the Inittab File
+Oracle Documentation on the Inittab File <https://docs.oracle.com/cd/E19683-01/817-3814/6mjcp0qgh/index.html>
 
 
 Sample of /etc/initab on a SysV machine
@@ -593,7 +450,7 @@ l6:6:wait:/etc/rc6.d
 	Another non-default run level is in /etc/rc4.d
 
 
-6.1.2 Run Levels
+##### 6.1.2 Run Levels ##### 
 
 Run Levels in SysV are a series of scripts that start or kill background processes on Linux at specific run levels. The scripts have a specific naming scheme that determine how the init process interacts with them.
 
@@ -651,73 +508,25 @@ test -x $DAEMON || exit 0
 The last thing to start is the login program. init spawns a login to each of the Linux virtual consoles. The getty command specified in the inittab displays this login. When given a login name, getty invokes /bin/login, which prompts the user for a password, authentication to the system takes place, and brings a terminal back.
 
 
-6.2 Systemd
+### 6.2 Systemd ### 
 
 Systemd is the modern initialization method. Its starts with the kernel spawning /sbin/init which is symbolically linked to /lib/systemd/system. systemd interacts with flat configuration files called units. There are many types, but the target and service units determine system initialization.
 
 ​
-6.2.1 Systemd Init target.units
+##### 6.2.1 Systemd Init target.units ##### 
 
 The kernel spawns /usr/lib/systemd/system as the first process on the system. It then executes configurations starting at mounting the local file system to bringing the system to a desired state specified in the default target unit. Targets in systemd are like runlevels in SysV. The name of the default target is default.target and located in /lib/systemd/system.
-Table 4. Translating between Run Levels and Systemd Targets Run Level 	Meaning 	Systemd Target
+Table 4. Translating between Run Levels and Systemd Targets 
+|	Run Level	| 	Meaning	| 	Systemd Target	|
+|	0	|	Halt	|	poweroff.target	|
+|	1	|	Single User	|	rescue.target	|
+|	2	|	Multi-user mode	|	multi-user.target	|
+|	3	|	Multi-user mode with networking	|	multi-user.target	|
+|	4	|	Not used/user-definable	|	multi-user.target	|
+|	5	|	Multi-user mode with networking and GUI Desktop	|	graphical.target	|
+|	6	|	Reboot	|	reboot.target	|
 
-0
-	
-
-Halt
-	
-
-poweroff.target
-
-1
-	
-
-Single User
-	
-
-rescue.target
-
-2
-	
-
-Multi-user mode
-	
-
-multi-user.target
-
-3
-	
-
-Multi-user mode with networking
-	
-
-multi-user.target
-
-4
-	
-
-Not used/user-definable
-	
-
-multi-user.target
-
-5
-	
-
-Multi-user mode with networking and GUI Desktop
-	
-
-graphical.target
-
-6
-	
-
-Reboot
-	
-
-reboot.target
-
-Systemd Target Unit to Runlevel Translate Source
+Systemd Target Unit to Runlevel Translate Source <https://www.computernetworkingnotes.com/linux-tutorials/systemd-target-units-explained.html>
 
 ​
 Showing the default target unit
@@ -730,12 +539,12 @@ lrwxrwxrwx 1 root root 16 May  3 11:30 default.target -> graphical.target
 	The system will, by default, try to run the system to the specifics set by graphical.target.
 
 ​
-6.2.2 Target units
+##### 6.2.2 Target units ##### 
 
 Systemd target units are a set of value=data pairs to create processes in a set order on the system. But, they are simple to understand at a functional level by understanding the value=data fields within each.
 Examining the Contents of the graphical.target
 
-cat /lib/systemd/system/default.target | tail -n 8
+cat /lib/systemd/system/default.target | tail -n 8	**or use systemctl cat graphical.target**
 
 Description=Graphical Interface
 Documentation=man:systemd.special(7)
@@ -759,7 +568,12 @@ Target.unit want and requires dependencies search locations
 
     /run/systemd/generator/*
 
-    More found in System Unit Man Page
+    More found in System Unit Man Page <https://www.man7.org/linux/man-pages/man5/systemd.unit.5.html>
+
+** use systemctl show -p Wants graphical.target instead for fewer keystrokes **
+** systemctl list-dependancies graphical.target for full list of wants and needs**
+** systemctl --type=service --state=running **
+** systemctl status ssh **
 
 Showing more wants and requires to graphical.target — Run on Ops Station
 
@@ -804,11 +618,12 @@ Breaking it down into steps brings the following conclusion:
 
     But, the graphical.target requires the multi-user.target to execute.
 
-Understanding systemd.units
+Understanding systemd.units <https://www.man7.org/linux/man-pages/man5/systemd.unit.5.html>
+
 	That is not every the wants statement to graphical.target. Remember, it searches 11 different directories for these.
 
 ​
-6.2.3 Service units
+##### 6.2.3 Service units ##### 
 
 Service units create processes when called by target units. They, much like target units, have value=data pairs that determine what the unit does.
 Examining the Contents of the display-manager.service
@@ -832,15 +647,16 @@ ExecReload=/bin/kill -SIGHUP $MAINPID
 	ExecStart=/usr/sbin/gdm3 causes the systemd process to execute the command specified along with any arguments.
 	Restart=always tells systemd to attempt to restart the command in ExecStart.
 
-Understanding systemd service units
+Understanding systemd service units <https://www.man7.org/linux/man-pages/man5/systemd.service.5.html>
 
 ​
-6.2.4 Systemd putting it all together
+##### 6.2.4 Systemd putting it all together ##### 
 
 Systemd is a complex initialization method with interweaving dependencies, hundreds' of files across the system, and unique file types. It is possible to query each file and use the find command to locate dependencies, but there is a much easier way. The systemctl command comes with every systemd machine to query and manage details relating to its dependencies.
 
 By default, systemctl shows every unit file currently visible by systemd. However, it takes arguments to:
-1. List unit dependencies in a tree form
+
+ # 1. List unit dependencies in a tree form
 
 systemctl list-dependencies graphical.target
 
@@ -860,7 +676,7 @@ graphical.target
 	Requires statements to graphical.target
 
 ​
-2. Show wants to individual units.
+ # 2. Show wants to individual units.
 
 systemctl show -p Wants graphical.target
 
@@ -869,7 +685,7 @@ Wants=ureadahead.service qemu-guest-agent.service gdm.service systemd-update-utm
 	That is a lot more wants statements than found in the 2 directories we searched in 6.2.2.
 
 ​
-3. List every individual unit file.
+ # 3. List every individual unit file.
 
 systemctl list-unit-files
 
@@ -888,7 +704,7 @@ _truncated_
 	Total number of unit files seen by systemd
 
 ​
-4. Concatenate the contents of a unit file to the screen.
+ # 4. Concatenate the contents of a unit file to the screen.
 
 systemctl cat graphical.target
 
@@ -913,18 +729,21 @@ AllowIsolate=yes
 
 	The file sent to the screen will not every wants or requires dependency within it. Ensure that you check all the locations and use systemctl to locate dependencies.
 
-​
+​########################
+
 7. Post Boot
+
+########################
 
 Actions in the post boot stage encompass user shell environment customization with scripts and text files read by other programs. Each file is read at specific point when users log in. Each locate presented in the post boot process is easily changeable unlike earlier stages of the boot process. Adversaries can take advantage of this flexibility to run any script they want. Be mindful of that when evaluating a Linux system.
 
 ​
-7.1 The /etc/environment file
+### 7.1 The /etc/environment file ### 
 
 The /etc/environment file sets Global Variables. Global Variables are accessible by every user or process on the system. It is read once when the machine completes Init. Any changes to the file require a system restart for them to apply.
 
 In the example below, /etc/`environment is setting the PATH variable. This variable is the search path for executables from the command line. It allows a user to type ls instead of /bin/ls when they want to use it.
-	The /etc/environment file is part of PAM(Pluggable Authentication Modules) 6.6.1 used to authenticate users in Linux. That is why it isn’t a bash script like everything else.
+	The /etc/environment file is part of PAM(Pluggable Authentication Modules) 6.6.1 <https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/4/html/reference_guide/ch-pam> used to authenticate users in Linux. That is why it isn’t a bash script like everything else.
 Looking at /etc/environment
 
 cat /etc/environment
@@ -934,15 +753,16 @@ PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/u
 	The path variable contains all default locations to executables in Linux delimited by :.
 	Executables not located in the path can not be executed by typing in the name of the executable, unless it is located in the same directory. Instead, the absolute or relative path to the executable must be given.
 
-Ubuntu Help: Persistent environment variables
+Ubuntu Help: Persistent environment variables <https://help.ubuntu.com/community/EnvironmentVariables>
 
 ​
-7.2 The /etc/profile file
+### 7.2 The /etc/profile file ### 
 
 /etc/profile is a script that executes whenever a user logs into an interactive shell on Linux. its functionality depends entirely on the version of Linux being used. Ubuntu Linux uses it to set the BASH shell prompt by executing /etc/bash.bashrc and execute any script named *.sh in /etc/profile.d.
 
 Unlike /etc/environment it executes every time a user logs in interactively; therefore, when the file is modified logging out then in again will apply the changes.
-	Interactive Logins accept user input from a tty or commandline. Non-Interactive logins, such as the ones used by services or ssh remote commands, will not execute /etc/profile
+	Interactive Logins <https://tldp.org/LDP/abs/html/intandnonint.html> accept user input from a tty or commandline. Non-Interactive logins, such as the ones used by services or ssh remote commands, will not execute /etc/profile
+
 Examining /etc/profile
 
 student@linux-opstation-kspt:~$ cat /etc/profile
@@ -971,7 +791,8 @@ fi
 	if the /etc/bash.bashrc exists, execute it.
 	/etc/bash.bashrc creates the bash prompt student@linux-opstation-kspt:~$
 	If the directory /etc/profile.d exists, execute any script named *.sh in that directory.
-7.3 The .bash_profile and .bashrc files
+
+### 7.3 The .bash_profile and .bashrc files ### 
 
 Unique to BASH(Bourne Again Shell) are .bash_profile and .bashrc. They execute on a per user basis for interactive logins only. Both files are located every user’s /home directory. They are user specific configurations and freely editable by the owning user or root.
 
@@ -1000,9 +821,9 @@ student@linux-opstation-kspt:~$
 	Exit the new session AND logout of the machine
 	Logins create an interactive login shell; therefore,
 
-Understanding .bash_profile and .profile
+Understanding .bash_profile and .profile <https://www.baeldung.com/linux/bashrc-vs-bash-profile-vs-profile>
 
-TLDP 1.2.2.2. Bash startup files
+TLDP 1.2.2.2. Bash startup files <https://tldp.org/LDP/Bash-Beginners-Guide/html/Bash-Beginners-Guide.html>
 
 This page was built using a slightly modified version of the Antora default UI.
 The source code for this UI is licensed under the terms of the MPL-2.0 license and can be found at https://git.cybbh.space/common/contributing
