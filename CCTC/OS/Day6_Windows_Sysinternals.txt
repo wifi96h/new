@@ -1,0 +1,867 @@
+
+Cyber Common Technical Core - OS Module Public Repo
+Windows SysInternals FG
+
+
+Cyber
+
+
+U.S. Army Cyber School 2021
+Cyber Common Technical Core (CCTC)
+Table of Contents
+
+    Terminal Learning Objectives
+    1. Sysinternals Introduction
+    2. Procmon
+    3. Autoruns
+    4. Procexp
+    5. TCPView
+    6. PsExec
+    7. PsLoggedon
+    8. LogonSessions
+    9. PsList
+    10. PsInfo
+    11. Strings
+    12. Handle
+    References
+
+
+Terminal Learning Objectives
+1. Identify SysInternals Tools to Enumerate Systems
+2. Identify SysInternals Tools to Analyze Processes
+
+
+1. Sysinternals Introduction
+
+    Windows Sysinternals is a collection of advanced system utilities that were established to help users manage,troubleshhot and diagnose Windows systems and applications. The sysinternals tools are housed on the website https://live.sysinternals.com/ to be readily available to run directly from the site. We will have the tools downloaded on our box(es) for ease of use.
+
+    These are a few commands/instructions to have the tools on your local Windows box.
+
+PS C:\windows\system32> net use * http://live.sysinternals.com 
+Drive Z: is now connected to http://live.sysinternals.com.
+
+The command completed successfully.
+
+	The 'net use' command can be used to create a connection to the Live Sysinternals website. (can be persistent with parameter set)
+
+
+PS C:\windows\system32> New-PSDrive -Name "SysInt" -PSProvider FileSystem -Root "\\live.sysinternals.com\Tools" 
+
+Name           Used (GB)     Free (GB) Provider      Root                                                    CurrentLocation
+----           ---------     --------- --------      ----                                                    ---------------
+SysInt                                 FileSystem    \\live.sysinternals.com\Tools
+
+	'New-PSDrive' is a PowerShell command used to create a temporary or persistent connection to the Live Sysinternals website.
+
+PS C:\Users\andy.dwyer\Desktop> $wc = new-object System.Net.WebClient 
+
+PS C:\Users\andy.dwyer\Desktop> $wc.DownloadFile("https://download.sysinternals.com/files/SysinternalsSuite.zip",
+"$pwd\SysinternalsSuite.zip") 
+
+PS C:\Users\andy.dwyer\Desktop> Expand-Archive SysinternalsSuite.zip 
+
+	Location may be different on your box The webclient provides common methods for sending and receiving data to/from a URI (Uniform Resource Identifier)
+	Download the .zip file from the website
+	Unzip the file, creates a folder on the desktop
+
+
+2. Procmon
+
+Using PROCMON to monitor the Windows Boot Process
+
+
+Q: What is Process Monitor?
+
+    Process Monitor is an advanced monitoring tool for Windows that shows real-time File System, Registry and Process/Thread activity. It combines the features of two legacy Sysinternals utilities, Filemon and Regmon.
+
+    It also has an option to Log at boot and we are going to go over a demo and analyze the Windows Boot Process.
+
+
+Q: What does Procmon capture?
+
+    Registry - Anything from creating, reading, deleting, or querying keys
+
+    File System - File creation, writing, deleting, etc and this includes both local and network drives
+
+    Network - This only shows source and destination TCP/UDP traffic
+
+    Process - These events are for processes and threads where a process starts, a thread starts or exits, etc. Probably better in ProcExp
+
+    Profiling - Checks the amount of processor time and memory use of each process
+
+
+    Tabs
+
+        File - Has the save feature which allows exporting to CSV and CML as well as the native PML format, backup up files in virtual memory or in previous PMLs, import and export your Procmon configurations, and turn on and off Capture Events.
+
+        Edit - Has features for ease of access: Copy, Find, Find highlight, Find Bookmark, an Auto-scroll, and Clear Display.
+
+        Event - Options for the currently selected event as if you right clicked. You can view Properties, Stack, Toggle Bookmark, Jump To, Search Online, Filter Include/Exclude, and Highlight options.
+
+        Filter - For advanced search options it has Enabled Advanced Output, Filter, Reset Filter, Load (saved) Filters, Save Filters, Organize (saved) Filters, Drop Filtered Events (will not capture events that you are filtering) and highlight filters (or things that you have highlighted).
+
+        Tools - Summary outputs and information cheat sheets. System Details, Process Tree, Process Activity Summary, File Summary, Registry Summary, Stack Summary, Network Summary, Cross Reference Summary (paths that are written and read between differing processes)
+
+        Options - Configuration of the GUI, Has Always on Top, Font, Highlight Colors, Configure Symbols (for the stack tab), Select Columns, History Depth (how many events it will hold), Profiling Events (if you want it changed to milliseconds), Enable Boot Logging, Show Resolved Network Addresses, Hex Offsets and Length, Hex Process and Thread IDs.
+
+        Help - Help Manual, Command Line Options, About
+
+
+    Default Columns
+
+        Time - Shows the exact time the event occurred
+
+        Process Name - The name of the process that generated the event. It doesn’t show the full path by default, but if you hover over it then the full path is displayed.
+
+        PID - Process ID
+
+        Operation - Name of the operation being logged, with corresponding icon (registry, file, network, process)
+
+        Path - The path of the event that was being touched (the affected) and not the event of the process (the instigator)
+
+        Result - This shows the result of the operation in codes like SUCCESS or ACCESS DENIED
+
+        Detail - additional information for troubleshooting
+
+
+Demo for Using PPROCMON to Monitor the Windows Boot Process
+
+
+    Looking at Processes on Boot
+
+
+    Start up the Admin-Station Host and log in as Army\andy.dwyer and open REGEDIT from their Search Bar and Go to HKLM\Software\Microsoft\Windows\CurrentVersion\Run.
+
+    Create a New String Value Called RunME and modify it with c:\windows\notepad.exe.
+
+    `Go to C:\SysinternalsSuite <Location may be different>
+
+        Double-Click Procmon.exe. Accept Eula. Go to the File Tab and uncheck Capture Events. Go to the Options tab and Click on Enable Boot Logging.
+
+        This will enable logging on System Boot. Select Every Second. Restart the System.
+
+    Once the System restarts, open and minimize notepad and then navigate to and double-click Procmon.exe to start it. It will ask to Save the log file.
+
+        Save the log file to the Desktop. Once all of the Bootlog.pml files are saved, return to Procmon.
+
+        If the .pml file does not automatically load, go to the File tab and click on OPEN and browse to our Desktop and select the ".pml" file to load.
+
+    Click on the Tools tab and click on Process Tree.
+
+        Explain the Process Tree and how it’s formed (hierarchically) and why things are grayed out (They are no longer running).
+
+        Discuss why the description and path are important in identifying malware and also the digital signature, the process owner, and the command line syntax and what that could indicate as abnormal. If there is no description it’s a good indicator of malware
+
+            Processes starting from odd locations
+
+            Digital signitures are a good indicator of malware if it’s missing but they can be falsified
+
+            This is where we would look for our malicious boot and pre-windows start malware. We could also look for system diagnostic things such as any programs that are taking to long to load or hang that could indicate malware.
+
+
+    Find notepad.exe and have a discussion about things to look for like programs that shouldn’t run at start or unknown programs and services. Continue onto the next part.
+
+
+    Learning PROCMON Filtering
+
+
+    Once notepad.exe is found, right-click and select Go to Event to show the functionality.
+
+
+    Right-Click and go over the list of options focusing on the Include and Exclude for the filtering and the highlight option and the properties.
+
+
+    Right-Click and select Include and select PID and Discuss the results (Everything is blown away except the notepad).
+
+        Select the Filter tab and select Filter…​ and explain the "Include" and "Exclude" at the bottom.
+
+        Remove the "PID is ???? (whatever the PID is for notepad.exe) include" and add an entry for "Process Name is notepad.exe" then include then remove it and add the same one but "Process Name is notepad.exe then exclude".
+
+        Exit the Filter and do a Ctrl-F and search for notepad.exe. It is gone.
+
+
+    Go back to the Filter Tab and remove the "Process Name in notepad.exe then exclude" and exit the Filter and do a Ctrl-F and search for notepad.exe, you should see it now.
+
+        Discuss some other filtering techniques. Discuss the advantages and disadvantages and what use they believe they can get out of the tool.
+
+
+    Explain any further questions or gaps about filtering or analyzing processes at boot. END DEMO.
+
+
+Any Questions?
+
+
+3. Autoruns
+
+Analyze the Windows startup environment using AUTORUNS
+
+
+Q: What is AUTORUNS?
+
+    Autoruns shows applications automatically started on during system boot or login as well as the Registry and file system locations for auto-start configurations. Examples: AppInit, Winlogon, Scheduled Tasks, Services, Logon, etc.
+
+
+    The External Interface
+
+        Highlighted items that are colors notate special meanings
+
+            Pink - Means no publisher information was found or the digital signature doesn’t exist or match.
+
+            Green - Used when comparing previous set of Autorun data to indicate an item wasn’t there last time.
+
+            Yellow - The startup entry is there, but the file or job it points to doesn’t exist anymore.
+
+        Highlight a task - Right-Clicking or Entry Tab - Allows you to Jump to where the entry resides in the File System, Search Online, Open in Process Explorer, Go to it’s Registry Key or Task Scheduler.
+
+        User Tab - Allows you to analyze different user accounts autoruns (must be administrator to view other accounts).
+
+        Options Tab- Allows you to hide certain entries and also allows font changes and scan options. The Scan Option allows you to choose to scan Per-User Locations, Verify code signatures, and Check Virustotal.com.
+
+        File Tab - Allows you to Analyze Offline systems and compare files from other systems or yours, Very handy.
+
+
+Q: Where are some of the places that AUTORUNS look?
+
+    The Internal Tabs
+
+        Everything - Shows all of the outputs from the other tabs together on this one tab. One stop Shop, Not as messy as you might think.
+
+        Explorer - This tab list add-on components that load themselves into Windows Explorer. Mostly context menu add-ons and the sort.
+
+        Logon - Checks the normal locations for things to be automatically loaded, including registry keys Run and RunOnce keys, the Start Menu, up to 43 locations.
+
+        Internet Explorer - This tab list all of the browser extensions, toolbars, browser helper objects that are used by malware to either spy or show you ads.
+
+        Scheduled Tasks - This tab shows Tasks that are scheduled. Malware uses it to install, reinstall, and do all types of nefarious things with this.
+
+        Services - This tab list auto-start services. Malware sometimes hides itself as a service by creating it’s own service that helps make sure that other malware processes are running.
+
+        Drivers - .Sys files. Used to call a bunch of system and svchost executables. Malware can hide in here, look at the path.
+
+        Codecs - Libraries of code that handle media playback for videos and audio. Used by malware to automatically start on systems.
+
+        Boot Execute - Things that can’t happen when windows is loaded like a hard drive check.
+
+        Image Hijacks - Will let you know if a program has been replaced with another, ex: when you run notepad.exe it runs calc.exe instead.
+
+        AppInit - Settings where RequireSignedAppInit_DLLs key is set to 0 and any DLLs that were loaded with that setting will be showed.
+
+        KnownDLLs - Listed to make sure you can verify and that they are all verified and published DLLs.
+
+        Winlogon - Shows DLLs that register for Winlogon notification of logon events.
+
+        Winsock Providers - Networking, shows registered winsock providers. Malware often installs itself as these because there are few tools that can remove them.
+
+        Print Monitors - Third party printer applications, Drivers and Dlls that load into the print spooling service. Malware uses this support to autostart itself.
+
+        LSA Providers - Shows registered LSA authentication notification and security packages.
+
+        Network Providers - Third party network providers.
+
+        WMI - Views WMI related persistence (Ex: If a powershell script was using a get-wmiobject, it would show up).
+
+        Office - Shows Office related material. If excel scripts or power points were infected and opening at start they would show here.
+
+
+Demo for Analyzing the Startup Environment with Autoruns
+
+
+    Have students log into their Admin-Station as Army/andy.dwyer.
+
+
+    Have students go to C:\SysinternalsSuite <Location may be different> and open up Autoruns.exe go to the Options tab and make sure that Hide Windows Entries is unchecked.
+
+
+    The entry created from the PROCMON demo "RunME Notepad (Verified) c:\windows\notepad.exe" under the HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run section in the Everything tab and the Logon tab should be visible.
+
+        Side note: Unchecking the Hide Windows Entries can create a lot of unneeded clutter. Go to the Options tab and check Hide Windows Entries.
+
+        Notate that anything (Verified) Microsoft Windows as a Publisher is removed to the class.
+
+
+    Discuss what we are looking at and what we are looking for using our notepad.exe as an example such things as registry keys, path, names, digital signatures, etc.
+
+
+    Click on the Logon tab, it gives a chunk of information that the Everything tab gave us but gives us only where autoruns checks for "normal" autorun locations. Discuss the locations that malware might hide. (ex: Run, RunOnce, etc)
+
+
+    Click on the Scheduled tasks tab. Discuss what ways malware might use schedule tasks and what ways we could mitigate it. (ex: create schedule task to install itself, to set a callback at a certain time/ group policy)
+
+
+    Click on the Services tab. Discuss ways that malware can take advantage of services and ways to mitigate it. (ex: create a service that auto starts at boot that runs a malware process, group policy)
+
+
+    Discuss the advantages and disadvantages if any and what use do they believe if any they can get out of the tool.
+
+
+    Clarify any Questions or gaps in learning. END DEMO
+
+    ANY QUESTIONS
+
+
+4. Procexp
+
+Analyze Windows running processes using PROCEXP
+
+
+Q: What is Process Explorer
+
+    Process Explorer is a task manager and system monitor which collects information on running processes with such features as Hierarchical view of processes, live CPU activity, ability to kill and suspend processes, display DLLs loaded, create process dumps, display handles and much more.
+
+    There will be a lot of similarities in the options and results that both Task Manager and Process Explorer give.
+
+    Process Explorer should be run as administrator to get it’s full usage.
+
+    Process Explorer has a powerful search capability that can show processes and their respective DLLs and handles.
+
+
+    Default Interface Columns
+
+        Process - Processes are listed according to their parent child relationship. Processes listed as a sub row are child processes of the upper process.
+
+        CPU - Shows general CPU usage percentage of this process.
+
+        Private Bytes - Shows the size of memory only used by this process and not shared with other processes and DLL’s.
+
+        PID - Shows the process identifier given by the operating system and used to easily identify the process.
+
+        Description - Shows process information (what it is).
+
+        Company Name - Shows the application publisher company.
+
+
+    Interface Tabs
+
+        File - Allows you to run applications as if from the "Run window" and if you are administrator you can run as a limited user (lower credentials), save functions, and the ability to shutdown, restart, lock, etc the system.
+
+        Options - Allows you to the option to run Process Explorer at logon, the ability the verify Image (digital) signatures, check virus total, to replace task manager with process explorer, and configure graphical options such as colors/fonts/thread symbols/tray icons/highlight duration.
+
+        View - Shows system information (resource monitor in task manager), manipulate how you view the processes such as speed/refresh rate, allows column manipulation such as adding and removing columns.
+
+        Process - Is for individual clicked on processes. It shows windows which allows selected processes to be brought to front or maximized or minimized, set affinity which allocated CPU usage, sets priority for it’s placement in the pool, can kill/kill tree/restart/suspend, create a process dump, search the selected process on virustotal, the select the process’s properties and search it online.
+
+        Find - Used for finding Handles and DLLs.
+
+        Handle - If split window is selected this will appear. Select a handle on the lower panel and you are able to close the handle or select it’s properties. It is interchangeable with a DLL tab depending on what you select to look at in the lower panel. The DLL tab shows properties, search online, and check virus total.
+
+        Users - Used for controlling users on host if you are admin. Can connect, disconnect, logoff, remote control, send messages, and view some brief properties about the user’s status.
+
+        Help - Help manual and an about
+
+
+    Colors (Selected by default)
+
+        Green - New Objects - Briefly flashes "Green" before changing into one of the 9 other colors.
+
+        Red - Deleted Objects - Dead.
+
+        Lavender - Own Processes - Processes owned by the current logged in user.
+
+        Salmon - Services
+
+        Gray - Suspended Processes
+
+        Purple - Packed Images -Processes might contain compressed code hidden inside them. Malware uses it because it obfuscates the contents of the file.
+
+        Cyan - Immersive Process - Windows Store App related, Uses Windows 8+ new APIs
+
+
+Demo on Analyzing Windows Running Processes with Process Explorer
+
+
+    Have students open up their Admin-Station and log in as Army\andy.dwyer.
+
+
+    Once logged on they will need to go to C:\SysinternalsSuite <Location may be different> and Right-Click on Procexp.exe and select Run as Administrator and Maximize it.
+
+        Press "spacebar" to pause ProcExp from refreshing any further so it will be easier to continue (hitting spacebar again will un-pause it).
+
+
+    Find notepad.exe (If the process tree is not already in Tree form then go to the View tab and click on Process Tree) and discuss the lay out and columns reinforcing the FG.
+
+        Once notepad.exe is found, double-click it. The data returned is PATH, CMDLINE, AUTOSTART, TCP/IP, STRINGS, and much more. Discuss why this is important.
+
+
+    Close the window. Go to the Options tab, click on VirusTotal.com and click on Check VirusTotal.com and discuss VirusTotal and it’s effects. Agree to the Terms of service to continue.
+
+        A new column populates on the far right called VirusTotal and everything now has a score (or almost everything).
+
+
+    Click on the Options" tab again and click Verify Image Signatures to check that everything has verified publisher digital signatures (discuss why this is important).
+
+        The Verified Signer column and Company name are now listed (what are we looking for?).
+
+
+    Click on View and click on Select Columns, Select Auto Start Location and retouch on autoruns briefly in the Process Image tab and Receives and Sends from the Process Network tab.
+
+        Explain what we are looking for from these Three tabs are autorun locations and network traffic.
+
+
+    Between the View and Process tabs there is a Show Lower Pane button, click that button and it will bring up a list of Handles or DLLs, we want Handles (Handles in Windows refer to an integer value that is used to uniquely identify a resource in memory like a window, an open file, a process, etc).
+
+        To change between the two, you would click on the View tab and click on Lower Pane View and there are two options DLLs and Handles.
+
+        We can see any Files, Processes, Registry keys associated with our selected process and discuss some of the things we might be looking for.
+
+
+    Switch to DLLs by repeating the previous step. Discuss what we are looking for and why we are looking at DLLs. Unsigned, not in C:\Windows\System32, No description, weird names, anything that looks abnormal.
+
+
+    Double click on notepad.exe, click on the Image tab and to click the Explore option for Path information.
+
+        The first thing to look for is if there are any DLLs in the folder that are not listed in Process Explorer. Discuss rogue DLLs and files.
+
+        Malware sometimes has associated DLLs that come packaged with it or is itself a DLL that plugs into legitimate processes or other DLLs, Discuss ways Malware injects.
+
+        Look at time stamps at the files in the folder and at the files themselves, but at this point we would start to move onto other tools and methods.
+
+
+    Discuss the advantages and disadvantages if any and what use do they believe if any they can get out of the tool.
+
+    ANY QUESTIONS?
+
+
+5. TCPView
+
+Analyze Windows network connections using TCPVIEW
+
+Q: What is TCPVIEW?
+
+    TCPView is a Windows program that will show you detailed listings of all TCP and UDP endpoints on your system, including the local and remote addresses and state of TCP connections.[1]
+
+    It’s a more informative Graphical (GUI) representation of the NETSTAT command
+
+    Shows network connections
+
+Open TCPView
+
+    If you see any Red Rows
+
+        That indicates when a network connection terminates
+
+    If you see any Green Rows
+
+        That indicates when a connection is made
+
+    If the colors are disappearing to quickly, you can modify the Update Speed
+
+        View → Update Speed → 5 seconds
+
+        Keeps colors longer to see what is stopping or starting
+
+    Column Sorting
+
+        Allows you to see lines grouped by State or Process
+
+Q: What are some known malicious ports?
+
+    1337 Leet Port = 1337 means "elite" in hacker/cracker spelling (1=L, 3=E, 7=T, "LEET"="ELITE"). Because of the reference, it may be used by some backdoors.
+
+    31337 Eleet port
+
+    4444 Metasploit default listener port
+
+        To kill Processes
+
+    Right click → End Process
+
+
+6. PsExec
+
+Analyze Windows privileges' using PsExec
+
+Q: What is PsExec?
+
+    light-weight telnet-replacement that lets you execute processes on other systems, complete with full interactivity for console applications, without having to manually install client software.
+
+    Switches
+
+        -s Run as System account
+
+        -i interacts with the desktop
+
+        -c Copy the specified program to the remote system for execution.
+
+    Demo regedit.exe
+
+        Open as regular user
+
+        Go to HKLM\SAM\SAM
+
+        Can’t go deeper
+
+From an admin cmd shell
+
+psexec -i -s regedit.exe
+
+    Can view down to HKLM\SAM\SAM\Domains\Accounts\Users
+
+This function will not work in our current environment but talk about the ability of running the tool across a network. Also, demo a cmd shell back from another system as System
+
+PsExec -s \\file-server cmd.exe
+whoami
+nt authority\system
+
+
+7. PsLoggedon
+
+Analyze Windows logons using PsLoggedon
+
+Q: What is PsLoggedon used for?
+
+    It can list users that are logged on currently to a system
+
+Q: How can I view the options for PsLoggedon?
+
+    psloggedon.exe /? -accepteula
+
+Q: What does the -accepteula do?
+
+    Prevents a pop up to accept the End User License Agreement
+
+Show output from running PsLoggedon
+
+PS C:\SysinternalsSuite> .\PsLoggedon.exe
+
+PsLoggedon v1.35 - See who's logged on
+Copyright (C) 2000-2016 Mark Russinovich
+Sysinternals - www.sysinternals.com
+
+Users logged on locally:
+     <unknown time>             ADMIN-STATION\cloudbase-init
+     5/10/2021 2:02:19 PM       ADMIN-STATION\student
+     5/10/2021 2:07:48 PM       ADMIN-STATION\andy.dwyer
+
+No one is logged on via resource shares.
+
+The following function will not work in our current environment but talk about the ability of pulling logon information from remote boxes. Set up a Server List for this demo
+
+Write-Output File-Server > "$env:HOMEPATH\Desktop\ServerList.txt"
+Write-Output Domain-Controll >> "$env:HOMEPATH\Desktop\ServerList.txt"
+Write-Output $env:Computername >> "$env:HOMEPATH\Desktop\ServerList.txt"
+
+Run PsLoggedon on all the systems in the list
+
+Foreach ($system in (gc "$env:HOMEPATH\Desktop\ServerList.txt") ) {.\PsLoggedon.exe \\$system -nobanner}
+
+
+Q: How could this tool be used in Cyber?
+
+    Gather a list of every user currently logged on a system
+
+    Possibly find for a malicious actor in the network
+
+    Look for logged on users who are logging in outside of normal hours
+
+
+8. LogonSessions
+
+Analyze Windows session using LogonSessions
+
+While Psloggedon shows who is logged on and what time he/she logged on, loggonsessions shows how that user logged on.
+
+Logon type
+	
+
+Logon title
+	
+
+Description
+
+2
+	
+
+Interactive
+	
+
+A user logged on to this computer.
+
+3
+	
+
+Network
+	
+
+A user or computer logged on to this computer from the network.
+
+4
+	
+
+Batch
+	
+
+Batch logon type is used by batch servers, where processes may be executing on behalf of a user without their direct intervention.
+
+5
+	
+
+Service
+	
+
+A service was started by the Service Control Manager.
+
+7
+	
+
+Unlock
+	
+
+This workstation was unlocked.
+
+8
+	
+
+NetworkCleartext
+	
+
+A user logged on to this computer from the network. The user’s password was passed to the authentication package in its un-hashed form. The built-in authentication packages all hash credentials before sending them across the network. The credentials do not traverse the network in plaintext (also called cleartext).
+
+9
+	
+
+NewCredentials
+	
+
+A caller cloned its current token and specified new credentials for outbound connections. The new logon session has the same local identity, but uses different credentials for other network connections.
+
+10
+	
+
+RemoteInteractive
+	
+
+A user logged on to this computer remotely using Terminal Services or Remote Desktop.
+
+11
+	
+
+CachedInteractive
+	
+
+A user logged on to this computer with network credentials that were stored locally on the computer. The domain controller was not contacted to verify the credentials.[2]
+
+    Demo
+
+List sessions and processes running under each user
+
+PS C:\SysinternalsSuite> .\logonsessions.exe -p
+
+LogonSessions v1.41 - Lists logon session information
+Copyright (C) 2004-2020 Mark Russinovich
+Sysinternals - www.sysinternals.com
+
+_Output_Truncated_
+[14] Logon session 00000000:0010d7b1:
+    User name:    ADMIN-STATION\andy.dwyer
+    Auth package: NTLM
+    Logon type:   RemoteInteractive
+    Session:      2
+    Sid:          S-1-5-21-2352402639-359936040-2003525269-1005
+    Logon time:   5/10/2021 2:07:07 PM
+    Logon server: ADMIN-STATION
+    DNS Domain:
+    UPN:
+     7580: powershell_ise.exe
+     6992: conhost.exe
+    10188: powershell.exe
+     7628: conhost.exe
+    10156: cmd.exe
+     6692: conhost.exe
+     5856: notepad.exe
+     8872: cmd.exe
+     9360: conhost.exe
+     1808: ssh.exe
+     4388: logonsessions.exe
+_Output_Truncated_
+
+Q: Why would you ever need to see what processes a logged on user was running?
+
+A: If you are trying to locate a malicious user or if you are trying to identify processes a piece of malware was running
+
+
+9. PsList
+
+Analyze Windows processes using PsList on local or remote systems
+
+Q: What is PsList used for?
+
+    Another command line tool for gathering process information
+
+    Allows you to refresh the tool for a specified period of time
+
+Q: How do you get the help file for PsList?
+
+pslist /?
+
+Q: How can I get a process list that updates every 10 seconds for 100 seconds?
+
+pslist -s 100 -r 10
+
+    -s [n] run for this many seconds
+
+    -r n refresh every n seconds
+
+Q: Why is this important to Cyber?
+
+    To see if a new admin logs in. Can’t refresh this by default with tasklist or get-process
+
+    To see when a new process starts that could jeopardize your mission
+
+Q: How can this be run on a remote system?
+
+pslist \\file-server 
+
+	Will not work in current environment
+
+Show the output from running the tool
+
+PS C:\SysinternalsSuite> pslist
+
+PsList v1.4 - Process information lister
+Copyright (C) 2000-2016 Mark Russinovich
+Sysinternals - www.sysinternals.com
+
+Process information for ADMIN-STATION:
+
+Name                Pid Pri Thd  Hnd   Priv        CPU Time    Elapsed Time
+Idle                  0   0   4    0     52   115:19:16.046    28:59:33.270
+System                4   8 101 4115    188     0:01:21.687    28:59:33.270
+Registry            104   8   4    0    360     0:00:03.484    28:59:40.221
+smss                324  11   2   59    500     0:00:00.171    28:59:33.264
+csrss               432  13  12  539   1772     0:00:00.921    28:59:09.665
+wininit             508  13   1  168   1356     0:00:00.078    28:59:09.146
+csrss               516  13  10  388   1640     0:00:00.656    28:59:09.139
+winlogon            604  13   3  281   2420     0:00:00.125    28:59:09.097
+services            652   9   5  669   4872     0:00:14.375    28:59:09.056
+lsass               664   9   7 1700   8080     0:00:09.531    28:59:08.760
+_Output_Truncated_
+
+10. PsInfo
+
+Analyze Windows system information using PsInfo
+
+    Gathers key system information from both local and remote systems.
+
+The following function will not work in our current environment but talk about the ability of pulling PsInfo information from remote boxes. Set up a Server List for this demo
+
+Write-Output File-Server > "$env:HOMEPATH\Desktop\ServerList.txt"
+Write-Output Domain-Controll >> "$env:HOMEPATH\Desktop\ServerList.txt"
+Write-Output $env:Computername >> "$env:HOMEPATH\Desktop\ServerList.txt"
+
+Run PsInfo on all the systems in the list
+
+Foreach ($system in (gc "$env:HOMEPATH\Desktop\ServerList.txt") ) {.\Psinfo.exe -hs -nobanner \\$system | out-file $env:homepath\Desktop\psinfo.txt -append}
+
+
+Show the output from running the tool
+
+    Talk about the importance of identifying the following system information and how it can be used to associate possible exploits by either the network owner or an adversary.
+
+PS C:\SysinternalsSuite> psinfo
+
+PsInfo v1.78 - Local and remote system information viewer
+Copyright (C) 2001-2016 Mark Russinovich
+Sysinternals - www.sysinternals.com
+
+System information for \\ADMIN-STATION:
+Uptime:                    1 day 5 hours 9 minutes 14 seconds
+Kernel version:            Windows 10 Enterprise, Multiprocessor Free
+Product type:              Professional
+Product version:           6.3
+Service pack:              0
+Kernel build number:       17763
+Registered organization:
+Registered owner:
+IE version:                9.0000
+System root:               C:\windows
+Processors:                4
+Processor speed:           2.2 GHz
+Processor type:            AMD EPYC-Rome Processor
+Physical memory:           2 MB
+Video driver:              Microsoft Basic Display Adapter
+
+11. Strings
+
+Analyze Windows files using Strings
+
+    Switches
+
+        -a ASCII
+
+Must provide literal file path
+
+strings -a C:\users\andy.dwyer\Desktop\<doc>.txt
+
+
+12. Handle
+
+Analyze Windows handles process using Handle
+
+Q: What is a handle?
+
+    Handles are data structures that represent open instances of basic operating system objects applications interact with, such as files, registry keys, synchronization primitives, and shared memory.
+
+    Applications can’t access objects directly, must obtain a handle
+
+    Handles for each process are tracked in an internal table known as the Object Manager
+
+    Handles allow a common interface to objects, regardless of underlying changes to the object
+
+    Handles allow Windows to track ACLs for objects during handle creation time
+
+DEMO: Killing a handle using Sysinternal handle.exe
+
+Step one: Open Powershell.exe and start-transcript
+
+PS C:\windows\system32> Start-Transcript 
+Transcript started, output file is C:\Users\andy.dwyer\Documents\PowerShell_transcript.ADMIN-STATION.x9xkJMAJ.20210510184103.txt
+
+	Note the file name and location
+
+Step two: Locate the PID number of powershell.exe, we will run tasklist and scroll down until you find powershell
+
+tasklist
+
+Step three: In a different cmd prompt, use the following command to show the handles in use with powershell.exe
+
+C:\windows\system32>handle.exe -p <pid of powershell> -accepteula
+
+Nthandle v4.22 - Handle viewer
+Copyright (C) 1997-2019 Mark Russinovich
+Sysinternals - www.sysinternals.com
+
+   40: File  (RW-)   C:\Windows\System32
+   C4: File  (R-D)   C:\Windows\System32\WindowsPowerShell\v1.0\en-US\powershell.exe.mui
+  174: Section       \BaseNamedObjects\__ComCatalogCache__
+  1C4: Section       \BaseNamedObjects\windows_shell_global_counters
+  1F4: Section       \...\Cor_SxSPublic_IPCBlock
+  1F8: Section       \BaseNamedObjects\Cor_Private_IPCBlock_v4_10188
+  208: Section       \Sessions\2\BaseNamedObjects\windows_shell_global_counters
+  _Output_Truncated_
+
+Step four: Show that the start-transcript log file cannot be altered. Open in notepad and type anything then try to save it
+
+Step five: Run the following command
+
+C:\windows\system32>handle.exe -p 10188 -c c:\Users\andy.dwyer\Documents\PowerShell_transcript.ADMIN-STATION.x9xkJMAJ.20210510184103.txt
+
+Nthandle v4.22 - Handle viewer
+Copyright (C) 1997-2019 Mark Russinovich
+Sysinternals - www.sysinternals.com
+
+    C: WaitCompletionPacket
+Close handle C in powershell.exe (PID 10188)? (y/n)
+
+After the handle is closed reopen the log file back in notepad and show the file can now be edited.
+
+Q: Why are handles important to Cyber?
+
+    Looking at handles to DLLs will help understand what malware could be doing as well as killing handles to logs could prevent behavior on systems from being recorded.
+
+
+References
+
+    SysInternals Download
+
+This page was built using a slightly modified version of the Antora default UI.
+The source code for this UI is licensed under the terms of the MPL-2.0 license and can be found at https://git.cybbh.space/common/contributing
