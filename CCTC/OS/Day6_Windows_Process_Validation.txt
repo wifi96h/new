@@ -314,6 +314,7 @@ ParentProcessId            Property       uint32 ParentProcessId {get;}
     3) View the processes with PID and PPID sorted by PID
 
 PS C:\WINDOWS\system32>  Get-CimInstance Win32_Process | select name,ProcessId,ParentProcessId | sort processid
+	** Get-CimInstance Win32_Process | select name,ProcessId,ParentProcessId,Path | sort processid **
 
 name                        ProcessId ParentProcessId
 ----                        --------- ---------------
@@ -875,7 +876,7 @@ A: Powershell is running encoded strings
 
 Q: How do we decode encoded strings?
 
-A: Cyberchef website
+A: Cyberchef website <https://gchq.github.io/CyberChef/>
 
 Note: Demo Cyberchef
 
