@@ -25,13 +25,18 @@ Table of Contents
     12. Handle
     References
 
+#########################################################################################################
+#########################################################################################################
 
 Terminal Learning Objectives
 1. Identify SysInternals Tools to Enumerate Systems
 2. Identify SysInternals Tools to Analyze Processes
 
+#############################################
 
 1. Sysinternals Introduction
+
+#############################################
 
     Windows Sysinternals is a collection of advanced system utilities that were established to help users manage,troubleshhot and diagnose Windows systems and applications. The sysinternals tools are housed on the website https://live.sysinternals.com/ to be readily available to run directly from the site. We will have the tools downloaded on our box(es) for ease of use.
 
@@ -64,9 +69,11 @@ PS C:\Users\andy.dwyer\Desktop> Expand-Archive SysinternalsSuite.zip
 	Download the .zip file from the website
 	Unzip the file, creates a folder on the desktop
 
+##################################
 
 2. Procmon
 
+##################################
 Using PROCMON to monitor the Windows Boot Process
 
 
@@ -190,8 +197,11 @@ Demo for Using PPROCMON to Monitor the Windows Boot Process
 
 Any Questions?
 
+###############################
 
 3. Autoruns
+
+###############################
 
 Analyze the Windows startup environment using AUTORUNS
 
@@ -298,8 +308,11 @@ Demo for Analyzing the Startup Environment with Autoruns
 
     ANY QUESTIONS
 
+#################################
 
 4. Procexp
+
+#################################
 
 Analyze Windows running processes using PROCEXP
 
@@ -420,8 +433,11 @@ Demo on Analyzing Windows Running Processes with Process Explorer
 
     ANY QUESTIONS?
 
+############################
 
 5. TCPView
+
+############################
 
 Analyze Windows network connections using TCPVIEW
 
@@ -465,8 +481,11 @@ Q: What are some known malicious ports?
 
     Right click → End Process
 
+##########################
 
 6. PsExec
+
+##########################
 
 Analyze Windows privileges' using PsExec
 
@@ -502,8 +521,11 @@ PsExec -s \\file-server cmd.exe
 whoami
 nt authority\system
 
+########################################
 
 7. PsLoggedon
+
+#######################################
 
 Analyze Windows logons using PsLoggedon
 
@@ -553,92 +575,26 @@ Q: How could this tool be used in Cyber?
 
     Look for logged on users who are logging in outside of normal hours
 
+##################################
 
 8. LogonSessions
+
+##################################
 
 Analyze Windows session using LogonSessions
 
 While Psloggedon shows who is logged on and what time he/she logged on, loggonsessions shows how that user logged on.
 
-Logon type
-	
-
-Logon title
-	
-
-Description
-
-2
-	
-
-Interactive
-	
-
-A user logged on to this computer.
-
-3
-	
-
-Network
-	
-
-A user or computer logged on to this computer from the network.
-
-4
-	
-
-Batch
-	
-
-Batch logon type is used by batch servers, where processes may be executing on behalf of a user without their direct intervention.
-
-5
-	
-
-Service
-	
-
-A service was started by the Service Control Manager.
-
-7
-	
-
-Unlock
-	
-
-This workstation was unlocked.
-
-8
-	
-
-NetworkCleartext
-	
-
-A user logged on to this computer from the network. The user’s password was passed to the authentication package in its un-hashed form. The built-in authentication packages all hash credentials before sending them across the network. The credentials do not traverse the network in plaintext (also called cleartext).
-
-9
-	
-
-NewCredentials
-	
-
-A caller cloned its current token and specified new credentials for outbound connections. The new logon session has the same local identity, but uses different credentials for other network connections.
-
-10
-	
-
-RemoteInteractive
-	
-
-A user logged on to this computer remotely using Terminal Services or Remote Desktop.
-
-11
-	
-
-CachedInteractive
-	
-
-A user logged on to this computer with network credentials that were stored locally on the computer. The domain controller was not contacted to verify the credentials.[2]
+|	Logon type	|	Logon title	|	Description	|
+|	2	|	Interactive	|	A user logged on to this computer.	|
+|	3	|	Network	|	A user or computer logged on to this computer from the network.	|
+|	4	|	Batch	|	Batch logon type is used by batch servers, where processes may be executing on behalf of a user without their direct intervention.	|
+|	5	|	Service	|	A service was started by the Service Control Manager.	|
+|	7	|	Unlock	|	This workstation was unlocked.	|
+|	8	|	NetworkCleartext	|	A user logged on to this computer from the network. The user’s password was passed to the authentication package in its un-hashed form. The built-in authentication packages all hash credentials before sending them across the network. The credentials do not traverse the network in plaintext (also called cleartext).	|
+|	9	|	NewCredentials	|	A caller cloned its current token and specified new credentials for outbound connections. The new logon session has the same local identity, but uses different credentials for other network connections.	|
+|	10	|	RemoteInteractive	|	A user logged on to this computer remotely using Terminal Services or Remote Desktop.	|
+|	11	|	CachedInteractive	|	A user logged on to this computer with network credentials that were stored locally on the computer. The domain controller was not contacted to verify the credentials.[2]	|
 
     Demo
 
@@ -678,8 +634,11 @@ Q: Why would you ever need to see what processes a logged on user was running?
 
 A: If you are trying to locate a malicious user or if you are trying to identify processes a piece of malware was running
 
+##########################
 
 9. PsList
+
+##########################
 
 Analyze Windows processes using PsList on local or remote systems
 
@@ -736,7 +695,11 @@ services            652   9   5  669   4872     0:00:14.375    28:59:09.056
 lsass               664   9   7 1700   8080     0:00:09.531    28:59:08.760
 _Output_Truncated_
 
+################################
+
 10. PsInfo
+
+################################
 
 Analyze Windows system information using PsInfo
 
@@ -780,7 +743,11 @@ Processor type:            AMD EPYC-Rome Processor
 Physical memory:           2 MB
 Video driver:              Microsoft Basic Display Adapter
 
+#######################################
+
 11. Strings
+
+#######################################
 
 Analyze Windows files using Strings
 
@@ -792,8 +759,11 @@ Must provide literal file path
 
 strings -a C:\users\andy.dwyer\Desktop\<doc>.txt
 
+#################################
 
 12. Handle
+
+#################################
 
 Analyze Windows handles process using Handle
 
@@ -858,10 +828,12 @@ Q: Why are handles important to Cyber?
 
     Looking at handles to DLLs will help understand what malware could be doing as well as killing handles to logs could prevent behavior on systems from being recorded.
 
+#############################################################################################################
+#############################################################################################################
 
 References
 
-    SysInternals Download
+    SysInternals Download <https://learn.microsoft.com/en-us/sysinternals/downloads/sysinternals-suite>
 
 This page was built using a slightly modified version of the Antora default UI.
 The source code for this UI is licensed under the terms of the MPL-2.0 license and can be found at https://git.cybbh.space/common/contributing
