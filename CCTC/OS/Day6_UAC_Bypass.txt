@@ -16,6 +16,8 @@ Table of Contents
     1.5 DEMO: Bypass UAC with fodhelper.exe
     References
 
+##################################################################################################################
+##################################################################################################################
 
 Terminal Learning Objectives
 1. Describe User Account Control Bypass
@@ -23,7 +25,7 @@ Terminal Learning Objectives
 3. Complete Windows User Account Control CTFd Challenges PE
 
 
-1.1 What is UAC and what does it do
+### 1.1 What is UAC and what does it do
 
 Most Windows installers create a single user account, which is an administrative account, when setting up Windows and then move on. Because of this, most users perform tasks on their Windows machine as an admin, and that allows malware to run as admin. UAC was created to protect users from themselves.
 Stands for User Account Control
@@ -34,17 +36,18 @@ Stands for User Account Control
 
     If the user is in the local administrators group, they can click through the prompt, or if not in the Administrator group, can enter the administrator password to complete the action
 
-    Registry key is located at "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"
+    ** Registry key is located at "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"
 
 	UAC is the Windows equivalent to Linux sudo
 
 
-1.2 What do UAC prompts look like
-	See UAC Slide 9 for images Public Antora Page
+### 1.2 What do UAC prompts look like ### 
+
+	See UAC Slide 9 for images Public Antora Page <https://os.cybbh.io/public/os/latest/index.html>
 
 Demo: Attempt to install Immunity Debugger from a non-admin cmd shell. Point out that UAC prompts for action
 
-Immunity Debugger Download
+Immunity Debugger Download <https://debugger.immunityinc.com/ID_register.py>
 Multiple color-coded consent prompts
 
     Red - Application or publisher blocked by group policy
@@ -58,7 +61,7 @@ Multiple color-coded consent prompts
 960
 
 
-1.3 How does UAC know how to act
+### 1.3 How does UAC know how to act ### 
 
 When an application is run, UAC checks that file’s manifest for instructions
 
@@ -78,14 +81,14 @@ There are three types of execution levels in a file’s manifest.
 
         Ex: C:\Windows\regedit.exe
 
-1.3.1 Autoelevate setting
+##### 1.3.1 Autoelevate setting ##### 
 
     Some Windows executables can "auto elevate" without a prompt.
 
     Files that have "auto elevate" in their permissions will not prompt UAC
 
 
-1.4 View file manifest settings
+### 1.4 View file manifest settings ### 
 
 The Sysinternals Tool sigcheck will allow the viewing of these settings.
 Map the Sysinternals Command in Powershell
@@ -105,7 +108,7 @@ How to locate Windows executables that have autoelevate in the manifest
 
 PS Z:\> ./strings –s c:\windows\system32\*.exe | findstr /i autoelevate
 
-1.5 DEMO: Bypass UAC with fodhelper.exe
+### 1.5 DEMO: Bypass UAC with fodhelper.exe ### 
 
 What is fodhelper?
 
@@ -133,7 +136,7 @@ Demo using Procmon to find registry keys called by autoelevate applications
 
     Look for Registry Keys HKCU\software\classes
 
-    Look fro Registry Keys HKCU\ms-settings\shell\open\command
+    Look for Registry Keys HKCU\ms-settings\shell\open\command
 
 	Explain the Registry Key HKCU is writable by the user and that ms-settings\shell\open\command doesn’t exist so we can exploit this key to perform what behavior we want
 
@@ -181,14 +184,16 @@ NOTE:A new window will pop up with Administrator privileges
 
 Activity: UAC Bypass
 
+##############################################################################################################
+##############################################################################################################
 
 References
 
-    [[[1]]] Windows Integrity Mechanism Design, July. 2007, Available: https://msdn.microsoft.com/en-us/library/bb625963.aspx#BKMK_SetTokenIntegrity
+    [[[1]]] Windows Integrity Mechanism Design, July. 2007, Available: <https://msdn.microsoft.com/en-us/library/bb625963.aspx#BKMK_SetTokenIntegrity> 
 
-    [[[2]]] Penetration Testing Lab, June. 2017, Available: https://pentestlab.blog/2017/06/07/uac-bypass-fodhelper/
+    [[[2]]] Penetration Testing Lab, June. 2017, Available: <https://pentestlab.blog/2017/06/07/uac-bypass-fodhelper/>
 
-    [[[3]]] Microsoft Windows 10 - Local Privilege Escalation (UAC Bypass), Oct. 2018, Available: https://www.exploit-db.com/exploits/45660
+    [[[3]]] Microsoft Windows 10 - Local Privilege Escalation (UAC Bypass), Oct. 2018, Available: <https://www.exploit-db.com/exploits/45660>
 
 This page was built using a slightly modified version of the Antora default UI.
 The source code for this UI is licensed under the terms of the MPL-2.0 license and can be found at https://git.cybbh.space/common/contributing
