@@ -50,6 +50,9 @@ Table of Contents
         7.2 - Navigating Proc Directory
         7.3 - Resources
 
+##############################################################################################################
+##############################################################################################################
+** sudo netstat -anop # place with network/procecss area **
 
 Terminal Learning Objectives
 1. Describe Linux Processes
@@ -57,15 +60,18 @@ Terminal Learning Objectives
 3. Discuss Commands to Enumerate Processes
 4. Complete Linux Process CTFd Challenges PE
 
+#####################################
 
 1 Process Listing
+
+#####################################
 
 A process is one of the most important fundamental concepts of the Linux Operating System. A process refers to a program in execution; it is a running instance of a program. It is made up of the program instruction, data read from files and other programs or input from a system user.
 
 Each Linux system has numerous processes running. You may be familiar, or will become familiar, with most of these processes if you regularly use commands like "ps" or "top" to display them.
 
 
-1.1 ps command
+### 1.1 ps command ### 
 
 The ps command is a native Unix/Linux utility for viewing information concerning a selection of running processes on a system: it reads this information from the virtual files in /proc filesystem
 Output of ps command
@@ -77,9 +83,19 @@ student@linux-opstation-grkv:~$ ps
 
 	ps (report a snapshot of the current processes) command
 	the output provides information about the currently running processes, including their process identification numbers (PID).
+	** ps -elf # e=everything; cannot be used with N**
+	F S UID          PID    PPID  C PRI  NI ADDR SZ WCHAN  STIME TTY          TIME CMD
+	S = State
+	
+	** ps --ppid 1 -lf **
+	** ps -p 2,3 -lf **
+	** ps -Nlf --ppid 2 # not including processes with ppid 2 **
+	** ps -elf | grep 127.0.0.1 **
+	** ps -elf --forest
+	
 
 
-1.2 top command
+### 1.2 top command ### 
 
 The top command is used to show the Linux processes. It provides a dynamic real-time view of the running system. Usually, this command shows the summary information of the system and the list of processes or threads which are currently managed by the Linux Kernel. Additional columns, like ppid, can be added by pressing f in the main window. A hierarchical view of the process tree can be displayed by pressing shift + v.
 Output of top command
@@ -102,12 +118,15 @@ KiB Swap:        0 total,        0 free,        0 used.  2642820 avail Mem
 	the output displays the summary information for the system and a dynamic list of processes currently managed by the Linux kernel
 
 
-1.3 htop command
+### 1.3 htop command ### 
 
 Similar to top, htop is a utility used to display various information about Linux processes dynamically, but in a more human friendly way. Also like top it can be configured to show an operator exactly the set of information needed for the task at hand. At the bottom of the htop window there is a bar with some available actions, namely F5 to present the process listing in a hierarchicall tree view, and F2 to add or remove columns such as ppid.
 
+################################
 
 2. Startup Processes
+
+################################
 
 The startup process follows the boot process and brings the Linux computer to an operational state in which it is usable for productive work. It is highly important that a demarcation is established in virtual memory to prevent programs running in user space to directly interact with the kernel.
 
@@ -168,13 +187,16 @@ Operational Value
 
     Understanding the difference between User and Kernel mode processes, as well as the Parent/Child relationship of processes, is fundamental to understanding how a Linux machine works.
 
+########################################
 
 3. Concepts of Virtual Memory
+
+########################################
 
 Virtual memory is divided into kernel space and user space
 
 
-3.1 Kernel Space
+### 3.1 Kernel Space ### 
 
 Kernel space is that area of virtual memory where kernel processes will run. This division is required for memory access protections. Code running in kernel mode has unrestricted access to the processor and main memory. This is a powerful but dangerous privilege that allows a kernel process to easily crash the entire system. The kernel is the core of the operating system. It normally has full access to all memory and machine hardware (and everything else on the machine). To keep the machine as stable as possible, you normally want only the most trusted, well-tested code to run in kernel mode/kernel space.
 
@@ -183,14 +205,14 @@ Executing code in kernel space will give it unrestricted access to any of the me
 Kernel space can be accessed by user processes only through the use of system calls.
 
 
-3.2 User Space
+### 3.2 User Space ### 
 
     User mode, in comparison, restricts access to a (usually quite small) subset of memory and safe CPU operations. User space refers to the parts of main memory that the user processes can access. If a process makes a mistake and crashes, the consequences are limited and can be cleaned up by the kernel. This means that if your web browser crashes, it won’t take down the whole system. Think of it as a form of sand-boxing — it restricts user programs so they can’t mess with memory (and other resources) owned by other programs or by the OS kernel. This limits (but usually doesn’t entirely eliminate) their ability to do bad things like crashing the machine. Because of the restricted access, malfunctions within user mode are limited only to the system space they are operating within.
 
 	An API (Application Programming Interface - set of protocols, routines, and, functions that allow the exchange of data among various applications and devices) and/or System calls (method that allows a program to request services from the kernel) are made by user mode processes to the kernel to request memory and physical hardware access.
 
 
-3.3 OS Protection
+### 3.3 OS Protection ### 
 
 In Computer Science, the ordered protection domains are referred to as Protection Rings. These mechanisms help in improving fault tolerance and provide Computer Security. Operating Systems provide different levels to access resources. Rings are hierarchically arranged from most privileged to least privileged.
 OS_Protection_Ring
@@ -212,11 +234,15 @@ Operational Value
 
     In doing so, an adversary can gain complete control over the OS and obfuscate their methodology.
 
+###########################################################################################
 
 4. Process Ownership, Effective User ID (EUID), Real User ID (RUID), User ID (UID)
 
+###########################################################################################
+
 The Linux kernel supports the traditional concept of a Unix user. A user is an entity that can run processes and own files. A user is also associated with a username.
-4.1 Process Ownership
+
+### 4.1 Process Ownership ### 
 
 A Linux process is nothing but running instance of a program. For example, when you start Firefox to browse Internet, you can create a new process. In Linux, each process is given a unique number called as a process identification (PID). Linux kernel makes sure that each process gets a unique PID. /sbin/init or /lib/systemd/systemd on modern Linux distros always has a PID of 1 because it is eternally the first process on the Linux based system.
 
@@ -246,12 +272,12 @@ Show range of User IDs for system and human users
 	maximum userid assigned to a system user
 
 
-4.2 Effective User ID (EUID)
+### 4.2 Effective User ID (EUID) ### 
 
 Effective user ID (EUID) defines the access rights for a process. In layman’s term it describes the user whose file access permissions are used by the process.
 
 
-4.3 Real User ID (RUID)
+### 4.3 Real User ID (RUID) ### 
 
 The real user ID is who you really are (the one who owns the process). It also defines the user that can interact with the running process—most significantly, which user can kill and send signals to a process.
 
@@ -283,9 +309,11 @@ Operational Value
 
         However, the passwd command tracks the RUID ensuring that a normal user can’t change another user’s password
 
+###############################
 
 5. System Calls
 
+###############################
 
 Starting a new process
 
@@ -305,7 +333,7 @@ Figure 1. Process Spawning
         A: A system call is an interaction between a process and the kernel, a programmatic way in which a computer program requests a service from the kernel of the operating system it is executed on. For example, the acts of opening, reading, and writing files all involve system calls.
 
 
-5.1 Fork() and Exec() System calls
+### 5.1 Fork() and Exec() System calls ### 
 
 Two system calls, fork and exec, are important to understanding how processes startup:
 
@@ -320,136 +348,26 @@ Two system calls, fork and exec, are important to understanding how processes st
 
 Table 1. Common System Calls 	
 
-Windows
-	
-
-Unix
-
-Process Control
-	
-
-CreateProcess()
-	
-
-fork()
-	
-
-ExitProcess()
-	
-
-exit()
-	
-
-WaitForSingleObject()
-	
-
-wait()
-
-File Manipulation
-	
-
-CreateFile()
-	
-
-open()
-	
-
-ReadFile()
-	
-
-read()
-	
-
-WriteFile()
-	
-
-write()
-	
-
-CloseHandle()
-	
-
-close()
-
-Device Manipulation
-	
-
-SetConsoleMode()
-	
-
-ioctl()
-	
-
-ReadConsole()
-	
-
-read()
-	
-
-WriteConsole()
-	
-
-write()
-
-Information Maintenance
-	
-
-GetCurrentProcessID()
-	
-
-getpid()
-	
-
-SetTimer()
-	
-
-alarm()
-	
-
-Sleep()
-	
-
-sleep()
-
-Communication
-	
-
-CreatePipe()
-	
-
-pipe()
-	
-
-CreateFileMapping()
-	
-
-shmget()
-	
-
-MapViewOfFile()
-	
-
-mmap()
-
-Protection
-	
-
-SetFileSecurity()
-	
-
-chmod()
-	
-
-InitlializeSecurityDescriptor()
-	
-
-umask()
-	
-
-SetSecurityDescriptorGroup()
-	
-
-chown()
+|			|	Windows	|	Unix	|
+|	Process Control	|	CreateProcess()	|	fork()	|
+|			|	ExitProcess()	|	exit()	|
+|			|	WaitForSingleObject()	|	wait()	|
+|	File Manipulation	|	CreateFile()	|	open()	|
+|			|	ReadFile()	|	read()	|
+|			|	WriteFile()	|	write()	|
+|			|	CloseHandle()	|	close()	|
+|	Device Manipulation	|	SetConsoleMode()	|	ioctl()	|
+|			|	ReadConsole()	|	read()	|
+|			|	WriteConsole()	|	write()	|
+|	Information Maintenance	|	GetCurrentProcessID()	|	getpid()	|
+|			|	SetTimer()	|	alarm()	|
+|			|	Sleep()	|	sleep()	|
+|	Communication	|	CreatePipe()	|	pipe()	|
+|			|	CreateFileMapping()	|	shmget()	|
+|			|	MapViewOfFile()	|	mmap()	|
+|	Protection	|	SetFileSecurity()	|	chmod()	|
+|			|	InitlializeSecurityDescriptor()	|	umask()	|
+|			|	SetSecurityDescriptorGroup()	|	chown()	|
 
 Operational Value
 
@@ -460,7 +378,7 @@ Operational Value
     Still, it’s important to understand what they are, and a lot of information can be gleaned from monitoring specific ones.
 
 
-5.2 Linux - Signals
+### 5.2 Linux - Signals ### 
 
 Signals are software interrupts sent to a program to indicate that an important event has occurred. The events can vary from user requests to illegal memory access errors. Some signals, such as the interrupt signal, indicate that a user has asked the program to do something that is not in the usual flow of control.
 
@@ -483,253 +401,37 @@ Kill Process = SIGKILL(9) (kill signal, extreme, only use if SIGTERM doesn’t w
 
 Table 2. Common Signals in Linux
 
-Signal
-	
-
-Name
-	
-
-Description
-
-SIGHUP
-	
-
-1
-	
-
-Hangup (POSIX)
-
-SIGINT
-	
-
-2
-	
-
-Terminal interrupt (ANSI)
-
-SIGQUIT
-	
-
-3
-	
-
-Terminal quit (POSIX)
-
-SIGILL
-	
-
-4
-	
-
-Illegal instruction (ANSI)
-
-SIGTRAP
-	
-
-5
-	
-
-Trace trap (POSIX)
-
-SIGIOT
-	
-
-6
-	
-
-IOT Trap (4.2 BSD)
-
-SIGBUS
-	
-
-7
-	
-
-BUS error (4.2 BSD)
-
-SIGFPE
-	
-
-8
-	
-
-Floating point exception (ANSI)
-
-SIGKILL
-	
-
-9
-	
-
-Kill(can’t be caught or ignored) (POSIX)
-
-SIGUSR1
-	
-
-10
-	
-
-User defined signal 1 (POSIX)
-
-SIGSEGV
-	
-
-11
-	
-
-Invalid memory segment access (ANSI)
-
-SIGUSR2
-	
-
-12
-	
-
-User defined signal 2 (POSIX)
-
-SIGPIPE
-	
-
-13
-	
-
-Write on a pipe with no reader, Broken pipe (POSIX)
-
-SIGALRM
-	
-
-14
-	
-
-Alarm clock (POSIX)
-
-SIGTERM
-	
-
-15
-	
-
-Termination (ANSI)
-
-SIGSTKFLT
-	
-
-16
-	
-
-Stack fault
-
-SIGCHLD
-	
-
-17
-	
-
-Child process has stopped or exited, changed (POSIX)
-
-SIGCONTv
-	
-
-18
-	
-
-Continue executing, if stopped (POSIX)
-
-SIGSTOP
-	
-
-19
-	
-
-Stop executing(can’t be caught or ignored) (POSIX)
-
-SIGTSTP
-	
-
-20
-	
-
-Terminal stop signal (POSIX)
-
-SIGTTIN
-	
-
-21
-	
-
-Background process trying to read, from TTY (POSIX)
-
-SIGTTOU
-	
-
-22
-	
-
-Background process trying to write, to TTY (POSIX)
-
-SIGURG
-	
-
-23
-	
-
-Urgent condition on socket (4.2 BSD)
-
-SIGXCPU
-	
-
-24
-	
-
-CPU limit exceeded (4.2 BSD)
-
-SIGXFSZ
-	
-
-25
-	
-
-File size limit exceeded (4.2 BSD)
-
-SIGVTALRM
-	
-
-26
-	
-
-Virtual alarm clock (4.2 BSD)
-
-SIGPROF
-	
-
-27
-	
-
-Profiling alarm clock (4.2 BSD)
-
-SIGWINCH
-	
-
-28
-	
-
-Window size change (4.3 BSD, Sun)
-
-SIGIO
-	
-
-29
-	
-
-I/O now possible (4.2 BSD)
-
-SIGPWR
-	
-
-30
-	
-
-Power failure restart (System V)
+|	Signal	|	Name	|	Description	|
+|	SIGHUP	|	1	|	Hangup (POSIX)	|
+|	SIGINT	|	2	|	Terminal interrupt (ANSI)	|
+|	SIGQUIT	|	3	|	Terminal quit (POSIX)	|
+|	SIGILL	|	4	|	Illegal instruction (ANSI)	|
+|	SIGTRAP	|	5	|	Trace trap (POSIX)	|
+|	SIGIOT	|	6	|	IOT Trap (4.2 BSD)	|
+|	SIGBUS	|	7	|	BUS error (4.2 BSD)	|
+|	SIGFPE	|	8	|	Floating point exception (ANSI)	|
+|	SIGKILL	|	9	|	Kill(can’t be caught or ignored) (POSIX)	|
+|	SIGUSR1	|	10	|	User defined signal 1 (POSIX)	|
+|	SIGSEGV	|	11	|	Invalid memory segment access (ANSI)	|
+|	SIGUSR2	|	12	|	User defined signal 2 (POSIX)	|
+|	SIGPIPE	|	13	|	Write on a pipe with no reader, Broken pipe (POSIX)	|
+|	SIGALRM	|	14	|	Alarm clock (POSIX)	|
+|	SIGTERM	|	15	|	Termination (ANSI)	|
+|	SIGSTKFLT	|	16	|	Stack fault	|
+|	SIGCHLD	|	17	|	Child process has stopped or exited, changed (POSIX)	|
+|	SIGCONTv	|	18	|	Continue executing, if stopped (POSIX)	|
+|	SIGSTOP	|	19	|	Stop executing(can’t be caught or ignored) (POSIX)	|
+|	SIGTSTP	|	20	|	Terminal stop signal (POSIX)	|
+|	SIGTTIN	|	21	|	Background process trying to read, from TTY (POSIX)	|
+|	SIGTTOU	|	22	|	Background process trying to write, to TTY (POSIX)	|
+|	SIGURG	|	23	|	Urgent condition on socket (4.2 BSD)	|
+|	SIGXCPU	|	24	|	CPU limit exceeded (4.2 BSD)	|
+|	SIGXFSZ	|	25	|	File size limit exceeded (4.2 BSD)	|
+|	SIGVTALRM	|	26	|	Virtual alarm clock (4.2 BSD)	|
+|	SIGPROF	|	27	|	Profiling alarm clock (4.2 BSD)	|
+|	SIGWINCH	|	28	|	Window size change (4.3 BSD, Sun)	|
+|	SIGIO	|	29	|	I/O now possible (4.2 BSD)	|
+|	SIGPWR	|	30	|	Power failure restart (System V)	|
 
 
 List Supported signals
@@ -762,7 +464,7 @@ student@linux-opstation-grkv:~$ kill -9 <PID of Process>
 	kill -9 <PID of process> is used in the most extreme cases to abruptly terminate a process
 
 
-5.3 Demonstration - Process Enumeration
+### 5.3 Demonstration - Process Enumeration ### 
 	Add the following scripts to your box for demonstrations, located at: https://git.cybbh.space/os/public-old/tree/master/modules/operating-systems/linux/scripts/6_LinuxProcesses
 
 
@@ -875,8 +577,11 @@ Operational Value
 
     Excellent command for process enumeration.
 
+###############################################
 
 6. Foreground and Background Processes
+
+###############################################
 
 Processes that require a user to start them or to interact with them are called foreground processes.
 
@@ -885,7 +590,7 @@ Processes that are run independently of a user are referred to as background pro
 Programs and commands run as foreground processes by default.
 
 
-6.1 Orphan Processes
+### 6.1 Orphan Processes ### 
 
 An orphan process is a running process whose parent process has finished or terminated and is adopted by sbin/init and will have a PPID of 1.
 
@@ -894,7 +599,7 @@ An orphan process is a running process whose parent process has finished or term
         disown -a && exit #Close a shell/terminal and force all children to be adopted
 
 
-6.1.1 Demonstration - Orphan
+##### 6.1.1 Demonstration - Orphan ##### 
 
 Copy code below and paste into any editor of choice. Give a name to the script. In this instance the script will be called orphan.sh, make file an executable and run twice in succession.
 Code for orphan demonstration
@@ -935,19 +640,19 @@ student@linux-opstation-grkv:~$ ./orphan.sh
 	running the code a second time terminates the original process with PID 13409 containing the code. Sub process with PID of 13410 will now become an orphan and will be reclaimed by /sbin/init. Its PPID will now be 1
 
 
-6.1.2 Resources
+##### 6.1.2 Resources ##### 
 
-    Orphan Exploit Exercise
+    Orphan Exploit Exercise <https://www.voidsecurity.in/2012/09/blog-post.html>
 
-    More about Orphan Processes
+    More about Orphan Processes <https://www.geeksforgeeks.org/zombie-and-orphan-processes-in-c/>
 
 
-6.2 Zombie (Defunct) Processes
+### 6.2 Zombie (Defunct) Processes ### 
 
 A zombie process (or defunct process) is a process that has completed execution but hasn’t been reaped by its parent process. As result it holds a process entry in the form of a PID in the process table. Zombies cannot be killed as they are already dead and do not use resources. However, they do take up PIDs in the process table which is a finite resource. Zombie entries can be removed from the process table by killing its parent process.
 
 
-6.2.1 Demonstration - zombies
+##### 6.2.1 Demonstration - zombies ##### 
 
 Copy code below and paste into any editor of choice. Give a name to the script. In this instance the script will be called zombie.sh, make file an executable and run once
 Code for zombie demonstration
@@ -994,15 +699,16 @@ student@linux-opstation-grkv:~$ ps -elf| grep -v grep | grep sleep
 	kill -18 will send the continue\restart signal to PID 13981 which will clear the zombie entry from the process list
 	this command will return no output as the zombie entry has been cleared from the process list
 
+	** use ps -elf | grep defunct -or- top to find zombie processes **
 
-6.2.2 Resources
+##### 6.2.2 Resources ##### 
 
-    Example - ZombieLoad Attack
+    Example - ZombieLoad Attack <https://zombieloadattack.com/>
 
-    Zombie Security Risks
+    Zombie Security Risks <https://www.fugue.co/blog/zombie-cloud-infrastructure-is-a-major-security-risk>
 
 
-6.3 Daemons
+### 6.3 Daemons ### 
 
 A daemon process is an intentionally orphaned process in order to have a background process.
 
@@ -1026,7 +732,7 @@ Operational Value
     Malicious processes are sometimes orphaned and named to make it look like a daemon process ps --ppid 1 -lf
 
 
-6.3.1 Interacting With Linux Services
+##### 6.3.1 Interacting With Linux Services ##### 
 
 
 A service is a program that runs in the background outside the interactive control of system users as they lack an interface. This in order to provide even more security, because some of these services are crucial for the operation of the operating system.
@@ -1036,7 +742,7 @@ On the other hand, in systems like Unix or Linux, the services are also known as
 The commands used to interact with services on a Unix/Linux system differs based on distribution [sysV or systemD]
 
 
-6.3.1.1 Interacting With Services on a SYSV System
+####### 6.3.1.1 Interacting With Services on a SYSV System ####### 
 
 
 A system that uses the SysV scheme usually comes with the service program used to manage the services while the system is running. You can check on the status of a service, or all services, and start or stop a service, respectively, using the service utility:
@@ -1047,7 +753,7 @@ Check status/start/stop/restart a service on sysV
 student@linux-opstation-grkv:~$ service <servicename> status/start/stop/restart
 
 
-6.3.1.2 Interacting With Services on a SYSTEMD System
+####### 6.3.1.2 Interacting With Services on a SYSTEMD System ####### 
 
 In recent years, Linux distributions have increasingly transitioned from other init systems to systemd. The systemd suite of tools provides a fast and flexible init model for managing an entire machine from boot onwards
 
@@ -1088,14 +794,14 @@ Start/stop/restart a service
 student@linux-opstation-grkv:~$ systemctl start/stop/restart <servicename.service>
 
 
-6.4 Job Control
+### 6.4 Job Control ### 
 
 Job control is the ability to stop/suspend the execution of processes (command) and continue/resume their execution as per your requirements.
 
 The jobs command displays the status of jobs started in the current terminal window. Jobs are numbered starting from 1 for each session. The job ID numbers are used by some programs instead of PIDs (for example, by fg and bg commands).
 
 
-6.4.1 Demonstration - Job Control
+##### 6.4.1 Demonstration - Job Control ##### 
 
 
 Jobs
@@ -1130,7 +836,7 @@ student@linux-opstation-grkv:~$ kill -9 %1
 	the bg command can be use to background a job and ctrl+c command can be use to kill an active process
 
 
-6.5 Cron Jobs
+### 6.5 Cron Jobs ### 
 
 
 The Unix cron service runs programs repeatedly on a fixed schedule. Most experienced administrators consider cron to be vital to the system because it can perform automatic system maintenance.
@@ -1205,17 +911,21 @@ Other advanced usage....
 * Save open tcp port listing hourly from 9PM to 5AM every day
 ** `0 0-5,21-23 * * *`    echo $(ss -nltp) >> /home/andy.dwyer/tcplist.context
 
-6.5.1 Resources
+##### 6.5.1 Resources ##### 
 
-    Cron Schedule Expression Editor
+    Cron Schedule Expression Editor <https://crontab.guru/>
+
+############################################
 
 7 - Processes and Proc Dir
+
+############################################
 
     The /proc/ directory — also called the proc file system — contains a hierarchy of special files which represent the current state of the kernel, allowing applications and users to peer into the kernel’s view of the system.
 
     Every process access files in order to complete it’s work. These processes keep track of open files using File Descriptors.
 
-7.1 File Descriptors
+### 7.1 File Descriptors ### 
 
     In Unix and Unix-like computer operating systems, a file descriptor ("FD" or less frequently known as "fildes") is a unique identifier (aka handle) for a file or other input/output resource, such as a pipe or network socket.
 
@@ -1227,7 +937,7 @@ Other advanced usage....
 
             This entry number is the file descriptor. So it is just an integer number that uniquely represents an opened file in operating system. If your process opens 10 files then your Process table will have 10 entries for file descriptors.
 
-7.1.1 Viewing File Descriptors
+##### 7.1.1 Viewing File Descriptors ##### 
 
     View File Descriptors using the LSOF command.
 
@@ -1264,7 +974,11 @@ Other advanced usage....
         sshd    14139 student   11u   CHR                5,2      0t0      87 /dev/ptmx
         sshd    14139 student   12u   CHR                5,2      0t0      87 /dev/ptmx
 
-7.1.2 Interpretting File Descriptors
+	** sudo lsof -p 1758 # look at files opened by process it 1758 **
+	** sudo lsof -i tcp # look at interface connections on TCP **
+	** sudo lsof -i TCP:22 # look at files opened by TCP connections over port 22 **
+
+##### 7.1.2 Interpretting File Descriptors ##### 
 
 This information and more available in the lsof man page.
 
@@ -1275,7 +989,7 @@ w - File open with Write permission
 W - File open with Write permission and with Write Lock on entire file
 mem - Memory mapped file, usually for share library
 
-7.2 - Navigating Proc Directory
+### 7.2 - Navigating Proc Directory ### 
 
     List all the proc directories.
 
@@ -1317,17 +1031,16 @@ mem - Memory mapped file, usually for share library
         lrwxrwxrwx 1 root    root    0 Aug 27 14:22 exe -> /usr/sbin/sshd    
 
 	The exe link to actual binary file being executed.
-7.3 - Resources
+### 7.3 - Resources ### 
 
-    lsof examples
+    lsof examples <https://www.tecmint.com/10-lsof-command-examples-in-linux/>
 
-    cheat.sh/lsof
+    cheat.sh/lsof <https://cheat.sh/lsof>
 
-    View FD without LSOF
+    View FD without LSOF <https://unix.stackexchange.com/questions/66235/how-to-display-open-file-descriptors-but-not-using-lsof-command>
 
-    About Proc Directories
+    About Proc Directories <https://www.thegeekstuff.com/2010/11/linux-proc-file-system/>
 
-    About File Descriptors
+    About File Descriptors <https://www.sciencedirect.com/topics/computer-science/file-descriptor>
 
-This page was built using a slightly modified version of the Antora default UI.
-The source code for this UI is licensed under the terms of the MPL-2.0 license and can be found at https://git.cybbh.space/common/contributing
+
