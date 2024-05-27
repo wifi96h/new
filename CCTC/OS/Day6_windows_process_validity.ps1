@@ -8,3 +8,7 @@ search task scheduler
 .\tcpview.exe # opens tcpview gui
 
 # Malware uses names of legit processes to obfuscate itself. Give the flag located in Kerberos’ registry subkey.
+
+
+# Services have a name and display name, which could be different. What is the service name of the only Totally-Legit service?
+get-service totally-legit
