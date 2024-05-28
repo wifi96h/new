@@ -83,6 +83,9 @@ Both services store their logs in /var/log…​however, there is a massive diff
 
 ############################
 
+** SystemCTL should do most of the work here **
+** <https://en.wikipedia.org/wiki/Syslog> is really helpful **
+
 Syslog stores its logs as human-readable text documents within /var/log. It is configured using files in /etc/rsyslog/.
 	Rsyslog one of many implementations of the Syslog Standard. It is typically included in free distributions of Linux because it is free. It supports configuration options, but the most important topic is understanding what and where it logs.
 Table 1. Syslog logging configuration standard Selectors 	Action
@@ -99,7 +102,7 @@ facility. severity
     path/to/log/location is where the log is stored and/or any action taken on the event before storage (like sending it to a remote server)
 
 	Syslog is the underlying standard but has multiple implementations like rsyslog and syslog-ng. They do the same tasks, but from version specific nuances.
-Table 2. Syslog Message Facilities RFC 5424 
+Table 2. Syslog Message Facilities RFC 5424 <https://datatracker.ietf.org/doc/html/rfc5424#page-9>
 |	Numerical Code	|	Facility	|
 |	0	|	kernel messages	|
 |	1	|	user-level messages	|
@@ -113,7 +116,7 @@ Table 2. Syslog Message Facilities RFC 5424
 This is not every Facility Code. See the RFC for a listing of every code.
 
 
-Table 3. Syslog Message Severities RFC 5424 
+Table 3. Syslog Message Severities RFC 5424 <https://datatracker.ietf.org/doc/html/rfc5424#page-9>
 |	Numerical Code	|	Severity	|
 |	0	|	Emergency	|
 |	1	|	Alert	|
@@ -159,7 +162,15 @@ Example:
 
     mail.!info matches all messages produced by the kernel with severity of #less than and not including (lesser severity) 6/Informational (severity 7).
 
-rsyslog.conf — Linux manual page
+**
+	news.crit == 0,1,2
+	news.!crit == 3,4,5,6,7
+	news.!=crit == 0,1,3,4,5,6,7
+	news.=crit == 2
+**
+
+rsyslog.conf — Linux manual page <https://man7.org/linux/man-pages/man5/rsyslog.conf.5.html>
+
 	severity does not refer to the numerical code. It refers to the severity nouns in hierarchical format. Emergency is the highest severity and Debug is the lowest.
 
     The level describes the severity of the message, and is a keyword from the following ordered list (higher to lower): emerg, crit, alert, err, warning, notice, info and debug. These keywords correspond to similar "LOG_" values specified to the syslog(3) library routine 
@@ -167,11 +178,11 @@ rsyslog.conf — Linux manual page
 — FREEBSD Syslog.conf man page
 
 
-Syslog conf file walkthrough
+Syslog conf file walkthrough <https://www.thegeekdiary.com/centos-redhat-beginners-guide-to-log-file-administration/>
 
-Syslogd man page
+Syslogd man page <https://linux.die.net/man/8/syslogd>
 
-FREEBSD syslog.conf man page
+FREEBSD syslog.conf man page <https://man.freebsd.org/cgi/man.cgi?query=syslog.conf&sektion=5&n=1>
 
 
 ### 3.1 Filtering Syslog Log Files ### 
@@ -225,9 +236,9 @@ total 684
 -rw-r--r--  1 root      root               333 Feb  8 00:33 alternatives.log
 -rw-r--r--  1 root      root              3010 Jan 25 20:55 alternatives.log.1
 drwxr-xr-x  2 root      root              4096 Feb 12 16:49 apt
--rw-r-----  1 syslog    adm              54651 Feb 26 20:17 auth.log 
--rw-r-----  1 syslog    adm              43270 Feb 20 23:17 auth.log.1 
--rw-r-----  1 syslog    adm               5069 Feb 14 23:17 auth.log.2.gz 
+-rw-r-----  1 syslog    adm              54651 Feb 26 20:17 auth.log 		# current week
+-rw-r-----  1 syslog    adm              43270 Feb 20 23:17 auth.log.1 		# one week old
+-rw-r-----  1 syslog    adm               5069 Feb 14 23:17 auth.log.2.gz 	# two weeks old
 
 	Current version of auth.log
 	auth.log from 1 week ago
@@ -242,6 +253,8 @@ drwxr-xr-x  2 root      root              4096 Feb 12 16:49 apt
 
 Any logs having to do with logins and authentication attempts. . /var/log/auth.log - Authentication related events . /var/run/utmp - Users currently logged in .. Not in human readable format. Must use last command . /var/log/wtmp - History file for utmp .. Not in human readable format. Must use last command . */var/log/btmp - Failed login attempts
 
+** last (normal user, all logged in and history) **
+** lastb (admin user, all failed login attempts) **
 
 ##### 3.3.2 - Application ##### 
 
@@ -309,8 +322,12 @@ Jan 23 12:29:51 linux-opstation-kspt kernel: Command line: BOOT_IMAGE=/boot/vmli
 	Show boot ids which separate logs based on when the machine was restarted
 	Tell journalctl to only show logs relating to that boot id.
 
+** journalctl -f monitors logs live **
+** journalctf -p <severity level> pulls all logs for level **
 
 2. Filtering Logs by a specific unit
+
+** journalctl _PID=## grabs all logs concerning pid **
 
 root@linux-opstation-kspt:~# journalctl -u ssh.service 
 Jan 27 13:16:21 linux-opstation-kspt sshd[7558]: Accepted password for holman from 10.250.0.6 port 62390 ssh2
@@ -321,6 +338,8 @@ Jan 29 13:23:51 linux-opstation-kspt sshd[10277]: Accepted password for holman f
 
 
 3. Filtering Logs since a specific time period
+
+** journalctf -S (or --since= ) -U (or --unitl= ) (can use human readable format, ie 1 week ago)
 
 root@linux-opstation-kspt:~# journalctl -u ssh.service --since "2 days ago" 
 -- Logs begin at Sat 2021-01-23 12:24:35 UTC, end at Fri 2021-02-26 21:09:16 UTC. --
@@ -396,16 +415,21 @@ Privileges:		SeAssignPrimaryTokenPrivilege
 			SeSystemEnvironmentPrivilege
 			SeImpersonatePrivilege</Message><Level>Information</Level><Task>Special Logon</Task><Opcode>Info</Opcode><Channel>Security</Channel><Provider>Microsoft Windows security auditing.</Provider><Keywords><Keyword>Audit Success</Keyword></Keywords></RenderingInfo></Event></Events>
 
-	Difficult to read, but it isn’t impossible. Try copying and pasting this into a XML formatter online at Freeformatter.com
-	Parsing this is hard without a specialized querying tool called Xpath. Try it out at this website: Xpather.com.
+	Difficult to read, but it isn’t impossible. Try copying and pasting this into a XML formatter online at Freeformatter.com <https://www.freeformatter.com/xml-formatter.html#ad-output>
+	Parsing this is hard without a specialized querying tool called Xpath. Try it out at this website: Xpather.com. <http://xpather.com/>
 	Here is a Xpath tutorial: https://www.w3schools.com/xml/xpath_syntax.asp
-Ancestor_Descendant_Sibling
+Ancestor_Descendant_Sibling <https://www.w3schools.com/xml/xpath_syntax.asp>
 
     Xpath Syntax: xpath -q -e '//element/@attribute' file.xml
 
+** like directory/file relationships. Use @ to pull attrubutes and | to string together info **
+** i.e. Events/Event/System/Provider/@Name | //Provider/@Guid | //@ThreadID **
+** use * as a conditional, not wildcard; i.e. //*[@ThreadID='12292']/../Provider/@Name/../../../Event/@xmlns
+** use anychr, anystr, etc for wildcard searches **
+
 ##### 5.2.2 - Resources ##### 
 
-    Execute Xpath One Liners From Shell
+    Execute Xpath One Liners From Shell <https://stackoverflow.com/questions/15461737/how-to-execute-xpath-one-liners-from-shell>
 
 
 
@@ -421,20 +445,28 @@ Example - JSON output from a Zeek conn.log
 
 {"ts":1615383120.600619,"uid":"CLdOLa12ikO7IbVX0d","id.orig_h":"10.50.24.73","id.orig_p":19831,"id.resp_h":"192.168.65.20","id.resp_p":110,"proto":"tcp","duration":0.000010013580322265625,"orig_bytes":0,"resp_bytes":0,"conn_state":"REJ","missed_bytes":0,"history":"Sr","orig_pkts":1,"orig_ip_bytes":60,"resp_pkts":1,"resp_ip_bytes":40}
 
-	Kind of difficult to parse because its length. Try pretty printing it at the following link: https://jsonformatter.org/json-pretty-print
+** use jq <file.name> to 'prettify' the json file **
+** json act like dictionaries, key:value pairs **
+** jq '."id.orig_h"' zeek.log **
+** jq '[.orig_bytes, .orig_pkts]' zeek.log <or> jq '.orig_bytes, .orig_pkts' zeek.log **
+** jq 'select(.conn_state == "REJ") ."id.resp_p"' zeek.log # conditional **
+** jq 'select(.conn_state == "REJ" and .proto == "tcp") ."id.resp_p"' zeek.log
+** conditionals use boolian similar to python ** 
+
+	Kind of difficult to parse because its length. Try pretty printing it at the following link: <https://jsonformatter.org/json-pretty-print>
 	Like XML, JSON needs can be queried using special programs. To query JSON use jq or JSON Query.
-	Here is a JSON Query Tutorial
-	Here is a Online JSON Query tool
-	Here is a jq Syntax Overview
-	Here is a jq Cheat sheet
+	Here is a JSON Query Tutorial <https://docs.jsonata.org/simple>
+	Here is a Online JSON Query tool <https://jqplay.org/>
+	Here is a jq Syntax Overview <https://www.linode.com/docs/guides/using-jq-to-process-json-on-the-command-line/>
+	Here is a jq Cheat sheet <https://cheat.sh/jq>
 
 ##### 5.3.2 - Resources ##### 
 
-    Shapeshed - Parse JSON with JQ
+    Shapeshed - Parse JSON with JQ <https://shapeshed.com/jq-json/>
 
-    Using jq to Parse JSON
+    Using jq to Parse JSON <https://www.baeldung.com/linux/jq-command-json>
 
-    Json Manipulation
+    Json Manipulation <https://webgeodatavore.com/jq-json-manipulation-command-line-with-geojson.html>
 
 This page was built using a slightly modified version of the Antora default UI.
 The source code for this UI is licensed under the terms of the MPL-2.0 license and can be found at https://git.cybbh.space/common/contributing
