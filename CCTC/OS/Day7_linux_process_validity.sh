@@ -5,4 +5,7 @@ ps --ppid 2
 
 # Locate the strange open port on the SysV system. Identify how the process persists between reboots.
 nc -ano
-cat /etc/inittab
+cat /etc/inittab  # 91:2345:respawn:/bin/netcat -lp 9999
+#                   ^    ^      ^          ^      
+#            priority  run lvl  to-do    command               
+
