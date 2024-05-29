@@ -872,7 +872,7 @@ Q: What type of information is logged in the System Log?
 
     Windows Event View Application
 
-    Get-Eventlog or Get-WinEvent in Powershell
+    Get-WinEvent in Powershell
 
     wevtutil in Command Prompt
 
@@ -963,7 +963,7 @@ _Output_Truncated_
 
 View Event Logs in Powershell
 
-PS C:\> Get-EventLog -LogName System -Newest 10 
+PS C:\> Get-WinEvent -LogName System | Select-Object -First 10 
    Index Time          EntryType   Source                 InstanceID Message
    ----- ----          ---------   ------                 ---------- -------
     1102 Mar 15 12:00  Information EventLog               2147489661 The system uptime is 2750871 seconds.
@@ -977,7 +977,7 @@ PS C:\> Get-EventLog -LogName System -Newest 10
     1094 Mar 11 20:58  Error       DCOM                   10016 The description for Event ID '10016' in Source 'DCOM' cannot be found.  T...
     1093 Mar 11 18:27  Information Microsoft-Windows...   16 The description for Event ID '16' in Source 'Microsoft-Windows-Kernel-Gen...
 
-PS C:\> Get-EventLog -LogName System -Newest 3 | Format-Table -Wrap 
+PS C:\> Get-WinEvent -LogName System | Select-Object -First 3 | Format-Table -Wrap 
    Index Time          EntryType   Source                 InstanceID Message
    ----- ----          ---------   ------                 ---------- -------
     1102 Mar 15 12:00  Information EventLog               2147489661 The system uptime is 2750871 seconds.
@@ -991,14 +991,14 @@ PS C:\> Get-EventLog -LogName System -Newest 3 | Format-Table -Wrap
 
 Search the Security Event Log and show the entire message
 
-PS C:\> Get-Eventlog -LogName Security | ft -wrap 
+PS C:\> Get-WinEvent -LogName Security | Format-Table -wrap 
 
 	This is all of the information currently in the Security log. Point out the abundance of information that would need to be parsed through.
 
 
 Search through the entire Security log for a specific string
 
-PS C:\> Get-Eventlog -LogName Security | ft -wrap | findstr /i StR1nG 
+PS C:\> Get-WinEvent -LogName Security | Format-Table -wrap | findstr /i StR1nG 
 
 	Explain that you search through all of the log entries using findstr or select-string for specific strings, the biggest difference between the two is that findstr has a case insensitive option — findstr /i <string>
 
@@ -1074,7 +1074,7 @@ PS C:\> Get-Winevent -FilterHashtable @{logname='Security';id='4624'} | ft -Wrap
 
 Checking Powershell Operational Logs
 
-PS C:\> Get-WinEvent Microsoft-Windows-PowerShell/Operational | Where-Object {$_.Message -ilike "*RunspacePool*"} | Format-List 
+PS C:\> Get-WinEvent -LogName 'PowerShellCore/Operational' | Where-Object {$_.Message -ilike "*RunspacePool*"} | Format-List 
 TimeCreated  : 3/8/2021 7:28:43 PM
 ProviderName : Microsoft-Windows-PowerShell
 Id           : 8195
@@ -1110,9 +1110,10 @@ Sample Event IDs to search for for malicious actors in your network
 |	System audit policy was changed			|	4719	|	|	|
 |	PS Module Logging (Command Execution)		|	4103	|	|	|
 |	PS Script-Block Logging (Script Execution)	|	4104,4105,4106	|	|	|
+|	Process Creation				|	 4688	|	|	|
 		
 
-A more inclusive list of Windows Security Log Events
+A more inclusive list of Windows Security Log Events <https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/Default.aspx>
 
 #########################################
 
@@ -1131,7 +1132,7 @@ x7.20210316141734.txt
 	Creates a text file and records part of all of a PowerShell session.
 	You may specify the directory or path where you want to store the transcript by using the -Path parameter, by default it goes to the Documents folder of the user that enabled the transcript.
 
-Start-Transcript Documentation
+Start-Transcript Documentation <https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.host/start-transcript?view=powershell-7.4&viewFallbackFrom=powershell-6#syntax>
 
 Q: Is there a way to bypass this security feature?
 
@@ -1172,7 +1173,7 @@ _Output_Truncated_
 
 	Prints the contents of the history file
 
-Get-History Documentation
+Get-History Documentation <https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/get-history?view=powershell-7.4&viewFallbackFrom=powershell-6>
 
 
 ### 11.3 Powershell Script Block Logging ### 
@@ -1203,7 +1204,7 @@ reg add HKLM\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ScriptBl
 
     4106 is the time a script ended aka the PowerShell engine was stopped
 
-Script Block Logging
+Script Block Logging <https://cloud.google.com/blog/topics/threat-intelligence/greater-visibility/>
 
 This page was built using a slightly modified version of the Antora default UI.
 The source code for this UI is licensed under the terms of the MPL-2.0 license and can be found at https://git.cybbh.space/common/contributing
