@@ -1,4 +1,3 @@
-
 Cyber Common Technical Core - OS Module Public Repo
 Windows Auditing & Logging FG
 
@@ -49,14 +48,19 @@ Table of Contents
         11.2 Powershell History
         11.3 Powershell Script Block Logging
 
+###########################################################################################################
+###########################################################################################################
 
 Terminal Learning Objectives
 1. Identify Windows Artifacts
 2. Describe Windows Auditing & Logging
 3. Complete Windows Auditing & Logging CTFd Challenges PE
 
+#####################################
 
 1. Windows Artifacts
+
+#####################################
 
 Gain an understanding of what artifacts are and to track user or system activity with them.
 
@@ -76,7 +80,7 @@ At the end of this lesson you will be able to describe and pull information from
 
     Browser Artifacts
 
-1.1 What is an artifact?
+### 1.1 What is an artifact? ### 
 
 Artifacts are objects or areas within a computer system that contain important information relevant to the activities performed on the system by the user.
 
@@ -84,9 +88,9 @@ These artifacts must be identified, processed, and analyzed in order to prove or
 
 There are multiple artifacts in the Windows environment that serve as important evidence in the forensic examination process.
 
-SANS Windows Artifact Analysis
+SANS Windows Artifact Analysis <https://www.sans.org/posters/windows-forensic-analysis/>
 
-Forensically relevent Registry locations
+Forensically relevent Registry locations <https://www.infosecinstitute.com/resources/digital-forensics/windows-systems-and-artifacts-in-digital-forensics-part-i-registry/>
 
 
 Many artifacts will require the use of a Security Identifer (SID) to dig into the user specific registry locations for the artifact information.
@@ -139,23 +143,29 @@ WDAGUtilityAccount  S-1-5-21-1584283910-3275287195-1754958050-504
 
 	wmic useraccount get name,sid will show local Users and SID
 
+##############################
 
 2. UserAssist
-	Run ALL Artifacts demos on Workstation2 while in a ssh from the Admin-Station
+
+##############################
+
+Run ALL Artifacts demos on Workstation2 while in a ssh from the Admin-Station
 
 The UserAssist registry key tracks the GUI-based programs that were ran by a particular user.
-2.1 Location
 
-They are located in HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\UserAssist\{GUID}\Count\ * they are encoded in ROT13
+### 2.1 Location ### 
+
+They are located in HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\UserAssist\{GUID}\Count\ 
+	* they are encoded in ROT13
 
 The GUID represents a particular file extension.
 
-    CEBFF5CD-ACE2-4F4F-9178-9926F41749EA A list of applications, files, links, and other objects that have been accessed
+    CEBFF5CD-ACE2-4F4F-9178-9926F41749EA 	# A list of applications, files, links, and other objects that have been accessed
 
-    F4E57C4B-2036-45F0-A9AB-443BCFE33D9F Lists the Shortcut Links used to start programs
+    F4E57C4B-2036-45F0-A9AB-443BCFE33D9F 	# Lists the Shortcut Links used to start programs
 
 
-2.2 Demo
+### 2.2 Demo ### 
 CEBFF5CD: Executable File Execution
 
 PS C:\> Get-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\UserAssist\{CEBFF5CD-ACE2-4F4F-9178-9926F41749EA}\Count" 
@@ -175,7 +185,7 @@ Zvpebfbsg.Jvaqbjf.Pbegnan_pj5a1u2gklrjl!PbegnanHV                               
 {1NP14R77-02R7-4R5Q-O744-2RO1NR5198O7}\JvaqbjfCbjreFuryy\i1.0\CbjreFuryy_VFR.rkr : {0, 0, 0, 0...}
 _Output_Truncated_
 
-	Output shows the Executable files encoded with ROT13. Copy/ Paste the output into a decdoer site like Rot13 or CyberChef
+	Output shows the Executable files encoded with ROT13. Copy/ Paste the output into a decdoer site like Rot13 or CyberChef <https://rot13.com/> <https://gchq.github.io/CyberChef/>
 
 
 F4E57C4B: Shortcut File Execution
@@ -204,16 +214,21 @@ Q: How can we change our command to look at all users Userassist artifacts?
 
 A: From
 
-PS C:\> Get-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\UserAssist\{CEBFF5CD-ACE2-4F4F-9178-9926F41749EA}\Count"
+Get-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\UserAssist\{CEBFF5CD-ACE2-4F4F-9178-9926F41749EA}\Count"
 
 To
+ 
+Get-ItemProperty "Reghttps://www.sans.org/posters/windows-forensic-analysis/istry::Hkey_Users\*\Software\Microsoft\Windows\CurrentVersion\Explorer\UserAssist\{CEBFF5CD-ACE2-4F4F-9178-9926F41749EA}\Count"
 
-PS C:\> Get-ItemProperty "Registry::Hkey_Users\*\Software\Microsoft\Windows\CurrentVersion\Explorer\UserAssist\{CEBFF5CD-ACE2-4F4F-9178-9926F41749EA}\Count"
+
+Windows User Assist Key Additional Information <https://www.aldeid.com/wiki/Windows-userassist-keys>
 
 
-Windows User Assist Key Additional Information
+############################################
+
 3. Windows Background Activity Moderator (BAM)
 
+#############################################
 
 Windows Background Activity Moderator (BAM) BAM is a Windows service that Controls activity of background applications.This service exists in Windows 10 only after Fall Creators update – version 1709.
 
@@ -226,13 +241,14 @@ BAM Provides the following:
 Q: What is the importance of knowing the path of an executable?
 
 
-3.1 Location
+### 3.1 Location ### 
 
 
 Show in Reg Edit:
-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\bam\State\UserSettings #On 1809 and Newer
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\bam\State\UserSettings 	#On 1809 and Newer
 
-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\bam\UserSettings #On 1803 and below
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\bam\UserSettings 		#On 1803 and below
+	** can also use get-item HKLM:\.... for all users or get-itemproperty for single user to pull information **
 
 CMD command to get Windows OS Version - Ran in Admin-Station
 
@@ -262,104 +278,23 @@ Microsoft Windows 10 Enterprise  10.0.19045  10.0.19041.2251
 
 	see table below - 19045 (Windows 10 (22H2)) is the last Windows 10 Version
 
-Operating System
-	
+|	Operating System	|	Version Details		|	Build Number	|
+|	Windows 11		|	Windows 11 (22H2)	|	10.0.22621	|	
+|				|	Windows 11 (21H2)	|	10.0.22000	|
+|	Windows 10		|	Windows 10 (22H2)	|	10.0.19045	|
+|				|	Windows 10 (21H2)	|	10.0.19044	|
+|				|	Windows 10 (21H1)	|	10.0.19043	|
+|				|	Windows 10 (20H2)	|	10.0.19042	|
+|				|	Windows 10 (2004)	|	10.0.1904	|
+|				|	Windows 10 (1909)	|	10.0.18363	|
+|				|	Windows 10 (1903)	|	10.0.18362	|
+|				|	Windows 10 (1809)	|	10.0.17763	|
+|				|	Windows 10 (1803)	|	10.0.17134	|
+|				|	Windows 10 (1709)	|	10.0.16299	|
+|				|	Windows 10 (1703)	|	10.0.15063	|
+|				|	Windows 10 (1607)	|	10.0.14393	|
 
-Version Details
-	
-
-Build Number
-
-Windows 11
-	
-
-Windows 11 (22H2)
-	
-
-10.0.22621
-	
-
-Windows 11 (21H2)
-	
-
-10.0.22000
-
-Windows 10
-	
-
-Windows 10 (22H2)
-	
-
-10.0.19045
-	
-
-Windows 10 (21H2)
-	
-
-10.0.19044
-	
-
-Windows 10 (21H1)
-	
-
-10.0.19043
-	
-
-Windows 10 (20H2)
-	
-
-10.0.19042
-	
-
-Windows 10 (2004)
-	
-
-10.0.1904
-	
-
-Windows 10 (1909)
-	
-
-10.0.18363
-	
-
-Windows 10 (1903)
-	
-
-10.0.18362
-	
-
-Windows 10 (1809)
-	
-
-10.0.17763
-	
-
-Windows 10 (1803)
-	
-
-10.0.17134
-	
-
-Windows 10 (1709)
-	
-
-10.0.16299
-	
-
-Windows 10 (1703)
-	
-
-10.0.15063
-	
-
-Windows 10 (1607)
-	
-
-10.0.14393
-
-3.2 Demo
-
+### 3.2 Demo ###
 
 BAM entries for every user on the system
 
@@ -421,8 +356,12 @@ Look at the programs that have been launched and their paths.
 	Insert the SID of andy.dwyer from above. Output shows the BAM artifact from andy.dwyer
 
 Note any programs that might have been launched from an irregular location.
+
+##############################
+
 4. Recycle Bin
 
+##############################
 
 When a user deletes a file in Windows it goes into the Recycle bin. This data is recoverable during an investigation using built in tools.
 
@@ -439,12 +378,13 @@ Content in the recycle bin is identified by:
 	SIDs are identified using WMIC or the Registry
 
 
-4.1 Location:
+### 4.1 Location: ### 
 
 C:\$Recycle.bin (Hidden System Folder)
 
 
-4.2 Demo
+### 4.2 Demo ### 
+
 Find the Contents of the Recycle Bin
 
 PS C:\> Get-Childitem 'C:\$RECYCLE.BIN' -Recurse -Verbose -Force | select FullName 
@@ -481,8 +421,12 @@ PS C:\> Get-Content 'C:\$Recycle.Bin\S-1-5-21-1584283910-3275287195-1754958050-1
 This is the file for Auditing
 
 	Reads the contents of a particular file within the Recycle BIN
+
+###########################
+
 5. Prefetch
 
+############################
 
 Prefetch files are created by the windows operating system when an application is run from a specific location for the first time.
 
@@ -519,17 +463,17 @@ Prefetch entries may remain even after the program has been deleted or uninstall
 
     General Format of a prefetch file: (exename)-(hash-of-path).pf
 
-Prefetch Documentation
+Prefetch Documentation <https://www.magnetforensics.com/blog/forensic-analysis-of-prefetch-files-in-windows/>
 
 
-5.1 Location
+### 5.1 Location ### 
 
 Win7/8/10
 
 C:\Windows\Prefetch
 
 
-5.2 Demo
+### 5.2 Demo ### 
 
 PS C:\> Get-Childitem -Path 'C:\Windows\Prefetch' -ErrorAction Continue | select -First 8 
     Directory: C:\Windows\Prefetch
@@ -546,8 +490,11 @@ d-----        2/11/2021   3:53 PM                ReadyBoot
 
 	Output shows the programs that were run and when they were executed that are stored in the Prefetch location.
 
+################################
 
 6. Jump Lists
+
+################################
 
 The Windows 7-10 taskbar (Jump List) is engineered to allow users to “jump” or access items they have frequently or recently used quickly and easily.
 
@@ -563,10 +510,10 @@ The data stored in the Automatic Destinations folder will each have a unique fil
 
 Jumplists allow us to get visibility about the intent or knowledge an attacker had when opening a particular file, launching a particular application or browsing a specific directory during the course of an interactive session.
 
-JumpLists Documentation
+JumpLists Documentation <https://nasbench.medium.com/windows-forensics-analysis-windows-artifacts-part-ii-71b8fa68d8a1>
 
 
-6.1 Location
+### 6.1 Location ### 
 
 Win7/8/10
 
@@ -576,7 +523,7 @@ Show in Explorer:
 C:\%USERPROFILE%\AppData\Roaming\Microsoft\Windows\Recent\AutomaticDestinations (C:\Users\king\AppData\Roaming\Microsoft\Windows\Recent)
 
 
-6.2 Demo
+### 6.2 Demo ### 
 
 
 Programs/Items that were recently used
@@ -612,8 +559,11 @@ or
 	Output shows the Jump Lists Artifacts for the currently logged user
 	Output redirected through strings.exe and into a file provides more readable output.
 
+################################
 
 7. Recent Files
+
+################################
 
 Registry Key that will track the last files and folders opened and is used to populate data in “Recent” menus of the Start menu.
 
@@ -621,14 +571,14 @@ Registry Key that will track the last files and folders opened and is used to po
 
     Entry and modification time of this key will be the time and location the last file of a specific extension was opened.
 
-7.1 Location
+### 7.1 Location ### 
 
     HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs
 
     HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs\.txt
 
 
-7.2 Demo
+### 7.2 Demo ### 
 
 Query the Hex Value Stored in the Key
 
@@ -694,11 +644,15 @@ a u d i t . t x t   \ 2           audit.lnk D 	  ï¾        .                 
 
 	Shows and converts all of the text files located in the Recent Files Registry location
 
+#################################
 
 8. Browser Artifacts
 
+#################################
+
 Stores details for each user account. Records number of times a site is visited (frequency). History will record the access to the file on the website that was accessed via a link. Many sites in history will list the files that were opened from remote sites and downloaded to the local system.
-8.1 Location
+
+### 8.1 Location ### 
 
 Win7/8/10:
 
@@ -784,15 +738,20 @@ _Output_Truncated_
 	Create a Variable to pull all contents from the Browswer History file
 	Output is cleaned up to only show the URLs
 
+################################
 
 9. Auditing
-9.1 Intro
+
+################################
+
+### 9.1 Intro ### 
 
 The Auditing Windows portion of this FG covers the concept of Windows Auditing using native tools along with the analysis of generated artifacts using cmd, powershell, or the GUI based program Eventviewer.
 	Run all the Auditing Demos on the Admin-Station. Make sure to exit your pssession from Workstation2.
 
 Q: Why is auditing Windows systems important?
-9.2 Demo
+
+### 9.2 Demo ### 
 
 Enable auditing on a text file
 
@@ -890,8 +849,11 @@ PS C:\Users\andy.dwyer> auditpol /set /subcategory:"File System" /success:disabl
 The command was successfully executed.
 PS C:\Users\andy.dwyer>
 
+############################
 
 10. Event Logs
+
+############################
 
 Logs are records of events that happen in your computer, such as when a user logs on to the computer or when a program encounters an error. Users might find the details in event logs helpful when troubleshooting problems with Windows and other programs. They also help you track what happened.
 
@@ -904,7 +866,7 @@ Q: What type of information is logged in the Security Log?
 Q: What type of information is logged in the System Log?
 
 
-10.1 Locations
+### 10.1 Locations ### 
 
 *.evtx files accessed by:
 
@@ -915,7 +877,7 @@ Q: What type of information is logged in the System Log?
     wevtutil in Command Prompt
 
 
-10.2 Demo
+### 10.2 Demo ### 
 DEMO: Enable Auditing of a file
 
     Create a .txt file in C:\Users\"User Name\Desktop
@@ -1136,118 +1098,29 @@ Get-WinEvent Microsoft-Windows-PowerShell/Operational | Where-Object {$_.Message
 
 Sample Event IDs to search for for malicious actors in your network
 	
-
-ID
-	
-
-Level
-	
-
-Event Log
-
-Account Lockouts
-	
-
-4740
-	
-
-Informational
-	
-
-Security
-
-User Added to Privileged Group
-	
-
-4728, 4732, 4756
-	
-
-Informational
-	
-
-Security
-
-Security-Enabled group Modification
-	
-
-4735
-	
-
-Informational
-	
-
-Security
-
-Successful User Account Login
-	
-
-4624
-	
-
-Informational
-	
-
-Security
-
-Failed User Account Login
-	
-
-4625
-	
-
-Informational
-	
-
-Security
-
-Account Login with Explicit Credentials
-	
-
-4648
-	
-
-Informational
-	
-
-Security
-
-Event Log was Cleared
-	
-
-104
-		
-
-Audit Log was Cleared
-	
-
-1102
-		
-
-Security
-
-System audit policy was changed
-	
-
-4719
-		
-
-PS Module Logging (Command Execution)
-	
-
-4103
-		
-
-PS Script-Block Logging (Script Execution)
-	
-
-4104,4105,4106
+|							|	ID	|	Level	|	Event Log	|
+|	Account Lockouts				|	4740	|	Informational	|	Security	|
+|	User Added to Privileged Group			|	4728, 4732, 4756	|	Informational	|	Security	|
+|	Security-Enabled group Modification		|	4735	|	Informational	|	Security	|
+|	Successful User Account Login			|	4624	|	Informational	|	Security	|
+|	Failed User Account Login			|	4625	|	Informational	|	Security	|
+|	Account Login with Explicit Credentials		|	4648	|	Informational	|	Security	|
+|	Event Log was Cleared				|	104	|	|	|
+|	Audit Log was Cleared				|	1102	|	|	Security	|
+|	System audit policy was changed			|	4719	|	|	|
+|	PS Module Logging (Command Execution)		|	4103	|	|	|
+|	PS Script-Block Logging (Script Execution)	|	4104,4105,4106	|	|	|
 		
 
 A more inclusive list of Windows Security Log Events
 
+#########################################
 
 11. PowerShell Artifacts
-11.1 PowerShell Transcripts
+
+#########################################
+
+### 11.1 PowerShell Transcripts ### 
 
 PowerShell Transcript is a feature that creates a record of all or part of a PowerShell session to a text file.
 
@@ -1267,7 +1140,7 @@ Q: Is there a way to bypass this security feature?
     However, Start-Transcript can still be run to create a log of the session from which it is created from.
 
 
-11.2 Powershell History
+### 11.2 Powershell History ### 
 
 Powershell history is a record of every command entered during a Powershell Session.
 
@@ -1302,7 +1175,7 @@ _Output_Truncated_
 Get-History Documentation
 
 
-11.3 Powershell Script Block Logging
+### 11.3 Powershell Script Block Logging ### 
 
 Script block logging records blocks of code as they are executed by the PowerShell engine, thereby capturing the full contents of code executed by an attacker, including scripts and commands. Due to the nature of script block logging, it also records de-obfuscated code as it is executed.
 
