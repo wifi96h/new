@@ -10,3 +10,6 @@ jq . conn.log | md5sum
 # Use jq to locate and count the unique originating endpoint IP addresses in the file. Enter the number of unique originating IP addresses as the flag.
 jq '."id.orig_h"' conn.log | sort -u | wc -l
 
+# Use jq to locate and count connections where the destination IP sent more than 40 bytes to the source IP.
+jq 'select(.resp_ip_bytes > 40 ) ."id.orig_h"' conn.log | wc -l 
+
