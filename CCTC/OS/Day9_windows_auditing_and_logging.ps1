@@ -13,6 +13,11 @@ Get-ComputerInfo | select osname,osversion,OsHardwareAbstractionLayer
 Get-Item HKLM:\SYSTEM\CurrentControlSet\Services\bam\UserSettings\*  
 get-itemproperty HKLM:\SYSTEM\CurrentControlSet\Services\bam\UserSettings\S-1-5-21-2881336348-3190591231-4063445930-1001
 
+-or-
+$sid = (get-localuser | select name, sid | where {$_.name -eq "student"}).sid.value
+New-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\bam\UserSettings\$sid\ -Name "C:\Windows\Temp\bad_intentions.exe" -Value Stuff
+New-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\bam\UserSettings\$sid\ -Name "\Device\HarddiskVolume1\Windows\Temp\bad_intentions.exe" -Value Stoof
+
 # Enter the name of the questionable file in the prefetch folder.
 Get-Childitem -Path 'C:\Windows\Prefetch' -ErrorAction Continue
 
@@ -20,6 +25,15 @@ Get-Childitem -Path 'C:\Windows\Prefetch' -ErrorAction Continue
 Get-Childitem 'C:\$RECYCLE.BIN' -Recurse -Verbose -Force | select FullName
 get-content 'C:\$RECYCLE.BIN\S-1-5-21-2881336348-3190591231-4063445930-1003\*.txt'
 
+-or-
+
+gci 'C:\$RECYCLE.BIN\S-1-5-21-2881336348-3190591231-4063445930-1003' -force | Select-Object FullName | ForEach-Object {Get-Content $_.Fullname; write-host $_.Fullname} | select-string -Pattern "dont"
+
+-or-
+
+
+$files = get-childitem "`$r*"
+foreach ($item in $files) {write-host "$($item.name) - $(get-content $item)"} # run while in $recycle.bin\sid
 
 # Check event logs for a "flag" string.
 Get-Eventlog -LogName System | ft -wrap | findstr /i flag
