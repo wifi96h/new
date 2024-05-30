@@ -238,7 +238,7 @@ PS C:\Users\andy.dwyer\Desktop\Memory_Analysis> .\volatility_2.6_win64_standalon
 	At a minimum, the Volatility executable followed by a filename (-f), profile(--profile=), and plugin should be used when working with a memory image/dump.
 
 
-Plugin: Imageinfo (always use first)
+Plugin: Imageinfo *** always use first ***
 
 PS C:\Users\andy.dwyer\Desktop\Memory_Analysis> .\volatility_2.6_win64_standalone.exe -f ".\cridex.vmem" imageinfo 
           Suggested Profile(s) : WinXPSP2x86, WinXPSP3x86 (Instantiated with WinXPSP2x86) 
@@ -382,6 +382,7 @@ Description:
 
         We will dump the executable reader_sl.exe (Pid: 1640) for further investation.
 
+** use psxview to view where the processes appear in various boolian areas **
 
 ### 4.4 procdump plugin ### 
 
@@ -496,8 +497,6 @@ Ask the students:
     A: A connection was made to IP 41.168.5.140:8080
 
 
-### 4.5 connscan plugin ### 
-
 Plugin: connscan
 
 PS C:\Users\andy.dwyer\Desktop\Memory_Analysis> .\volatility_2.6_win64_standalone.exe -f ".\cridex.vmem" --profile=WinXPSP2x86 connscan 
@@ -585,6 +584,9 @@ Resources
     GitHub Wiki on Volatility Installation <https://github.com/volatilityfoundation/volatility/wiki/Installation>
 
     What is a driver <https://learn.microsoft.com/en-us/windows-hardware/drivers/gettingstarted/what-is-a-driver->
+
+<http://dfir.com.br/wp-content/uploads/2014/09/memory-forensics-cheat-sheet.pdf>
+<https://www.sans.org/blog/the-ultimate-list-of-sans-cheat-sheets/>
 
 This page was built using a slightly modified version of the Antora default UI.
 The source code for this UI is licensed under the terms of the MPL-2.0 license and can be found at https://git.cybbh.space/common/contributing
