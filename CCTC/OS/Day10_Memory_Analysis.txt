@@ -67,9 +67,9 @@ Non-Volatile Memory
 
 Memory forensics can provide unique insights into runtime system activity, including open network connections and recently executed commands or processes. Often, critical data of attacks or threats will exist solely in system memory – examples include network connections, account credentials, chat messages, encryption keys, running processes, injected code fragments, and internet history which is non-cacheable. Memory contains any executable program – malicious or otherwise – making memory forensics critical for identifying otherwise obfuscated attacks.
 
-    Data that has not stored on a disk is present in memory
+    Data that has not stored on a disk is present in memory <https://arstechnica.com/information-technology/2017/02/a-rash-of-invisible-fileless-malware-is-infecting-banks-around-the-globe/>
 
-    Deleted files or modified can be scraped from RAM and used as evidence or for timelining an attack.
+    Deleted files or modified can be scraped from RAM and used as evidence or for timelining an attack. <https://www.wired.com/2014/09/ram-scrapers-how-they-work/>
 
 Examples:
 
@@ -102,7 +102,7 @@ Order of Volatility From Most to Least
 
 Resources
 
-    RFC 3227 - 2.1 Order of Volatility
+    RFC 3227 - 2.1 Order of Volatility <https://datatracker.ietf.org/doc/html/rfc3227#section-2.1>
 
 #########################################
 
@@ -127,52 +127,21 @@ Volatility is an open source memory analysis tool for Linux, Windows, Mac, and A
     Each operating system has its own memory acquisition tool called Persistent Memory (pmem)
 
         Linpmem
-
         Winpmem
-
         OSXpmem
 
 
 ### 2.2 Volatility versions ### 
 
 Let the students know that there is a Python version of Volatility as well as a Standalone binary version. The table below provides pros and cons to use either version.
+
 Table 2. Versions-at-a-glance
-
-Version
-	
-
-Pros
-	
-
-Cons
-
-Python
-	
-
-    Updated Frequently
-
-    All profiles available
-
-	
-
-    Lengthy Install
-
-    Can’t run without Python installed
-
-Standlone
-	
-
-    No install necessary
-
-    Quick and easy to download/run
-
-    Can run without python
-
-	
-
-    Not all profiles included
-
-    Not updated frequently
+|	Version	|	Pros	|	Cons	|
+|	Python	|	Updated Frequently	|	Lengthy Install	|
+|		|	All profiles available	|	Can’t run without Python installed	|
+|	Standlone	|	No install necessary	|	Not all profiles included	|
+|			|	Quick and easy to download/run	|	Not updated frequently	|
+|			|	Can run without python	|		|
 
 
 ### 2.3 Understanding Profiles ### 
@@ -433,12 +402,13 @@ SHA256          5B136147911B041F0126CE82DFD24C4E2C79553B65D3240ECEA2DCAB4452DCB5
 	This will prevent Defender from quarantining the potential malware sample.
 	procdump plugin used to dump a process’s executable.
 	executable.1640.exe is executable now located in the current directory
-	get-filehash provides SHA256 hash of executable.1640.exe for copy and paste into VirusTotal
+	get-filehash provides SHA256 hash of executable.1640.exe for copy and paste into VirusTotal <https://www.virustotal.com/gui/home/search>
+
 Description:
 
     This plugin is used to dump a process’s executable for further analysis with tools like strings.exe from sysinternals or notepad++ regex functional search.
 
-    VirusTotal is used for Internet security, and as a file and URL analyzer. See "How it Works"
+    VirusTotal is used for Internet security, and as a file and URL analyzer. See "How it Works" <https://docs.virustotal.com/docs/how-it-works>
 
 Ask students:
 
@@ -450,7 +420,7 @@ File Analysis (using filehash) with VirusTotal
 
     Copy filehash
 
-    Go to VirusTotal
+    Go to VirusTotal <https://www.virustotal.com/gui/home/upload>
 
     Click on Search
 
@@ -598,23 +568,23 @@ Try other plugins to investigate other artifacts mentioned in earlier lectures. 
 
 Resources
 
-    About Volatility
+    About Volatility <https://www.volatilityfoundation.org/about>
 
-    Install Python Version of Volatility on Windows
+    Install Python Version of Volatility on Windows <https://dfironthemountain.wordpress.com/2018/10/29/installing-volatility-on-windows/>
 
-    Volatility 2.6 Standalone Executables
+    Volatility 2.6 Standalone Executables <https://volatilityfoundation.org/>
 
-    Volatility Command Reference
+    Volatility Command Reference <https://github.com/volatilityfoundation/volatility/wiki/Command-Reference>
 
-    Intro to Memory Forensics
+    Intro to Memory Forensics <https://www.youtube.com/watch?v=1PAGcPJFwbE&t=319s>
 
-    Windows Memory Analysis
+    Windows Memory Analysis <https://www.youtube.com/watch?v=gHbejxlPbRQ>
 
-    Memory Layout Reading
+    Memory Layout Reading <https://manybutfinite.com/post/anatomy-of-a-program-in-memory/>
 
-    GitHub Wiki on Volatility Installation
+    GitHub Wiki on Volatility Installation <https://github.com/volatilityfoundation/volatility/wiki/Installation>
 
-    What is a driver
+    What is a driver <https://learn.microsoft.com/en-us/windows-hardware/drivers/gettingstarted/what-is-a-driver->
 
 This page was built using a slightly modified version of the Antora default UI.
 The source code for this UI is licensed under the terms of the MPL-2.0 license and can be found at https://git.cybbh.space/common/contributing
