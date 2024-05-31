@@ -1,4 +1,3 @@
-
 Cyber Common Technical Core - OS Module Public Repo
 Active Directory Enumeration FG
 Cyber
@@ -87,8 +86,12 @@ Examples of suspicious accounts include:
 
 
 ### 2.1 Initial Recon ### 
+
 Given: creds for the target box are known
 
+** Get-ADUser for AD **
+** Get-LocalUser for localhost **
+Bloodhound, PingCastle, other third party tools work as well
 
 1. Get a list of AD Commands Available
 
@@ -180,6 +183,8 @@ PS> Get-ADGroupMember -Identity 'IA Analysts Team' -Recursive
 9. Get AD users
 
 PS> Get-ADUser -Filter 'Name -like "*"'
+-or-
+Get-ADUser -Filter *
 
 DistinguishedName : CN=Willie.Liu,OU=3RD PLT,OU=CCO,OU=3RDBN,OU=WARRIORS,DC=army,DC=warriors
 Enabled           : True
@@ -192,6 +197,8 @@ __________CUT____________
 10. To see additional properties, not just the default set
 
 PS> Get-ADUser -Identity 'Nina.Webster' -Properties Description
+-can use-
+Get-ADUser -Identity 'Nina.Webster' -Properties * (add | findstr when needed)
 
 Description       : 3rd PLT Soldier
 DistinguishedName : CN=Nina.Webster,OU=3RD PLT,OU=CCO,OU=3RDBN,OU=WARRIORS,DC=army,DC=warriors
@@ -254,7 +261,7 @@ Scenario 2: Create a new user on the box
 
 Get Distinguished Name to match AD format
 
-PS> Get-ADuser -filter * | select distinguishedname, name
+PS> Get-ADuser -filter * | select name, distinguishedname
 
 CN=Amelie.Benjamin,OU=3RD PLT,OU=CCO,OU=3RDBN,OU=WARRIORS,DC=army,DC=warriors     Amelie.Benjamin
 CN=Ramon.Gibbs,OU=3RD PLT,OU=CCO,OU=3RDBN,OU=WARRIORS,DC=army,DC=warriors         Ramon.Gibbs
@@ -323,6 +330,8 @@ Get All Domain Admin Accounts
 PS> Get-AdGroupMember -identity "Domain Admins" -Recursive | %{Get-ADUser -identity $_.DistinguishedName}
 
 PS> Get-AdGroupMember -identity "Domain Admins" -Recursive | %{Get-ADUser -identity $_.DistinguishedName} | select name, Enabled
+-or-
+Get-AdGroupMember -identity "Domain Admins" -Recursive | %{Get-ADUser $_.Name} | select name, Enabled
 
 name            Enabled
 ----            -------
