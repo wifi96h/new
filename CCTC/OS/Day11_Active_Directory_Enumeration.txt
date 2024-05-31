@@ -24,6 +24,8 @@ Table of Contents
         3.1 AD Group Nesting Flaws
     References
 
+################################################################################################################
+################################################################################################################
 
 Terminal Learning Objectives
 1. Identify Active Directory Enumeration
@@ -31,15 +33,18 @@ Terminal Learning Objectives
 3. Describe Active Directory Group Enumeration
 4. Complete Active Directory CTFd Challenges PE
 
+####################################
 
 1. What Is Active Directory?
+
+####################################
 
 Active Directory (AD) is a Microsoft technology used to manage computers and other devices on a network. Active Directory allows network administrators to create and manage domains, users, and objects within a network.
 
 For example, an admin can create a group of users and give them specific access privileges to certain directories on the server. As a network grows, Active Directory provides a way to organize a large number of users into logical groups and subgroups, while providing access control at each level.
 
 
-1.1 Active Directory Structure
+### 1.1 Active Directory Structure ###
 
 The Active Directory structure includes three main tiers: domains, trees, and forests. Each level of AD has specific access rights that Domain Controllers manage.
 
@@ -58,8 +63,11 @@ The Active Directory structure includes three main tiers: domains, trees, and fo
 AD_Structure
 Figure 1. Relationship between Domains, Trees, and Forests in AD
 
+################################
 
 2. Enumerate Users
+
+###############################
 
 When HUNTING on an AD infrastructure for potential malicious users you should look for accounts that seem suspicious._
 
@@ -78,7 +86,7 @@ Examples of suspicious accounts include:
     This information can be collected through PowerShell and Windows Event Logs on the Domain Controller. Windows Logs are the best way to identify security issues.*
 
 
-2.1 Initial Recon
+### 2.1 Initial Recon ### 
 Given: creds for the target box are known
 
 
@@ -199,7 +207,7 @@ Surname           : Webster
 UserPrincipalName :
 
 
-2.2 Enumerate users
+### 2.2 Enumerate users ### 
 If while on a target box we are concerned a legitimate user will log on during our mission consider the following
 
 
@@ -304,7 +312,7 @@ PS> Disable-AdAccount -Identity Guest
    -Nothing returned if successful execution-
 
 
-2.3 Enumerate Users from a DCO perspective
+### 2.3 Enumerate Users from a DCO perspective ### 
 
 
 Scenario: You are an admin and need to periodically check what accounts have 'Enterprise' and 'Domain' level access
@@ -336,13 +344,14 @@ Administrator    True
 __________CUT____________
 
 
-2.4 Display Resultant Set of Policy(RSoP) Information
+### 2.4 Display Resultant Set of Policy(RSoP) Information ### 
+
 	Run gpresult from the Domain Controller.
 
 
 RsoP (Resultant Set of Policy) is a Microsoft tool that is built into Windows 7 and later versions. It provides administrators a report on what group policy settings are getting applied to users and computers.
 
-Microsoft Article on using GPresult
+Microsoft Article on using GPresult <https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/gpresult>
 
 
 1. Display Help
@@ -399,8 +408,12 @@ Updating policy...
 Computer Policy update has completed successfully.
 User Policy update has completed successfully.
 
+############################################
 
 3. Administrator Best Practices
+
+###########################################
+
 Q&A
 
     Question 1 What are AD Administrator best practices?
@@ -415,7 +428,7 @@ Q&A
     Segregation of sites should created to ensure proper security of the domain.
 
 
-3.1 AD Group Nesting Flaws
+### 3.1 AD Group Nesting Flaws ### 
 	The Name Property will show the names of each member of the group
 
 
@@ -475,10 +488,12 @@ Q&A
     Answer 3 No. The default local administrator account on all hosts should be disabled.
     If an attacker were to compromise just 1 system with knowledge of the default admin, then the rest of the domain would be easily owned.
 
+#################################################################################################################
+#################################################################################################################
 
 References
 
-    [1] Security System Components, Safari Books Online
+    [1] Security System Components, Safari Books Online <http://techbus.safaribooksonline.com/book/operating-systems-and-server-administration/microsoft-windows/9780735671294/6dot-security/ch06s02_html>
 
 This page was built using a slightly modified version of the Antora default UI.
 The source code for this UI is licensed under the terms of the MPL-2.0 license and can be found at https://git.cybbh.space/common/contributing
