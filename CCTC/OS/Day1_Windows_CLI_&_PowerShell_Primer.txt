@@ -1,0 +1,624 @@
+OS Public
+PowerShell
+CLI Primer
+Windows CLI and Powershell Primer Guide
+Cyber
+
+
+Table of Contents
+1. Object-Oriented and Procedural Programming Shells
+1.1 Object-Oriented Programming Defined
+1.2 Shells considered Object Orientated
+1.3 Procedural Programming Defined
+1.4 Shells considered procedural
+2. Command Shells
+2.1 CLI in Multiple Operational Roles
+2.2 Windows Command shell
+2.3 PowerShell
+2.3.1 Transcript
+3. PowerShell Profile Usage and Capabilities
+3.1 PowerShell Profiles
+3.2 PowerShell $PROFILE Variable and Profile Paths
+3.3 Creating A PowerShell Profile
+3.4 Commands and Arguments
+3.5 PowerShell Help
+3.6 Alias
+3.7 PowerShell Object Properties
+3.8 Using the Methods of Objects
+3.9 Pipelined Variables
+3.9.1 Pipelining
+4. Batch Scripts
+5. PowerShell Scripts
+5. PowerShell and Windows Management Instrumentation (WMI)
+5.1 Windows Management Instrumentation (WMI)
+5.2 CIM Classes
+Validate the security posture of the system by analyzing the patch level, configurations, and policies.
+6. Patch Level and Configurations
+6.1 Patch Level
+6.2 PowerShell Execution Policy
+
+#######################################################################################################
+#######################################################################################################
+
+Terminal Learning Objectives:
+
+Describe the differences between Object Oriented and Procedural programming shells
+Describe the Windows Command Shell and PowerShell
+Explain the role of the CLI in multiple operational roles
+Describe Powershell Profile Usage and Capabilities
+Examine the execution of a batch and PowerShell scripts
+Describe how PowerShell can be used to interact with Windows Management Instrumentation (WMI)
+Validate the security posture of the system by analyzing the patch level, configurations, and policies.
+
+
+Introduction
+
+Before the introduction of the Windows Graphical User Interface (GUI), in order to perform tasks or run programs you needed to manually type commands. Windows, while mostly interfaced with through the GUI, still allows users to complete tasks through the command prompt. You will hear the command prompt referred to by many different names; command prompt, cmd, shell, console window, or dos. We are going to explore some of the ways to interact with the Operatign System using the command prompt and PowerShell.
+
+
+###########################################################
+  
+1. Object-Oriented and Procedural Programming Shells
+
+###########################################################
+
+  TLOs: 1, 2, 3
+
+Instructor note
+(TLO) Describe the Differences Between Object-Oriented and Procedural Programming Shells
+INTRO:
+Discussion Question ; What is Procedural Programming?
+Discussion Question; What is Object-Orientated Programming?
+
+Introduction
+In General:
+
+In procedural programming, the program is divided into small parts called functions. In object-oriented programming, the program is divided into small parts called objects.
+
+1.1 Object-Oriented Programming Defined
+Object-oriented programming can be defined as a programming model which is based upon the concept of objects.
+
+Objects contain data in the form of attributes and code in the form of methods.
+
+In object-oriented programming, computer programs are designed using the concept of objects that interact with real world.
+
+Object-oriented programming languages are various but the most popular ones are class-based, meaning that objects are instances of classes, which also determine their types.
+
+Languages used in Object-Oriented Programming Include: Java, C++, C#, Python, PHP, JavaScript, Ruby, Perl, Objective-C, Dart, Swift, Scala.
+
+Instructor Note:
+Discussion Question:
+Which type of language is powershell scripting, Object Orientated or Procedural Programming?
+
+1.2 Shells considered Object Orientated
+Windows PowerShell
+
+PowerShell works with objects, and these objects can have attributes and methods. …​ PowerShell is an object-oriented scripting language; however, moderately complex scripts are often written using a procedural/functional approach.
+
+1.3 Procedural Programming Defined
+Procedural Programming can be defined as a programming model which is derived from structured programming, based upon the concept of calling procedure.
+
+Procedures, also known as routines, subroutines or functions, simply consist of a series of computational steps to be carried out.
+
+During a program’s execution, any given procedure might be called at any point, including by other procedures or itself.
+
+Languages used in Procedural Programming Include: FORTRAN, ALGOL, COBOL, BASIC, Pascal and C.
+
+1.4 Shells considered procedural
+Unix/ Linux Shell Scripting
+
+Instructor Note:
+Discussion Question:
+Which type of language is Unix/Linux Bash Shell Scripting; Object Orientated or Procedural Programming?
+
+Shell scripting referring to the scripting language supported by shells derived from the Bourne shell on UNIX and UNIX-like systems are not an object-oriented language as they have no support for encapsulation, inheritance and polymorphism.
+
+Windows CLI Batch Scripting
+
+Instructor Note:
+Discussion Question:
+Is batch scripting object-oriented or Procedural Programming?
+
+bat`or batch scripting by definition is not object-oriented; however, the power of the shell language is somewhat object-oriented.
+
+If you are scripting in Python you can write your code as a simple script, used as functional programming, or object-oriented, your choice.
+
+
+
+2. Command Shells
+Windows has two command shells: The Command shell and PowerShell. Each shell is a software program that provides direct communication between you and the operating system or application. This provides an environment to automate OCO/DCO operations.
+
+2.1 CLI in Multiple Operational Roles
+CyberSpace Operations are defined into two general subsets by USCYBERCOM which are Defensive and Offensive Operations
+
+Defensive Cyber Operations (DCO)
+Defined:
+To defeat specific threats that have bypassed, breached or are threatening to breach security measures.
+
+Whereas tools exist (opensource and proprietary) which aide in automating some of the tasks required in DCO operations, the command line (CLI) is the primary tool for this purpose. The CLI allows for scripting and automation of tasks and is more often than not available on most operating systems. Possessing and maintaining a proficient level of skill with the CLI is a baseline requirement for successful operations.
+
+Offensive Cyber Operations (OCO)
+Defined:
+To project power in and through foreign cyberspace.
+
+OCO also utilizes a range of open-source and proprietary tool sets. OCO also requires CLI proficiency. Most times, initial entry or even long-term access to hosts require CLI in order to implement effects on target networks. The necessity to posses a strong CLI skill set is a baseline requirement.
+
+
+
+2.2 Windows Command shell
+CLI History Summary:
+
+When Microsoft’s MS-DOS’ “Command-Line Interpreter” or “shell” was implemented it provided a simple, quirky, but relatively effective set of commands, and a command-scripting syntax for writing batch (.bat) files. MS-DOS was very rapidly adopted by businesses large and small, that, combined, created many millions of batch scripts, some of which are still in use today. Batch scripts are used to automate the configuration of users’ machines, setting/changing security settings, updating software, building code, etc. The Command shell was the first shell built into Windows to automate routine tasks, like user account management or nightly backups. Utilizing Windows Script Host you could run more sophisticated scripts in the Command shell. Command line interfaces (CLI) and prompts were the standard interface for computers from the early days into the 1980s. Current Windows systems offer the CLI for administrative tasks.
+
+
+
+2.3 PowerShell
+Powershell is a scripting language and functional command line shell which you can utilize either using Powershell.exe or using the PowerShell_ISE.exe (Interactive Scripting Environment). There are different versions of PowerShell, such as Powershell Core v6 which supports cross platform use for Linux/UNIX/Windows. Windows10 currently ships with PowerShell v5, which will be used in this class.
+
+Today, PowerShell is commonly used in Network Enterprises to automate countless tasks at the server level and also at the client level for such things as Updates/Software Management/Security/3rd Party Software. Knowledge of PowerShell will help Cyber Operators understand/create/modify automated tasks to increase efficiency/security/speed/scaling of operations.
+
+
+
+2.3.1 Transcript
+We can turn on PowerShell transcripts to keep track of commands that have been run.
+
+Currently the only downfall of PowerShell Transcript is that it does not work with PowerShell ISE.
+start-transcript
+start-transcript | out-null                       # Pipe to out-null so users don't see that commands are being recorded
+Start-Transcript C:\MyWork.txt                    # Starts to log commands into the c:\mywork.txt file
+Get-Service                                       # Run get-service command,and inputs the command and its results into the transcript
+Stop-Transcript                                   # End the transcript
+notepad c:\MyWork.txt                             # View the contents of the created transcript in Notepad
+
+
+3. PowerShell Profile Usage and Capabilities
+3.1 PowerShell Profiles
+PowerShell profiles are a convenient way to store PowerShell configuration information as well as personalized aliases and functions to persistent use in every PowerShell session.
+
+Profiles are just scripts that have configurations set.
+PowerShell profiles were intended to assist PowerShell users with mundane repeatable tasks, such as loading a PowerShell module daily, or configuring . By default the profiles are not built, but the profile paths are always checked whenever PowerShell is opened.
+
+PowerShell supports several profile files. The profiles below are listed in order of precedence, with the first profile having the highest precedence.
+Description	Path
+All Users, All Hosts
+
+$PsHome\Profile.ps1
+
+All Users, Current Host - console
+
+$PsHome\Microsoft.PowerShell_profile.ps1
+
+Current User, All Hosts
+
+$Home\[My]Documents\Profile.ps1
+
+Current User, Current Host - console
+
+$Home\[My ]Documents\WindowsPowerShell\Profile.ps1
+
+
+In addition, other programs that host PowerShell can support their own profiles. For example, PowerShell Integrated Scripting Environment (ISE) supports the following host-specific profiles:
+
+Description	Path
+All users, Current Host - ISE
+
+$PsHome\Microsoft.PowerShellISE_profile.ps1
+
+Current user, Current Host - ISE
+
+$Home\[My]Documents\WindowsPowerShell\Microsoft.PowerShellISE_profile.ps1
+
+
+
+3.2 PowerShell $PROFILE Variable and Profile Paths
+The $Profile automatic variable stores the paths to the PowerShell profiles that are available in the current session.
+
+To view a profile path, display the value of the $Profile variable. You can also use the $Profile variable in a command to represent a path.
+
+PS> $Profile
+The $Profile variable stores the path to the "Current User, Current Host" profile. The other profiles are saved in note properties of the $Profile variable.
+
+For example, the $Profile variable has the following values in the Windows PowerShell console.
+
+$profile | Get-Member -Type NoteProperty                        # Displays the profile values of Names, MemberType, and Paths
+$Profile | get-member -type noteproperty | ft -wrap             # Displays the same results but completed in case it was shortened with '...'
+$PROFILE | Get-Member -MemberType noteproperty | select name    # Narrowed results to display only Names
+Determine whether individual profiles have been created on the local computer:
+
+Test-Path -Path $profile.currentUsercurrentHost
+Test-Path -Path $profile.currentUserAllHosts
+Test-Path -Path $profile.AllUsersAllHosts
+Test-Path -Path $profile.AllUserscurrentHost
+The profile paths include the following variables:
+
+$PsHome         # Stores the installation directory for PowerShell
+$Home           # Stores the current user’s home directory
+
+
+3.3 Creating A PowerShell Profile
+We can also create profiles for the current user in the current PowerShell host application.
+
+New-Item -ItemType File -Path $profile -Force                 # Creates a $Profile for the CurrentUser. `Force` is used to ignore any errors.
+ISE $profile                                                  # Opens your newly created $Profile, which is empty
+By default, PowerShell aliases are not saved if you close a PowerShell window session.
+
+For example, if you create a few aliases and close the PowerShell window, you will be required to recreate the same PowerShell aliases.
+
+This would obviously present a problem if you have aliases set up for use in PowerShell scripts.
+
+
+
+3.4 Commands and Arguments
+The tab key is very helpful for file, command, and option completion. "Tab complete" increases your accuracy and speed.
+Instructor Note
+Discussion Question:
+What types of commands does PowerShell use?
+
+PowerShell uses cmdlets, which are unique to PowerShell.
+
+PowerShell commands begin with a cmdlet name, followed by syntax, parameters, and arguments that control the output of the command.
+
+Parameters always begin with a dash unless they are positional which do not require the dash.
+
+They follow a verb-noun syntax pattern. Nouns are always singular e.g. Get-Process NOT Get-Processes
+
+Example. Get-Service -name bits is the same as Get-Service bits the parameter has a dash but the positional or names parameter does not need one.
+
+Get used to using a parameter rather than name until you can remember this.
+Run the command Get-Help Stop-Service and the result will show
+
+Stop-Service [-Name] <String[]> [-Exclude <String[]>] [-Force] as one of three syntax.
+
+Don’t be confused by multitude of syntax, PowerShell has many.
+The [] for -Name are the parameter, also the [] make it optional as a positional parameter. Arguments are surrounded by ( <> ) and describe data expected.
+
+If an argument has [] inside the ( <> ) then it can take multiple. If [] surround the parameter and argument, it is optional.
+
+Finally, PowerShell uses spaces as parameter delimiters.
+
+If a parameter value contains spaces, then you must enclose the value in either single or double quotation marks.
+
+Get-Content -Path "C:\Test Files\content.txt"                                         # Displays the contents of the file
+Get-Variable                                                                          # Displays current Variables
+Get-Verb                                                                              # List the PowerShell verbs
+Get-Command                                                                           # List the PowerShell cmdlets
+Get-Command -Type Cmdlet | Sort-Object -Property Noun | Format-Table -GroupBy Noun    # Get cmdlets and display them in order
+Get-Command -Module Microsoft.PowerShell.Security, Microsoft.PowerShell.Utility       # Get commands in a module
+
+
+3.5 PowerShell Help
+There are several ways to get additional information on a powershell cmdlet.
+
+Get-Help <cmdlet>                                                 # Displays help about a PowerShell cmdlet
+Get-Help get-process                                              # Displays help for `Get-Process` cmdlet
+Get-Help get-process -online                                      # Opens a web browser and displays help for the `Get-Process` cmdlet on the Microsoft website
+Get-History <like Linux will return previous entered commands.>   # Displays history of commands in current window
+Get-Location <similar to PWD on Linux, gl is the alias.>          # Displays present working directory
+Alias man, like Linux will also return help. Using the -full or -detailed option will also increase help information.
+
+The Help file will show the name of the cmdlet, a brief description, the syntax, and a longer description.
+
+The About_ Help files contain information about scripting in PowerShell
+
+When doing a get-help it searches the get-help page and the about_help page simultaneously but you can search the about_help page individually.
+
+For a full list of about_help files. get-help about_
+
+Get-Help about_command_syntax                                     # Displays help about command syntax
+
+
+3.6 Alias
+Instructor Note
+Discussion Question:
+Can I use Linux or cmd commands in PowerShell? If so, how?
+
+View an Alias in PowerShell
+
+Get-Alias <alias>                                                 # Displays aliases for a given command name
+Get-Alias dir                                                     # Returns the alias for `dir`, `Get-ChildItem`
+Create your own Alias: Example syntax
+
+New-Alias -Name <Alias name> -Value Get-LocalUser
+
+
+3.7 PowerShell Object Properties
+Instructor Note
+Discussion Question: What are Objects?
+
+Objects are real things that have properties that describe attributes about them (what we know) and methods that control the object’s behavior/actions (what we can do).
+
+When you run a PowerShell cmdlet, the cmdlet returns objects.
+
+Everything in PowerShell is an object.
+Get-Process | Get-Member                       # Gives the methods and properties of the object/cmdlet
+The result is Get-Member returns the object type (TypeName)—in this case System.Diagnostic.Process.
+
+There are numerous Typenames, for example, run Get-EventLog -LogName System | GM and notice the different Typenames as well as Membertypes.
+
+
+
+(cmdlet).property                              # Command Structure
+(Get-Process).Name                             # Returns the single property of 'name' of every process
+Start-Process Notepad.exe                      # Uses the method Start to open notepad.exe
+Stop-Process notepad                           # Uses the method Stop to close notepad.exe
+Get-Process | Select-Object Name, ID, path     # Displays the Get-Process properties of 'Name, ID, Path' for every process
+When a cmdlet is executed in PowerShell, the object is output in a default way.
+
+You can format the data that you receive by piping the object through a format cmdlet format-table, format-list, etc
+
+Get-Help Format-Table
+Get-Help Format-List
+When running commands be aware of '…​' at the end of lines, as this indicates there is more information. Try Format-Table -wrap
+
+
+3.8 Using the Methods of Objects
+Methods are actions that can be taken against an object.
+
+Get-Process | Get-Member | Where-Object {$_.Membertype -match "Method"}       # Displays all objects with Method in their name from the results from Get-Member of the Get-Process cmdlet
+Start-Process calc                              # Open an instance of calculator
+(Get-Process calculator*).kill()                # Stops a named process using a method
+Stop-Process -name calculator*                  # Same as above
+
+
+3.9 Pipelined Variables
+PowerShell allows for the properties and methods to be called within a pipe by using $_.(The Pipelined Variable)
+
+The variable will always be of the same type as the object coming from the previous command.
+
+Get-Process | Select-Object Name, ID, path | Where-object {$_.ID -lt '1000'}            # List all the processes with a PID lower than 1000
+(Get-Process | Select-Object Name, ID, path | Where-object {$_.ID -lt '1000'}).count    # List all the processes with a PID lower than 1000
+
+
+3.9.1 Pipelining
+Objects in PowerShell are passed along in pipes (|) based off their inputted cmdlets
+
+Get-LocalUser | Get-Member      # Displays properties and methods of the `Get-LocalUser` cmdlet
+
+
+4. Batch Scripts
+Description
+
+A batch file is a script file that consists of a series of commands to be executed by the command-line interpreter and stored in a plain text file (.txt file) usually named (.cmd or .bat). A batch file may contain any command the interpreter accepts interactively and uses constructs that enable conditional branching and looping within the batch file. The term "batch" is from batch processing, meaning "non-interactive execution".
+
+Batch Script is incorporated to automate command sequences which are repetitive in nature. Scripting is a way by which one can alleviate this necessity by automating these command sequences in order to make one’s life at the shell easier and more productive. In most organizations, Batch Script is incorporated in some way or the other to automate various tasks.
+
+Batch scripts are stored in simple text files containing lines with commands that get executed in sequence, one after the other. These files have the special extension BAT or CMD.
+
+Some of the features of Batch Script are:
+
+    • Can read inputs from users so that it can be processed further
+    • Has control structures such as: _for_, _if_, _while_, and _switch_ for better automating and scripting
+    • Supports advanced features like functions and arrays
+    • Supports regular expressions
+    • Can include other programming codes like Perl
+Some of the common uses of Batch Script are
+
+    • Setting up servers for different purposes
+    • Automating housekeeping activities, such as deleting unwanted files or log files
+    • Automating the deployment of applications from one environment to another
+    • Installing programs on various machines at once
+
+
+Batch Scripting Structures
+
+
+5. PowerShell Scripts
+Powershell Scripting Structures
+5. PowerShell and Windows Management Instrumentation (WMI)
+5.1 Windows Management Instrumentation (WMI)
+WMI is organized in namespaces, which are like folders that correlate to specific products or technology. The top “folder” of the WMI namespace is always called “root”.
+
+WMI organizes its classes in a hierarchical namespace. To find useful information, you need to know a Class Name plus the Namespace where it lives.
+
+Exploring Namespaces
+
+WMI represents namespaces as instances of the class: __Namespace. This class starts with two underscores. All internal WMI classes are marked that way.
+
+Finding Child Namespaces of a Namespace
+
+PS> Get-CimInstance -ClassName __Namespace
+Name             PSComputerName
+----             --------------
+mdm
+ms_40c
+Security
+ms_410
+power
+ms_413
+ms_409
+TerminalServices
+ms_407
+To find real namespaces with potentially interesting classes in them, exclude any namespace name that starts with *“ms_” followed by at least two numbers.
+
+Excluding Localization Namespaces
+
+PS> Get-CimInstance -ClassName __Namespace | Where-Object Name -NotMatch '^ms_\d{2}'
+
+Name             PSComputerName
+----             --------------
+mdm
+Security
+power
+TerminalServices
+Listing All Available Namespaces
+
+To find all namespaces, you need to start the search at the top namespace root and then search recursively through all child namespaces.
+
+Since recursion is hard to debug and has the risk of running into out-of-memory errors when nesting levels are too deep, a better alternative is using a Queue.
+
+Some namespaces are protected, so in order to get a full list, make sure you run below code with Administrator privileges.
+# create a new queue
+$namespaces = [System.Collections.Queue]::new()
+
+# add an initial namespace to the queue
+# any namespace in the queue will later be processed
+$namespaces.Enqueue('root')
+
+# process all elements on the queue until all are taken
+While ($namespaces.Count -gt 0 -and ($current = $namespaces.Dequeue()))
+{
+    # find child namespaces
+    Get-CimInstance -Namespace $current -ClassName __Namespace -ErrorAction Ignore |
+    # ignore localization namespaces
+    Where-Object Name -NotMatch '^ms_\d{2}' |
+    ForEach-Object {
+        # construct the full namespace name
+        $childnamespace = '{0}\{1}' -f $current, $_.Name
+        # add namespace to queue
+        $namespaces.Enqueue($childnamespace)
+    }
+
+    # output current namespace
+    $current
+}
+The result on an average Windows10 client looks similar to this:
+
+root
+root\subscription
+root\DEFAULT
+root\CIMV2
+root\msdtc
+root\Cli
+root\Intel_ME
+root\SECURITY
+root\SecurityCenter2
+root\RSOP
+root\PEH
+root\StandardCimv2
+root\WMI
+root\MSPS
+root\directory
+root\Policy
+root\Interop
+root\Hardware
+root\ServiceModel
+root\SecurityCenter
+
+-----Truncated-----
+Listing Classes in a Namespace
+
+Now that you know the names of the available namespaces, Get-CimClass can list the valid class names inside of each.
+
+List class names for a namespace
+
+# list all classes that live in namespace "root\cimv2"...
+Get-CimClass -Namespace 'root\cimv2' |
+
+# take only the class name...
+Select-Object -ExpandProperty CimClassName |
+
+# and sort the output:
+Sort-Object
+
+#putting it together
+Get-CimClass -Namespace 'root\cimv2' | Select-Object -ExpandProperty CimClassName | Sort-Object
+The result is a huge list: On an average Windows10 client, the namespace root/cimv2 contains 1,200 classes.
+
+Identifying Useful Classes
+
+Because there are so many WMI classes, it is important to define a strategy to identify potentially useful classes. The class name prefix can give a clue:
+
+Prefix		Count	Description
+__		    53		internal WMI class used to organize WMI
+CIM		    286		Original class definitions
+Win32	    749		Extended Microsoft implementations that inherit from a CIM class
+MSFT		  102	  Unique Microsoft class that does not inherit from a CIM class
+By excluding any class name that either starts with two underscores or with CIM_, you can eliminate a significant portion.
+
+Exclude “Link” Classes
+
+Classes can have relationships to each other, and these links are defined yet by other classes, similar to a database join. Typically, classes that just link two other classes have at most three properties. Any of these classes can be excluded.
+
+Exclude Performance Counters
+
+Every performance counter has its own WMI class, so if you are not explicitly trying to read performance counter values, exclude any classname that starts with Win32_Perf.
+
+Exclude Plug&Play Classes
+
+Another rather large group of classes describes plug&play functionality and starts with Win32_PnP. You can safely ignore these classes in most cases because the actual plug&play devices and most of the information about them surfaces in other more specific classes.
+
+Reducing/Removing the "unwanted" classes will help in defining the target classes that might be useful to you.
+
+
+
+5.2 CIM Classes
+Instructor note
+Discussion Question:
+What are classes in PowerShell?
+
+A class is like cats. There are many different kinds such as house cats, bobcats, lions, tigers and so on.
+
+They are all cats, but each is unique.
+
+Classes are a very general term for a grouping of similar objects.
+Think of Common Information Model (CIM) classes as objects designed to control a specific windows subsystem like the Hard drive, or BIOS.
+
+CIM Classes are the parent classes upon which WMI (Windows Management Instrumentation) classes are built.
+
+While there are CIM classes of all sorts there may only be a few CIM instances actually being used.
+
+Think of CIM class as place holder and CIM instance as an actual event.
+Get-Cimclass *                                                                  # Lists all CIM Classes
+Get-CimInstance –Namespace root\securitycenter2 –ClassName antispywareproduct   # Lists the antispywareproduct class from the root/security instance
+Get-CimInstance -ClassName Win32_LogicalDisk -Filter “DriveType=3” | gm         # Shows properties and methods for this Instance
+Get-WmiObject -Class Win32_LogicalDisk -Filter “DriveType=3”                    # Using the Windows Management Instrumentation method
+CIM instances have unique methods and what they control
+Be as specific when identifying the appropriate class for the command.
+Get-CimInstance -class Win32_BIOS                      # Queries Win32_Bios
+Get-WmiObject -Class Win32_BIOS                        # same output but deprecated command
+
+
+Validate the security posture of the system by analyzing the patch level, configurations, and policies.
+6. Patch Level and Configurations
+Instructor note
+Discussion Question:
+Why is it important to know the patch level of a box? Response: Knowing the patch level is important from a DCO perspective to ensure your boxes are up to date. From an OCO perspective: When designing an exploit, it is necessary to know as much about your target as possible. If a host isn’t patched and up-to-date, you can find known vulnerabilities on that version of Windows.
+
+6.1 Patch Level
+Windows
+
+list installed updates and their installation dates via PowerShell
+
+> PS:\Get-Hotfix
+view the update history via the command line
+
+> systeminfo
+linux
+
+view the update history via bash
+
+> uname -mrs
+
+
+6.2 PowerShell Execution Policy
+PowerShell uses .ps1 files as a way to run a series of PowerShell commands, with each command appearing on a separate line to make up a script.
+
+By default policy is Restricted. This disallows all scripts not created in the local intranet zone aka the local machine or within a workgroup.
+
+As a security concern, scripts can contain a host of malicious information and should require specific permissions and validation prior to execution.
+
+Get-ExecutionPolicy -list                                             # Lists all of the Scopes and ExecutionPolicies on the system
+Get-ExecutionPolicy                                                   # Gets the current user's ExecutionPolicy
+Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser  # Sets the ExecutionPolicy for the CurrentUser to Unrestricted
+
+
+Summary
+
+PowerShell and the Command Prompt are very resourceful and powerful tools for the Windows Operating System. They are designed to enabe a user to use the computer more efficiently. Keep in mind that these shells are meant for good/intentional interaction with the operatign system but can be used for nafarius reasons as well.
+
+References
+
+https://www.tutorialspoint.com/batch_script/batch_script_quick_guide.htm
+
+About Windows Management Instrumentation Classes (WMI)
+
+Helpful Powershell Command References
+
+CIM CLasses Powershell Reference
+
+Powershell Microsoft Resources
+
+Powershell Examples/Help
+
+This page was built using a slightly modified version of the Antora default UI.
+The source code for this UI is licensed under the terms of the MPL-2.0 license and can be found at https://git.cybbh.space/common/contributing
