@@ -1,0 +1,869 @@
+Cyber Common Technical Core - OS Module Public Repo
+
+D2L4-New Technology File System (NTFS)
+Cyber
+
+U.S. Army Cyber School 2021
+Cyber Common Technical Core (CCTC)
+
+Terminal Learning Objectives
+
+Describe the structure of NTFS
+Define terms associated with NTFS
+Describe a file and its attributes
+Explain the differences between a copy or move operation regarding file attributes
+Identify tools used to view the properties and characteristics of a file
+Discuss file permissions and how they affect file operations
+Demonstrate the use of tools to view and modify the properties and characteristics of a file
+Explain the timestamps associated with a file and how they are affected by operations
+Identify important Windows file locations
+Describe the Master File Table (MFT) and its attributes
+Identify well-known MFT entries
+Identify tools used to connect to remote Windows File System
+
+Table of Contents
+1. New Technology File System (NTFS)
+1.1 NTFS Terminology
+2. Tools and Techniques to view/ modify file and folder properties
+2.1 Graphical User Interface (GUI) method (Windows 10)
+2.2 Access the properties of a file or folder with Command Line
+2.3 Access the properties of a file or folder with Powershell
+2.4 Retrieving Access Permissions on a File and Folder
+3. Copy /move operation and timestamps
+3.1 Copy or move effects on NTFS Permissions
+3.2 Timestamps
+4. File Locations
+4.1 Where are system files stored?
+4.2 Folders you should leave alone to avoid damaging your system.
+5. Master File Table (MFT)
+6. Windows Remoting
+6.1 PowerShell Remoting Security
+7. Remoting commands
+7.1 Temporary Sessions
+
+
+Introduction
+
+The New Technology File System (NTFS) is designed to make it easier for users to organize data. But NTFS is more than just files and folders. NTFS introduced new features from permissions to properties. Many aspects of NTFS are popular vectors for cyber attacks. We are going to look at the core concepts of NTFS.
+
+
+
+1. New Technology File System (NTFS)
+TLO’s for this Module: 1 2
+
+NTFS (New Technology File System) is a proprietary journaling file system developed by Microsoft. It is the default file system of the Windows NT family.
+
+NTFS has several technical improvements over the file systems that it superseded which were:
+
+File Allocation Table (FAT)
+
+High Performance File System (HPFS)
+
+Technical improvements
+
+Improved support for metadata and advanced data structures to improve performance, reliability, and disk space use.
+
+Additional extensions
+
+A more elaborate security system based on access control lists (ACLs) and file system journaling.
+
+NTFS is supported in other desktop and server operating systems as well. Linux and BSD have a free and open-source NTFS driver, called NTFS-3G, with both read and write functionality. MacOS comes with read-only support for NTFS. Windows is additionally capable of directly converting FAT32/16/12 into NTFS without the need to rewrite all files.
+
+NTFS also allows permissions (such as read, write, and execute) to be set for individual directories and files. It even supports spanning volumes, which allows directories of files to be spread across multiple hard drives.
+
+1.1 NTFS Terminology
+Below is a link to a NTFS Glossary. As there are more terms defined that are beyond the scope of this lecture, click the drop down for some basics:
+
+Basic Terms
+NTFS Glossary
+https://flatcap.org/linux-ntfs/ntfs/help/glossary.html
+
+
+
+2. Tools and Techniques to view/ modify file and folder properties
+TLO’s for this Module: 3 5 6 7
+
+2.1 Graphical User Interface (GUI) method (Windows 10)
+Access the properties of a file or folder
+2.2 Access the properties of a file or folder with Command Line
+Properties
+WMIC (Windows Management Interface Command), is a simple command prompt tool that returns information about the system you are running it on. WMIC extends WMI for operation from several command-line interfaces and through batch scripts.
+
+Using WMIC
+Example Syntax
+wmic datafile where Name="C:\\full\\path\\to\\anyfile.txt"
+
+> C:\Users\student\Desktop> wmic datafile where Name="C:\\Users\\student\\Desktop\\This Text Document.txt"
+
+AccessMask  Archive  Caption                                          Compressed  CompressionMethod  CreationClassName  CreationDate               CSCreationClassName   CSName         Description                                      Drive  EightDotThreeFileName                  Encrypted  EncryptionMethod  Extension  FileName            FileSize  FileType       FSCreationClassName  FSName  Hidden  InstallDate                InUseCount  LastAccessed               LastModified               Manufacturer  Name                                             Path                     Readable  Status  System  Version  Writeable
+18809343    TRUE     C:\Users\student\Desktop\This Text Document.txt  FALSE                          CIM_LogicalFile    20210922100044.505638-240  Win32_ComputerSystem  WINOPSSTATION  C:\Users\student\Desktop\This Text Document.txt  c:     c:\users\student\desktop\thiste~1.txt  FALSE                        txt        This Text Document  4         Text Document  Win32_FileSystem     NTFS    FALSE   20210922100044.505638-240              20210924085443.634173-240  20210922132024.045809-240                C:\Users\student\Desktop\This Text Document.txt  \users\student\desktop\  TRUE      OK      FALSE            TRUE
+
+C:\Users\student\Desktop>
+You may notice the jumbled garbage you get back after running this command, here are a solution.
+
+Using the list argument along with format:list to the string
+
+Example Syntax
+wmic datafile where Name="C:\\full\\path\\to\\anyfile.txt" list /format:list
+
+> C:\Users\student\Desktop> wmic datafile where Name="C:\\Users\\student\\Desktop\\This Text Document.txt" list /format:list
+
+
+AccessMask=18809343
+Archive=TRUE
+Caption=C:\Users\student\Desktop\This Text Document.txt
+Compressed=FALSE
+CompressionMethod=
+CreationClassName=CIM_LogicalFile
+CreationDate=20210922100044.505638-240
+CSCreationClassName=Win32_ComputerSystem
+CSName=WINOPSSTATION
+Description=C:\Users\student\Desktop\This Text Document.txt
+Drive=c:
+EightDotThreeFileName=c:\users\student\desktop\thiste~1.txt
+Encrypted=FALSE
+EncryptionMethod=
+Extension=txt
+FileName=This Text Document
+FileSize=4
+FileType=Text Document
+FSCreationClassName=Win32_FileSystem
+FSName=NTFS
+Hidden=FALSE
+InstallDate=20210922100044.505638-240
+InUseCount=
+LastAccessed=20210924085443.634173-240
+LastModified=20210922132024.045809-240
+Manufacturer=
+Name=C:\Users\student\Desktop\This Text Document.txt
+Path=\users\student\desktop\
+Readable=TRUE
+Status=OK
+System=FALSE
+Version=
+Writeable=TRUE
+
+
+C:\Users\student\Desktop>
+Additionally you can refine your query to present only the information of interest by adding the labels previously displayed using the get argument
+
+Example Syntax
+wmic datafile where Name="C:\\full\\path\\to\\anyfile.txt" get Description,Path,Status
+
+> C:\Users\student\Desktop> wmic datafile where Name="C:\\Users\\student\\Desktop\\This Text Document.txt" get Description,Path,Status
+Description                                      Path                     Status
+C:\Users\student\Desktop\This Text Document.txt  \users\student\desktop\  OK
+
+C:\Users\student\Desktop>
+
+
+Attributes
+File attributes are settings associated with computer files that grant or deny certain rights to how a user or the operating system can access that file.
+
+File attributes are a type of meta-data that describe and may modify how files and/or directories in a file-system behave.
+
+Attributes are considered distinct from other metadata, such as dates and times, filename extensions or file system permissions.
+
+Attrib command
+Displays, sets, or removes attributes assigned to files or directories. If used without parameters, attrib displays attributes of all files in the current directory.
+
+Basic Attribute Switches (R, H, A, S)
+
+
+You will need to be familiar the proper syntax to use for the “attrib” tool before you get started.
+
+“Attrib” Syntax
+To change an attribute on a file on Windows NT, the user must have appropriate file system permissions known as Write Attributes and Write Extended Attributes.
+
+The availability of most file attributes depends on support by the underlying file-system (such as FAT, NTFS, ext4) where attribute data must be stored along with other control structures.
+
+Each attribute can have one of two states: set and cleared.
+
+File Explorer in Windows can show the seven mentioned attributes but cannot set or clear the System attribute.
+
+Display attributes of a file using attrib
+> attrib “This Text Document.txt”
+
+A                    C:\Users\student\Desktop\This Text Document.txt
+
+
+2.3 Access the properties of a file or folder with Powershell
+Windows PowerShell, which has become a component of Windows 7 and later, features two commands that can read and write attributes: Get-ItemProperty and Set-ItemProperty.
+
+NTFS has a large number of permissions that are available to be set in various combinations on files and folders.
+
+View all of the available permissions
+PS C:\windows\system32> [system.Enum]::GetNames([System.Security.AccessControl.FileSystemRights])
+
+ListDirectory
+ReadData
+WriteData
+CreateFiles
+CreateDirectories
+AppendData
+ReadExtendedAttributes
+WriteExtendedAttributes
+Traverse
+ExecuteFile
+DeleteSubdirectoriesAndFiles
+ReadAttributes
+WriteAttributes
+Write
+Delete
+ReadPermissions
+Read
+ReadAndExecute
+Modify
+ChangePermissions
+TakeOwnership
+Synchronize
+FullControl
+
+PS C:\windows\system32>
+These permissions are broken up into basic permissions and advanced permissions.
+
+Basic Permissions
+Full Control: Users can modify, add, move and delete files and directories. As well as editing their associated properties. In addition, users can change permissions settings for all files and sub-directories.
+
+Modify: Users can view and modify files and file properties, including deleting and adding files to a directory or file properties to a file.
+
+Read & Execute: Users can run executable files, including script.
+
+Read: Users can view files, file properties and directories.
+
+Write: Users can write to a file and add files to directories.
+
+Advanced Permissions
+2.4 Retrieving Access Permissions on a File and Folder
+Now that we have an understanding of permissions, we can we can look at a given folder and see the assigned permissions
+
+Using the Get-ACL cmdlet we can easily retrieve the access rules on an object.
+
+Running Get-Acl without any parameters will return the NTFS permissions set on the current working directory. Or you can provide Get-Acl with a -Path instead.
+
+PS> PS C:\Users\student\Desktop> Get-Acl -Path "C:\Users\student\Desktop\This Text Document.txt"
+
+
+    Directory: C:\Users\student\Desktop
+
+
+Path                   Owner                 Access
+----                   -----                 ------
+This Text Document.txt WINOPSSTATION\student NT AUTHORITY\SYSTEM Allow  FullControl...
+If the output is truncated, pipe the output to the Format-Table cmdlet with -wrap
+Example Syntax
+Get-ACL -Path C:\TestFolder | Format-Table -wrap+
+
+For additional information, try Format-List
+Example Syntax
+Get-ACL -Path C:\TestFolder | Format-List
+
+PS C:\Users\student\Desktop> Get-Acl -Path "C:\Users\student\Desktop\This Text Document.txt" | Format-List
+
+
+Path   : Microsoft.PowerShell.Core\FileSystem::C:\Users\student\Desktop\This Text Document.txt
+
+Owner  : WINOPSSTATION\student
+Group  : WINOPSSTATION\None
+Access : NT AUTHORITY\SYSTEM Allow  FullControl
+         BUILTIN\Administrators Allow  FullControl
+         WINOPSSTATION\student Allow  FullControl
+Audit  :
+Sddl   : O:S-1-5-21-2639212546-2609384528-1476523986-1004G:S-1-5-21-2639212546-2609384528-1476523986-513D:(A;ID;FA;;;SY)(A;ID;FA;;;BA)(A;ID;FA;;;S-1-5-21-2639212546-2609384528-1476523986-1004)
+
+
+
+PS C:\Users\student\Desktop>
+-Path is a positional parameter, so if it appears in the first position, you can omit it.
+
+Example Syntax
+Get-ACL “This Text Document.txt" | Format-List
+
+You can also return more specific information using properties
+
+Example Syntax
+(Get-Acl -Path C:\temp).Access
+
+PS C:\Users\student\Desktop> (Get-Acl -Path "C:\Users\student\Desktop\This Text Document.txt").Access
+
+FileSystemRights  : FullControl
+AccessControlType : Allow
+IdentityReference : NT AUTHORITY\SYSTEM
+IsInherited       : True
+InheritanceFlags  : None
+PropagationFlags  : None
+
+FileSystemRights  : FullControl
+AccessControlType : Allow
+IdentityReference : BUILTIN\Administrators
+IsInherited       : True
+InheritanceFlags  : None
+PropagationFlags  : None
+
+FileSystemRights  : FullControl
+AccessControlType : Allow
+IdentityReference : WINOPSSTATION\student
+IsInherited       : True
+InheritanceFlags  : None
+PropagationFlags  : None
+
+
+PS C:\Users\student\Desktop>
+To further narrow down the output you can use .Access | format-table IdentityReference ,this shows the users or groups listed in the ACL.
+
+Example Syntax
+(Get-Acl -Path C:\temp).Access| ft IdentityReference
+
+PS C:\Users\student\Desktop> (Get-Acl -Path "C:\Users\student\Desktop\This Text Document.txt").Access | format-table IdentityReference
+
+IdentityReference
+-----------------
+NT AUTHORITY\SYSTEM
+BUILTIN\Administrators
+WINOPSSTATION\student
+
+
+PS C:\Users\student\Desktop>
+The default view does not give us a ton of information, so let’s expand the access property more to see what permissions are set on this folder.
+
+Example Syntax
+(Get-ACL -Path "Folder1").Access | Format-Table IdentityReference,FileSystemRights,AccessControlType, IsInherited,InheritanceFlags -AutoSize
+
+PS C:\Users\student\Desktop> (Get-Acl -Path "C:\Users\student\Desktop\This Text Document.txt").Access | format-table
+IdentityReference,FileSystemRights,AccessControlType,IsInherited,InheritanceFlags  -AutoSize
+
+IdentityReference      FileSystemRights AccessControlType IsInherited InheritanceFlags
+-----------------      ---------------- ----------------- ----------- ----------------
+NT AUTHORITY\SYSTEM         FullControl             Allow        True             None
+BUILTIN\Administrators      FullControl             Allow        True             None
+WINOPSSTATION\student       FullControl             Allow        True             None
+
+
+PS C:\Users\student\Desktop>
+As you can see there are a lot more permissions here than seen at first glance. What is seen above are typical user permissions on a newly created folder.
+
+3. Copy /move operation and timestamps
+TLO’s for this Module: 4 8
+
+3.1 Copy or move effects on NTFS Permissions
+Basic Principles
+When you copy or move a file or folder, the permissions may change depending on where you move the file or folder. It is important to understand the changes that the permissions undergo when being copied or moved.
+
+By default, an object inherits permissions from its parent object, either at the time of creation or when it is copied or moved to its parent folder. The only exception to this rule occurs when you move an object to a different folder on the same volume. In this case, the original permissions are retained.
+
+To copy files and folders within a single NTFS partition or between NTFS and folder partitions, you must have Read permission for the source folder and Write permission for the destination folder.
+
+When you copy a folder or file to a non-NTFS partition, such as a FAT partition, the copy of the folder or file loses its NTFS permissions, because non-NTFS partitions do not support NTFS permissions.
+
+Effects of moving files
+Permissions may change, depending on the permissions of the destination folder.
+
+When data is moved within the same volume, the data is not actually relocated, the pointer to it is merely changed and retains the ACL (Access Control List) entry.
+
+Windows Server 2003: When you move a folder or file between partitions, Windows Server 2003 copies the folder or file to the new location and then deletes it from the old location.
+
+3.2 Timestamps
+If you are a digital forensic examiner, you must know, that NTFS has not 3 timestamps, regular users are used to seeing this in Windows Explorer, but rather there are 8. They are referred to as MACB.
+
+There are two attributes: $STANDARD_INFO and $FILE_NAME. Both contain a set of 4 timestamps. $STANDARD_INFO can be modified by user level processes and $FILE_NAME can be modified only by the system kernel.
+MACB
+Modified
+
+Accessed
+
+Changed ($MFT Modified)
+
+Birth (file creation time)
+
+
+
+Edit timestamps with Windows PowerShell
+The three commands that you should know:
+
+$(Get-Item FILENAME.EXT).creationtime=$(DATE)
+
+$(Get-Item FILENAME.EXT).lastaccesstime=$(DATE)
+
+$(Get-Item FILENAME.EXT).lastwritetime=$(DATE)
+
+These three commands change the creation, last access and last write timestamps of the file when you run them.
+
+Last Access Time is not enabled by default on all supported versions of Windows because of performance concerns.
+
+
+Example Syntax
+
+
+Set the creation timestamp of the file text.txt to the current date and time
+$(Get-Item test.txt).creationtime=$(Get-Date)
+
+Change the last access time and date to December 12th, 2012 at 00:00 am.
+
+$(Get-Item test.txt).lastaccesstime=$(Get-Date "12/12/2012 00:00 am")
+
+The command requires that the file is in the current working directory.
+Helpful commands
+One thing that may be useful is to list the file timestamps of the current folder before and after you run the PowerShell command. This makes it easier to find files that still require changing, and check whether the changes have been applied correctly.
+
+PS C:\Users\student\Desktop> Get-ChildItem -Force | Select-Object Mode, Name, CreationTime, Lastaccesstime, lastwritetime
+
+
+Mode           : d-----
+Name           : New folder
+CreationTime   : 9/22/2021 1:10:24 PM
+LastAccessTime : 9/24/2021 8:50:55 AM
+LastWriteTime  : 9/22/2021 1:10:24 PM
+
+Mode           : d-----
+Name           : This Folder
+CreationTime   : 9/22/2021 9:50:48 AM
+LastAccessTime : 9/24/2021 8:50:55 AM
+LastWriteTime  : 9/22/2021 9:50:48 AM
+
+Mode           : -a-hs-
+Name           : desktop.ini
+CreationTime   : 6/14/2021 11:02:31 AM
+LastAccessTime : 9/24/2021 10:49:05 AM
+LastWriteTime  : 6/14/2021 11:02:31 AM
+
+Mode           : -a----
+Name           : newfile.txt
+CreationTime   : 9/23/2021 1:24:02 PM
+LastAccessTime : 9/23/2021 1:24:02 PM
+LastWriteTime  : 9/23/2021 1:24:02 PM
+
+Mode           : -a----
+Name           : This Text Document.txt
+CreationTime   : 9/22/2021 10:00:44 AM
+LastAccessTime : 9/24/2021 8:54:43 AM
+LastWriteTime  : 9/22/2021 1:20:24 PM
+The command lists all files and folders of the current path, and displays the creation time, last access time and last write time of each item in a table format.
+
+-force in this context includes hidden and system files in the output.
+
+If you just need the lastWriteTime timestamp, run Get-ChildItem -force instead.
+
+PS C:\Users\student\Desktop> Get-ChildItem -Force
+
+
+    Directory: C:\Users\student\Desktop
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----         9/22/2021   1:10 PM                New folder
+d-----         9/22/2021   9:50 AM                This Folder
+-a-hs-         6/14/2021  11:02 AM            282 desktop.ini
+-a----         9/23/2021   1:24 PM           2522 newfile.txt
+-a----         9/22/2021   1:20 PM              4 This Text Document.txt
+
+
+PS C:\Users\student\Desktop>
+The following script runs the operation on all files.
+
+$filechanges = Get-ChildItem -force | Where-Object {! $_.PSIsContainer}
+foreach($object in $filechanges)
+{
+$object.CreationTime=("12/12/2012 12:00:00")
+
+$object.LastAccessTime=("12/12/2012 12:00:00")
+
+$object.LastWritetime=("12/12/2012 12:00:00")
+
+}
+Just copy and paste and change it according to your requirements.
+
+4. File Locations
+TLO’s for this Module: 9
+
+4.1 Where are system files stored?
+Usually system files are found in certain folders which are identified as system folders. In Windows operating systems, these files are hidden by default to prevent them from being deleted accidentally. Also, they are not shown in search results to save the system from undesirable consequences.
+
+Most system files of a Windows operating system are stored in the folder C:\Windows, especially in such sub-folders as /System32 and /SysWOW64.
+
+You will also find system files in a user’s (AppData) folder and applications in (Program Data or Program Files) folders
+
+4.2 Folders you should leave alone to avoid damaging your system.
+Program Files and Program Files (x86)
+
+Located at C:\Program Files and C:\Program Files (x86)
+
+Whenever you install software, you usually open up an exe file and run through an installation process (if not, you’re using a portable app). During this time, the app creates an entry for itself in the Program Files folder, adds Registry values, and performs other tasks that it needs to work properly on your system.
+
+System32
+
+Located at C:\Windows\System32
+
+Nearly everything in the C:\Windows folder could fall under this list, but the System32 folder deserves special attention. It holds hundreds of DLL files that are essential to your computer running properly. In addition, it contains system programs.
+
+Some examples include files that are essential to booting into Windows, resources that make fonts display correctly, and more. Also contained in this folder are executables for default Windows programs. For instance, calc.exe launches the Calculator, while mspaint.exe launches Microsoft Paint.
+
+Page File
+
+Located at C:\pagefile.sys
+
+Pagefile.sys is the Windows paging file, also known as the swap or virtual memory file. Virtual memory is disk space used by Windows when it runs out of physical memory, or RAM, inside your computer and is responsible for temporarily holding open programs.
+
+System Volume Information
+
+Located at C:\System Volume Information
+
+The System Volume Information folder actually contains several important Windows functions. In fact, when you try to access it, Windows will give you an Access Denied error.
+
+This folder contains the System Restore points that your computer creates so you can jump back in time to reverse changes.
+
+WinSxS
+
+Located at C:\Windows\WinSxS
+
+*WinSxS stands for Windows Side By Side and was created in response to an issue that made working with Windows 9x versions a pain. The colloquial term "DLL Hell" describes the problems that arise when dynamic link library (DLL) files conflict, duplicate, or break.
+
+To fix this, Microsoft started using the WinSxS folder to collect multiple versions of every DLL and load them on demand when Windows runs a program. This increases compatibility, such as when a program needs access to an older DLL that’s no longer part of Windows.
+
+D3DSCache
+
+Located at C:\Users\[username]\AppData\Local
+
+This folder isn’t as critical for operating system tasks as the above, but is still worth mentioning as many people wonder what it is. D3DSCache is a folder that contains cached information for Microsoft’s Direct3D API.
+
+This is part of DirectX, which is used for graphics display in games and other visually intensive software. You shouldn’t need to touch the files inside under normal circumstances, and they only take up a few megabytes. However, if you’re experiencing game crashes related to graphics files, clearing this cache may be a useful step.
+
+RUXIM
+
+Located at C:\Program Files\RUXIM
+
+RUXIM, or "Reusable UX Integration Manager," is a folder that has a couple of executables inside. These, according to Microsoft’s Windows 10 required Windows diagnostic events and fields page, are primarily information collection processes. The page describes various processes, stating that "The data collected with this event is used to help keep Windows up to date."
+
+Important Windows Files and Folders Cheatsheet
+http://www.cheat-sheets.org/saved-copy/Windows_folders_quickref.pdf
+
+
+
+5. Master File Table (MFT)
+TLO’s for this Module: 10 11
+
+Master File Table
+A notable source of valuable information for an analyst within the NTFS file system is the Master File Table (MFT). The location of the starting sector of the MFT can be found in the boot sector of the disk, and every file and directory in the volume has an entry in the MFT.
+
+The first record of this table describes the master file table itself, followed by a MFT mirror record.
+
+If the first MFT record is corrupted, NTFS reads the second record to find the MFT mirror file, whose first record is identical to the first record of the MFT.
+
+The locations of the data segments for both the MFT and MFT mirror file are recorded in the boot sector.
+
+Each MFT entry is 1024 bytes in size, making the MFT very simple to parse. Each MFT record, or entry, begins with ASCII string “FILE”
+
+If there is an error in the entry, it will begin with “BAAD”
+
+
+600
+The first 42 bytes of each MFT entry comprise a header structure with 12 elements, and the remaining 982 bytes depend largely on the values within the header and the various attributes contained within the entry.
+
+Not all of the elements within the header of the MFT entry are immediately useful to a forensic analyst; however, here are five of the elements that are immediately useful.
+
+600
+A file may have one or more MFT records, and can contain one or more attributes. In NTFS, a file reference is the MFT segment reference of the base file record.
+
+The MFT contains file record segments; the first 16 of these are reserved for special files, such as the following:
+
+600
+Each file record segment starts with a file record segment header. Each file record segment is followed by one or more attributes. Each attribute starts with an attribute record header.
+
+The attribute record includes the attribute type (such as $DATA or $BITMAP), and the attribute value.
+
+The attribute list is terminated with 0xFFFFFFFF ($END).
+
+When there is no more space for storing attributes in the file record segment, additional file record segments are allocated and inserted in the first (or base) file record segment in an attribute called the attribute list.
+
+The attribute list indicates where each attribute associated with a file can be found. This includes all attributes in the base file record, except for the attribute list itself.
+
+View the MFT in CLI using fsutil command
+C:\Users\student\Desktop>fsutil fsinfo ntfsinfo C:
+
+NTFS Volume Serial Number :        0x8a2acc422acc2ccf
+NTFS Version      :                3.1
+LFS Version       :                2.0
+Total Sectors     :                268,431,359  (128.0 GB)
+Total Clusters    :                 33,553,919  (128.0 GB)
+Free Clusters     :                 28,651,851  (109.3 GB)
+Total Reserved Clusters :            1,534,072  (  5.9 GB)
+Reserved For Storage Reserve :       1,502,875  (  5.7 GB)
+Bytes Per Sector  :                512
+Bytes Per Physical Sector :        512
+Bytes Per Cluster :                4096
+Bytes Per FileRecord Segment    :  1024
+Clusters Per FileRecord Segment :  0
+Mft Valid Data Length :            462.25 MB
+Mft Start Lcn  :                   0x00000000000c0000
+Mft2 Start Lcn :                   0x0000000000000002
+Mft Zone Start :                   0x0000000000585420
+Mft Zone End   :                   0x0000000000591c40
+MFT Zone Size  :                   200.13 MB
+Max Device Trim Extent Count :     0
+Max Device Trim Byte Count :       0
+Max Volume Trim Extent Count :     62
+Max Volume Trim Byte Count :       0x40000000
+Resource Manager Identifier :      6FCA576B-B6E3-11EA-AC02-000F534C66A3
+The output gives you some useful information like NTFS Version and the Mft Valid Data Length This line tells you the size of the MFT.
+
+Another way to view the MFT info is by using a different mode of fsutil
+
+C:\Users\student\Desktop>fsutil volume filelayout C:\$mft
+
+********* File 0x0001000000000000 *********
+File reference number   : 0x0001000000000000
+File attributes         : 0x00000006: Hidden | System
+File entry flags        : 0x00000000
+Link (ParentID: Name)   : 0x0005000000000005: NTFS+DOS Name: \$Mft
+Creation Time           : 6/25/2020 13:01:52
+Last Access Time        : 6/25/2020 13:01:52
+Last Write Time         : 6/25/2020 13:01:52
+Change Time             : 6/25/2020 13:01:52
+LastUsn                 : 0
+OwnerId                 : 0
+SecurityId              : 256
+StorageReserveId        : 0
+Stream                  : 0x010  ::$STANDARD_INFORMATION
+    Attributes          : 0x00000000: *NONE*
+    Flags               : 0x0000000c: Resident | No clusters allocated
+    Size                : 72
+    Allocated Size      : 72
+Stream                  : 0x030  ::$FILE_NAME
+    Attributes          : 0x00000000: *NONE*
+    Flags               : 0x0000000c: Resident | No clusters allocated
+    Size                : 74
+    Allocated Size      : 80
+Stream                  : 0x080  ::$DATA
+    Attributes          : 0x00000000: *NONE*
+    Flags               : 0x00000010: Has Parsed Information
+    Size                : 484,704,256 (462.3 MB)
+    Allocated Size      : 484,704,256 (462.3 MB)
+    Vdl                 : 484,704,256 (462.3 MB)
+    Extents             : 3 Extents
+Stream                  : 0x0b0  ::$BITMAP
+    Attributes          : 0x00000000: *NONE*
+    Flags               : 0x00000000: *NONE*
+    Size                : 61,448
+    Allocated Size      : 65,536
+    Extents             : 1 Extents
+
+C:\Users\student\Desktop>
+Looking at the SIZE row of ::DATA stream, again we can determine the size along with additional information such as timestamps
+
+Simplified illustration of the MFT structure
+
+
+600
+
+
+6. Windows Remoting
+TLO’s for this Module: 12
+
+PowerShell remoting is the next evolution in windows remote management.
+
+Instead of relying on Distributed Component Object Model (DCOM), it uses the Window Remote Management Protocol (WinRM) and Web Services Management (WS-Man) to manage these communications.
+
+Using these two protocols allows for a simplified network configuration.
+
+It does in two ways: only one port is needed to be opened through the firewall and WinRM’s communication is encrypted.
+
+
+
+PowerShell remoting has been available since PowerShell Version 2.
+
+
+When the sessions have 2 different versions of PowerShell, the session will default to the lower version. This can limit the cmdlets you have available.
+
+
+By default, the user initiating the remote connection must be in an administrators group or remote management group.
+
+This can be changed using the session parameters for WinRM.
+
+Display permissions
+PS C:\Users\student\Desktop> Get-PSSessionConfiguration
+
+
+Name          : microsoft.powershell
+PSVersion     : 5.1
+StartupScript :
+RunAsUser     :
+Permission    : NT AUTHORITY\INTERACTIVE AccessAllowed, BUILTIN\Administrators AccessAllowed, BUILTIN\Remote Management Users AccessAllowed
+
+Name          : microsoft.powershell.workflow
+PSVersion     : 5.1
+StartupScript :
+RunAsUser     :
+Permission    : BUILTIN\Administrators AccessAllowed, BUILTIN\Remote Management Users AccessAllowed
+
+Name          : microsoft.powershell32
+PSVersion     : 5.1
+StartupScript :
+RunAsUser     :
+Permission    : NT AUTHORITY\INTERACTIVE AccessAllowed, BUILTIN\Administrators AccessAllowed, BUILTIN\Remote Management Users AccessAllowed
+
+
+
+PS C:\Users\student\Desktop>
+
+
+PowerShell Remoting has to be enabled on client workstations, but it is on by default in Windows Server 2012 and newer.
+
+On a client version of Windows that has a public network profile enabled, you will need to use the -SkipNetworkProfileCheck parameter or Enable-PSRemoting will fail.
+
+This will add a firewall rule for public networks that allows remote connections only from hosts in the same local subnet.
+
+Query current network profiles.
+PS C:\Users\student\Desktop> Get-ChildItem 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\NetworkList\Profiles\'
+
+
+    Hive: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\NetworkList\Profiles
+
+
+Name                           Property
+----                           --------
+{AA955185-37A0-4E56-9A43-111AF ProfileName       : Network
+BDEAF0A}                       Description       : Network
+                               Managed           : 0
+                               Category          : 1
+                               DateCreated       : {229, 7, 6, 0...}
+                               NameType          : 6
+                               DateLastConnected : {229, 7, 9, 0...}
+                               CategoryType      : 0
+
+
+PS C:\Users\student\Desktop>
+Table 1. Network Profile Registry Values
+Network Location Category	Data Value
+Public
+
+0 (ZERO)
+
+Private
+
+1
+
+Domain
+
+2
+
+
+
+6.1 PowerShell Remoting Security
+WinRM uses Kerberos for authentication by default.
+
+It also encrypts all communications with a per-session AES-256 symmetric key.
+
+Uses ports 5985 for HTTP by default or 5986 for HTTPS. HTTPS requires extra set-up for SSL certificates.
+
+WinRM is already encrypted, but HTTPS will encrypt the packet headers as well.
+Although, New-PSSession, Enter-PSSession, and Invoke-Command accept an IP address as a value, Kerberos does not and NTLM authentication will be used.
+
+Display the WinRM configuration
+PS C:\Users\student\Desktop> winrm get winrm/config
+Config
+    MaxEnvelopeSizekb = 500
+    MaxTimeoutms = 60000
+    MaxBatchItems = 32000
+    MaxProviderRequests = 4294967295
+    Client
+        NetworkDelayms = 5000
+        URLPrefix = wsman
+        AllowUnencrypted = false
+        Auth
+            Basic = true
+            Digest = true
+            Kerberos = true
+            Negotiate = true
+            Certificate = true
+            CredSSP = false
+        DefaultPorts
+            HTTP = 5985
+            HTTPS = 5986
+        TrustedHosts
+    Service
+        RootSDDL = O:NSG:BAD:P(A;;GA;;;BA)(A;;GR;;;IU)S:P(AU;FA;GA;;;WD)(AU;SA;GXGW;;;WD)
+        MaxConcurrentOperations = 4294967295
+        MaxConcurrentOperationsPerUser = 1500
+        EnumerationTimeoutms = 240000
+        MaxConnections = 300
+        MaxPacketRetrievalTimeSeconds = 120
+        AllowUnencrypted = false
+        Auth
+            Basic = true
+            Kerberos = true
+            Negotiate = true
+            Certificate = false
+            CredSSP = false
+            CbtHardeningLevel = Relaxed
+        DefaultPorts
+            HTTP = 5985
+            HTTPS = 5986
+        IPv4Filter = *
+        IPv6Filter = *
+        EnableCompatibilityHttpListener = false
+        EnableCompatibilityHttpsListener = false
+        CertificateThumbprint
+        AllowRemoteAccess = true
+    Winrs
+        AllowRemoteShellAccess = true
+        IdleTimeout = 7200000
+        MaxConcurrentUsers = 2147483647
+        MaxShellRunTime = 2147483647
+        MaxProcessesPerShell = 2147483647
+        MaxMemoryPerShellMB = 2147483647
+        MaxShellsPerUser = 2147483647
+
+PS C:\Users\student\Desktop>
+
+
+If you are outside of a Active Directory Domain then you have two options: HTTPS or adding the host to the Trusted Hosts file.
+
+Trusted Hosts can be used in a workgroup environment or inter-domain.
+
+Understand any host that you are putting in this list you are trusting 100%.
+Be aware that setting TrustedHosts to * is a good override of every security protection Microsoft provides. It’s easy, but it does make it very easy for an attacker to spoof connections, grab your credentials, and do awful stuff. If you’re just using * to test, okay, but be aware that it’s not a very safe configuration.
+The trusted hosts is set by the last set-item command ran.
+
+Add more hosts by putting the current values in a variable and include the additional hosts you want to add.
+
+You can only completely overwrite or append content to the string value in Trusted Hosts.
+
+Get-Item WSMan:\localhost\client\TrustedHosts                                      # Query trusted hosts
+Set-Item WSMan:\localhost\Client\TrustedHosts -Value "Server01"                    # Adding a single item to TrustedHosts
+Set-Item WSMan:\localhost\Client\TrustedHosts -Value "Server01,Server02,127.0.0.1"      # Adding multiple items
+Set-Item WSMan:\localhost\Client\TrustedHosts -Value "Server03" -Concatenate       # Appends the Value instead of changing it
+When you use -ComputerName for a cmdlet in PowerShell, it is running the command on the local host to query the information on the remote host.
+
+Use Get-WMIObject DCOM (Distributed Component Object Model) for remote WMI (Windows Management Instrumentation) connections.
+
+
+
+7. Remoting commands
+PSRemoting consists of two separate concepts: Temporary and Persistent Sessions.
+
+Invoke-Command can be used to automate command execution across a domain using both temporary and new-sessions.
+
+7.1 Temporary Sessions
+Invoke-Command is not a remoting command. It is how everything is done in PowerShell.
+
+If you are querying a large number of hosts and/or data you can use the -asjob parameter to run it in the background.
+
+Invoke-Command -ComputerName File-Server {Get-Service}                                      # Creates 1-to-1 Temporary Session
+Invoke-Command -ComputerName File-Server,Domain-Controll,Workstation2 {Get-Service} -asjob  # Running a Temporary Session as a Job
+Receive-Job <job #>                                                                         # Displays the job's Results
+
+
+Summary
+
+Today we talked about the New Technology File System (NTFS). We learned about the value of having information and data chunked into groups for organization and storage. NTFS has a highly important for core functionality, and user experience. Which make it a target for cyber attacks and crimes.
+
+
+
+References
+
+https://flatcap.org/linux-ntfs/ntfs/help/glossary.html
+
+https://www.serverbrain.org/maintaining-2003/effects-on-ntfs-permissions-when-copying-and-moving-files-and-folders.html
+
+This page was built using a slightly modified version of the Antora default UI.
+The source code for this UI is licensed under the terms of the MPL-2.0 license and can be found at https://git.cybbh.space/common/contributing
