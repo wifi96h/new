@@ -84,4 +84,5 @@ Linux
       /home/<user>/.profile
       /usr/local/sbin
       /etc/profile
+      /etc/passwd  # for users
 
