@@ -1,0 +1,87 @@
+Windows
+
+  # Look at active network connections
+  netstat -ano | findstr /i listening (or established)(bano for path)
+  -or-
+  get-nettcpconnection | where-object -property state -eq "listening" (or established)
+  
+  # if there is a port that is listening on a sus port, how do see what is running it
+  sysinternals (autoruns)
+  -or-
+  get-process -pid <PID> (or --ppid) | format-list name,path
+  -or-
+  get-process -pid <PID> (or --ppid) | select-object -property name,path   # if no path, then process is service
+  -or-
+  getciminstance
+  
+  # if there is a sus service
+  sysinternals (autoruns)
+  get-service
+  
+  # find persistence
+  registry:
+    reg query
+    get-item / get-itemproperty
+    regedit.exe
+    sysinternals (autoruns)
+    Common paths
+      HKLM:\System\software\microsoft\windows\currentversion\run
+      HKLM:\System\software\microsoft\windows\currentversion\runonce
+      HKCU:\System\software\microsoft\windows\currentversion\run
+      HKCU:\System\software\microsoft\windows\currentversion\runonce
+      HKU:\System\software\microsoft\windows\currentversion\run
+      HKU:\System\software\microsoft\windows\currentversion\runonce
+
+  task scheduler
+    get-scheduledtask | select-object -expandproperty actions (or triggers)
+    sysinternals (autoruns)
+    schtasks /query /tn <taskname> /v /fo list
+
+  # common places to find malicious artifacts
+    $currentuser$\downloads
+    \users\public\downloads
+    $recycle.bin$
+
+
+  # get powershell profiles
+    $profile
+    $profile.allusersallhosts
+    $profile.alluserscurrenthost
+    $profile.curentuserallhosts
+    get-help _about_profiles
+
+  # read files
+    get-content
+    cat
+
+
+Linux
+
+  # find out user sudo permissions
+    sudo -l
+
+  # look at network connections
+    netstat -alonut (use palonut when using sudo)
+
+  # look at processes
+    htop / top
+    ps -elf
+    ps -aux
+    ps -p 1    # tells which system you are working with sysv v. systemd
+
+  # persistence
+    cronjobs:
+      /etc/crontab/
+      /var/spool/cron/crontabs
+      /etc/cron.d
+
+    services:
+      systemctl --type=service --state=running
+  
+    locations:
+      /etc/init/inittab
+      /home/<user>/.bashrc
+      /home/<user>/.profile
+      /usr/local/sbin
+      /etc/profile
+
