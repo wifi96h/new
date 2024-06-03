@@ -38,3 +38,8 @@ get-adgroupmember -identity 'domain admins'
 
 # How many total users are members of the Domain Admins group?
 (Get-ADGroupMember -Identity 'Domain Admin' -Recursive).count
+
+# Continue to follow the insider trail to find additional insider threats and their compromised mission. The flag is the full name of the next insider threat identified.
+get-aduser -identity 'karen.nance' -properties * # search user profile, sus string through cyberchef - rot13
+get-aduser -filter * -properties name | select name | where-object name -like "Tiffany*"
+get-aduser -identity 'Tiffany.Bellacino' -properties *
