@@ -1,0 +1,63 @@
+Cyber Common Technical Core - OS Module Public Repo
+
+parse_nmap
+Scenario.
+Your team is conducting a service usage survey on a network, in order to determine any unnecessary running services. Given only the nmap results provided, you need to successfully parse the data in a manner that determines the number of users per service.
+
+Challenge Goal.
+Develop a script that you can run on the provided nmap network scan results.
+
+Your script needs to output each open service, and the applicable IP addresses for each service (i.e IPs to Service)
+
+Example Output:
+Service: ident Count: 1
+===============================
+192.168.33.236
+
+Service: IIS Count: 3
+===============================
+192.168.33.205
+192.168.33.227
+192.168.33.229
+
+--TRIMMED--
+Grading.
+100% - completely automated, functioning bash script with comments correctly detailing actions/purposes of script commands
+
+Students will submit their script to their instructor for testing.
+Check Points:
+Service: HTTP Count: 21
+Service: HTTPS Count: 8
+Service: Unknown: Count 5
+
+Include the following code in Bash script.
+Student Bash scripts should have the standard authorship information and dynamic file referencing as shown below.
+
+!#/bin/bash
+
+# File:         lastname.sh
+# Name:         Firstname Lastname
+# Date:         YYYYMMDD (Date last modified)
+# Desc:         Description of the purpose/function of the script
+# Usage:        ./lastname.sh <nmap scan>
+# Note:         Additional notes (as needed) for running the script or other info.
+
+# Take a file argument to script for reference throughout the rest of the script.
+FILE=$1
+Hints.
+Start with pseudocode first!
+
+Watch the Bash Scripting Crash Course video.
+
+man grep | grep -A3 '\-context='
+
+Print line with a matching regex: awk '/string/{ print $0 }' $file
+
+Print line after line matching regex: awk '/string/{ getline; print $0 }' $file
+
+Print 9th character and on from substring of line w\ matching regex: awk '/string/{ getline; print substr($0,9) }' $file
+
+Watch out for command bleed-over into other system output.
+
+This page was built using a slightly modified version of the Antora default UI.
+The source code for this UI is licensed under the terms of the MPL-2.0 license and can be found at https://git.cybbh.space/common/contributing
