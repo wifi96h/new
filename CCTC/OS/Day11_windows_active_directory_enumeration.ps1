@@ -43,3 +43,6 @@ get-adgroupmember -identity 'domain admins'
 get-aduser -identity 'karen.nance' -properties * # search user profile, sus string through cyberchef - rot13
 get-aduser -filter * -properties name | select name | where-object name -like "Tiffany*"
 get-aduser -identity 'Tiffany.Bellacino' -properties *
+
+# Continue to follow the insider trail to find additional insider threats and their compromised mission. The flag is the username resulting from assembling clues within a user's records.
+get-aduser -identity 'Tiffany.Bellacino' -properties *
