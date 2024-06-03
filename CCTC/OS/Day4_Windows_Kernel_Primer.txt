@@ -1,0 +1,126 @@
+Cyber Common Technical Core - OS Module Public Repo
+
+Windows Kernel Primer Guide
+Cyber
+
+
+Terminal Learning Objectives:
+
+Describe the function of the Windows Kernel and key differences in kernel architectures
+Describe the differences between user mode and kernel mode code execution
+Describe the differences in variants of Microsoft Windows and how they impact operations
+
+Table of Contents
+1. Windows Kernel
+1.1 Structure of a Kernel
+1.2 Five Types of Kernels
+2. User and Kernel-Mode Code Execution
+3. Differences in Variants of Microsoft Windows
+4. Impact on Operations
+
+
+Introduction
+
+The kernel is a core program that is the first to load after the bootloader. It performs key services such as scheduling, launching, ending processes, initializing/running drivers (programs that communicate with hardware), and ensuring that memory is allocated correctly.
+
+
+
+1. Windows Kernel
+TLOs: 1, 2, 3
+
+1.1 Structure of a Kernel
+A kernel is always built the same way and consists of several layers:
+
+The deepest layer is the interface with hardware (processors, memory, and devices), which manages network controllers and PCI express controllers.
+
+Memory management, which entails distributing RAM including the virtual main memory.
+
+Process management (scheduler), which is responsible for time management and makes multitasking possible.
+
+Device management.
+
+The highest layer is the file system. That’s where processes are assigned to RAM or the hard drive.
+
+Note:
+In multi-user systems, the kernel also monitors access rights to files and hardware components. The Task Manager shows what those are at any given time. If a process is finished by the user, the Task Manager gives the kernel instructions for stopping the process and freeing the memory that was used.
+
+
+
+500
+Figure 1. Architecture of Windows NT
+
+
+500
+Figure 2. Architecture of Windows 9x
+
+
+1.2 Five Types of Kernels
+Micro-Kernel
+A micro-kernel is a piece of software or even code that contains the near-minimum amount of functions and features required to implement an operating system. This is to maximize implementation, flexibility and allow for other parts of the OS to be implemented efficiently since it does not impose a lot of policies.
+
+Monolithic Kernel
+A monolithic kernel includes all (or at least, most) of its services in the kernel proper. This reduces the amount of context switching and messaging involved, making the concept faster than a Micro-kernel. On the downside, the amount of code running in kernel space makes the kernel more prone to fatal bugs. The Linux kernel is an example of a monolithic kernel.
+
+Hybrid Kernel
+A Hybrid Kernel attempts to combine features and benefits of micro-kernel and monolithic kernel architectures. This allows for simultaneously benefiting from the performance of a monolithic kernel and the stability of a micro-kernel. The Windows kernel is an example of a hybrid kernel.
+
+Exokernel
+Exokernel is an operating system kernel developed by the MIT Parallel and Distributed Operating Systems group. Operating systems generally present hardware resources to applications through high-level abstractions such as (virtual) file systems. The idea behind exokernels is to force as few abstractions as possible on application developers, enabling them to make as many decisions as possible about hardware abstractions.
+
+Nanokernel
+A nanokernel is a small kernel that offers hardware abstraction, but without system services. Larger kernels are designed to offer more features and manage more hardware abstraction. The terms microkernal and nanokernal have become analogous.
+
+
+
+Note: Key Difference in Kernel Architectures
+The main difference between the two most commonly used kernels (micro-kernel and monolithic kernel) is that the micro-kernel-based systems have OS services and kernel in separate address spaces, while the monolithic kernel-based systems have OS services and kernel in the same address space.
+
+Note: The Windows NT operating system family’s Architecture
+Consists of two layers (user mode and kernel mode), with many different modules within both of these layers.
+
+2. User and Kernel-Mode Code Execution
+The Windows operating system has two different modes that code is executed under; User Mode (which run the code for applications and programs) and Kernal Mode (which handle components linked to the core system, along with most drivers).
+
+User Mode
+Programs and subsystems in user mode are limited in terms of what system resources they have access to.
+
+User mode in Windows NT is made of subsystems capable of passing I/O requests to the appropriate kernel mode device drivers by using the I/O manager. The user mode layer of Windows NT is made up of the "Environment subsystems", which run applications written for many different types of operating systems, and the "Integral subsystem", which operates system-specific functions on behalf of environment subsystems. The kernel mode stops user mode services and applications from accessing critical areas of the operating system that they should not have access to.
+
+Kernel Mode
+Kernel Mode in Windows NT has full access to the hardware and system resources of the computer.
+
+The Executive interfaces, with all the user mode subsystems, deal with I/O, object management, security and process management. The kernel sits between the hardware abstraction layer and the Executive. It provides multiprocessor synchronization, thread/interrupt scheduling, dispatching, trap handling and exception dispatching.
+
+The kernel is responsible for initializing device drivers at bootup. Kernel mode drivers exist in three levels: -highest level drivers -intermediate drivers -low-level drivers.
+
+Windows Driver Model (WDM) exists in the intermediate layer and was mainly designed to be binary and source compatible between Windows 98 and Windows 2000. The lowest level drivers are either legacy Windows NT device drivers that control a device directly or can be a plug and play (PnP) hardware bus.
+
+Note: -ntoskrnl.exe In computing ntoskrnl.exe (short for Windows NT operating system kernel executable), also known as kernel image, provides the kernel and executive layers of the Microsoft Windows NT kernel space.
+
+3. Differences in Variants of Microsoft Windows
+Windows 9x
+
+Windows 9x is a generic term referring to a series of Microsoft Windows computer operating systems produced from 1995 to 2000, which were based on the Windows 95 kernel and its underlying foundation of MS-DOS, both of which were updated in subsequent versions. The first version in the 9x series was Windows 95, which was succeeded by Windows 98 and then Windows Me, which was the last version of Windows on the 9x line.
+
+Windows 10
+
+Windows 10 is a major release of the Windows NT operating system developed by Microsoft. It is the successor to Windows 8.1, which was released nearly two years earlier, and itself was released to manufacturing on July 15, 2015, and broadly released for the general public on July 29, 2015.
+
+4. Impact on Operations
+Simply put; situational awareness is crucial to successful operations. Not only in That having a working knowledge of the network (whether Offensive or Defensive) is a necessity but also the type of OS Versions and service pack/ updates the target network employs.
+
+Without this information, tools may not work (OCO) or detection methods could be exploited (DCO).
+
+
+
+Summary
+
+Today we talked about how the Windows operating system has two different modes; the User Mode and the Kernel Mode. They are designed to keep the execution of code on a system separate in an attempt to keep the system safe by not allowing user mode applications and programs from unintentional system changes.
+
+References
+
+https://www.educative.io/edpresso/what-is-windows-kernel
+https://simple.wikipedia.org/wiki/Kernel_(computer_science)
+
+This page was built using a slightly modified version of the Antora default UI.
+The source code for this UI is licensed under the terms of the MPL-2.0 license and can be found at https://git.cybbh.space/common/contributing
