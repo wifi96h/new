@@ -79,7 +79,7 @@ Linux
       systemctl --type=service --state=running
   
     locations:
-      /etc/init/inittab
+      /etc/init/inittab (or /etc/init.d for systemd)
       /home/<user>/.bashrc
       /home/<user>/.profile
       /usr/local/sbin
