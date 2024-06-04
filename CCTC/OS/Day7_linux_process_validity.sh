@@ -26,6 +26,7 @@ htop    # /bin/funk  !!!!!, i'm, rick, james; /usr/local/bin/thenine, nazgul, th
 htop  # /home/blog/offering /home/witch_king/camlindon / nc -lw10 127.0.0.1 1234 / 
       # /home/Balrog/chant
 cat /home/Balrog/chant      # Mausan ukoul for avhe mubullat goth
+                              # /home/witch_king/camlindon continues to listen after chants occur
 cat /home/Balrog/offering    # nc -lw10 127.0.0.1 1234 
 
 # Someone or something is stealing files with a .txt extension from user directories. Determine how these thefts are occurring. Identify the command being ran and how it occurs.
