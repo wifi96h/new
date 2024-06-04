@@ -25,12 +25,8 @@ Windows
     regedit.exe
     sysinternals (autoruns)
     Common paths
-      HKLM:\System\software\microsoft\windows\currentversion\run
-      HKLM:\System\software\microsoft\windows\currentversion\runonce
-      HKCU:\System\software\microsoft\windows\currentversion\run
-      HKCU:\System\software\microsoft\windows\currentversion\runonce
-      HKU:\System\software\microsoft\windows\currentversion\run
-      HKU:\System\software\microsoft\windows\currentversion\runonce
+      HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+      HKLM:\SYSTEM\CurrentControlSet\Control\hivelist\
 
   task scheduler
     get-scheduledtask | select-object -expandproperty actions (or triggers)
