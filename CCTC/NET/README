@@ -1,5 +1,7 @@
 CCTC Miro board <https://miro.com/app/board/o9J_klSqCSY=/>
 
 jump box: 10.50.27.129
+ssh -X student@10.50.27.129
+password
 
 net ctfd: http://10.50.20.180:8000/
