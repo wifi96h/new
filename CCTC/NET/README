@@ -7,4 +7,4 @@ password
 net ctfd: http://10.50.20.180:8000/
 
 net3_student11@10.50.21.8
-password -or- password1
+password11
