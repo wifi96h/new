@@ -4,7 +4,7 @@ jump box: 10.50.27.129
 ssh -X student@10.50.27.129
 password
 
-net ctfd: http://10.50.20.180:8000/
+blue net ctfd: http://10.50.20.180:8000/
 
-net3_student11@10.50.21.8
+red net ctfd: net3_student11@10.50.21.8
 password11
