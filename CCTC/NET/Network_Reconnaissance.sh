@@ -6,7 +6,7 @@ USE:
 ACTIVE - 
   ./scan.sh
   nmap
-  nc <ip> <port>
+  nc -nzvw1 <ip> <port (21-25 80)>
   ftp
   wget -r
   curl
