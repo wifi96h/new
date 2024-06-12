@@ -4,17 +4,17 @@
 
 USE:
 ACTIVE - 
-./scan.sh
-nmap
-nc <ip> <port>
+  ./scan.sh
+  nmap
+  nc <ip> <port>
 
 PASSIVE - 
-ip addr
-netstat/ss
-ip route
-ip neigh
-cd /usr/share/cctc
-ps -elf | grep <process>
+  ip addr
+  netstat/ss
+  ip route
+  ip neigh
+  cd /usr/share/cctc
+  ps -elf | grep <process>
 
 
 Target Section:
