@@ -22,7 +22,8 @@ PASSIVE -
 TUNNEL MGMT - 
   ps -ef | grep ssh
   ss -antlp | grep <tunnel port>
-
+  current_host: ssh student@<ip_1> -L <port>:<ip_2>:<port>
+ #client       tool username@server listen on: target:target_port
 
 Target Section:
 
