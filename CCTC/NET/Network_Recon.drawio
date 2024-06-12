@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2024-06-12T13:00:00.174Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36" etag="eaQoS3sio8OgPie2RKAq" version="24.5.3" type="github">
+<mxfile host="app.diagrams.net" modified="2024-06-12T14:56:03.204Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36" etag="TaeYZvDMz9HLmWJCVxRo" version="24.5.3" type="github">
   <diagram name="Page-1" id="rOL_ahlCedQPu7vsrUh-">
     <mxGraphModel dx="2284" dy="778" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -16,7 +16,7 @@
         <mxCell id="YH1SZzw2EUowzHljaErp-2" value="10.50.21.8&lt;div&gt;net3_student11@10.50.21.8:password11&lt;div&gt;fa:16:3e:45:d2:3e&lt;/div&gt;&lt;div&gt;22&lt;/div&gt;&lt;/div&gt;" style="verticalAlign=top;verticalLabelPosition=bottom;labelPosition=center;align=center;html=1;outlineConnect=0;fillColor=#f8cecc;strokeColor=#b85450;gradientDirection=north;strokeWidth=2;shape=mxgraph.networks.pc;" parent="1" vertex="1">
           <mxGeometry x="720" y="260" width="100" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="YH1SZzw2EUowzHljaErp-9" value="eth2&lt;div&gt;DMZ&lt;/div&gt;&lt;div&gt;172.16.101.30/27&lt;br&gt;&lt;/div&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.145;exitY=0.855;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="YH1SZzw2EUowzHljaErp-3" target="YH1SZzw2EUowzHljaErp-8" edge="1">
+        <mxCell id="YH1SZzw2EUowzHljaErp-9" value="eth2&lt;div&gt;DMZ&lt;/div&gt;&lt;div&gt;172.16.101.30/27&lt;br&gt;&lt;/div&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="YH1SZzw2EUowzHljaErp-3" target="YH1SZzw2EUowzHljaErp-8" edge="1">
           <mxGeometry x="-0.38" y="-1" relative="1" as="geometry">
             <mxPoint x="240" y="545" as="targetPoint" />
             <mxPoint as="offset" />
@@ -29,7 +29,7 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="YH1SZzw2EUowzHljaErp-8" value="RED-DMZ-HOST-1&lt;div&gt;Debian 4.19&lt;br&gt;&lt;div&gt;net3_student11@172.16.101.2:password11&lt;div&gt;22&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;" style="verticalAlign=top;verticalLabelPosition=bottom;labelPosition=center;align=center;html=1;outlineConnect=0;fillColor=#f8cecc;strokeColor=#b85450;gradientDirection=north;strokeWidth=2;shape=mxgraph.networks.pc;" parent="1" vertex="1">
-          <mxGeometry x="40" y="532" width="100" height="70" as="geometry" />
+          <mxGeometry x="40" y="515" width="100" height="70" as="geometry" />
         </mxCell>
         <mxCell id="YH1SZzw2EUowzHljaErp-20" value="&lt;div&gt;eth1&lt;div style=&quot;background-color: rgb(251, 251, 251);&quot;&gt;REDNET&lt;/div&gt;&lt;div style=&quot;background-color: rgb(251, 251, 251);&quot;&gt;172.16.120.18/29&lt;/div&gt;&lt;/div&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="YH1SZzw2EUowzHljaErp-10" target="YH1SZzw2EUowzHljaErp-33" edge="1">
           <mxGeometry x="-0.5253" relative="1" as="geometry">
