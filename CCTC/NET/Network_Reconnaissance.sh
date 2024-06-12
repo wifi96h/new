@@ -13,7 +13,7 @@ ACTIVE -
 
 PASSIVE - 
   ip addr
-  netstat/ss
+  netstat/ss -antlp
   ip route
   ip neigh
   cd /usr/share/cctc
