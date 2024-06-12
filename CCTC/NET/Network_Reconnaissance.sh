@@ -7,6 +7,9 @@ ACTIVE -
   ./scan.sh
   nmap
   nc <ip> <port>
+  ftp
+  wget -r
+  curl
 
 PASSIVE - 
   ip addr
