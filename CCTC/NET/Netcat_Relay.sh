@@ -1,6 +1,6 @@
 T1
 Hostname: INTERNET_HOST
-External IP: 10.50.XXX.XXX (ALREADY PROVIDED) Internal IP: 10.10.0.40 (ALREADY PROVIDED) (accessed via FLOAT IP)
+External IP: 10.50.27.129 Internal IP: 10.10.0.40 (ALREADY PROVIDED) (accessed via FLOAT IP)
 creds: (ALREADY PROVIDED)
 Action: Successfully transfer file data between hosts via Netcat
 
