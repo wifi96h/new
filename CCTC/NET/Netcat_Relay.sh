@@ -19,9 +19,16 @@ Action: Successfully transfer file data between hosts via Netcat
 T1 > Relay > T2:file
 
 1. T1 C -> S Relay S <- C T2
+[nc 172.16.40.10 1234] -> nc -lvp 1234 < <pipe> | nc 10.10.0.40 4444 > <pipe> -> nc -lvp 4444 > 1steg.jpg
+
 
 2. T1 C -> S Relay S <- C T2
+[nc 172.16.40.10 4321] -> nc -lvp 4321 < <pipe> | nc 10.10.0.40 4444 > <pipe> -> nc -lvp 4444 > 2steg.jpg
 
-3. T1 C -> S Relay C -> S T2
 
-4. T1 C -> S Relay C -> S T2
+3. T1 S <- C Relay C -> S T2
+[nc -lvp 6789] -> nc 172.16.82.115 6789 < <pipe> | nc 10.10.0.40 4444 > <pipe> -> nc -lvp 4444 > 3steg.jpg
+
+
+4. T1 S <- C Relay C -> S T2
+[nc -lvp 9876] -> nc 176.16.82.115 9876 < <pipe> | nc 10.10.0.40 4444 > <pipe> -> nc -lvp 4444 > 4steg.jpg
