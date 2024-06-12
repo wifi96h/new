@@ -19,6 +19,10 @@ PASSIVE -
   cd /usr/share/cctc
   ps -elf | grep <process>
 
+TUNNEL MGMT - 
+  ps -ef | grep ssh
+  ss -antlp | grep <tunnel port>
+
 
 Target Section:
 
