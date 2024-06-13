@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2024-06-13T15:59:00.589Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36" etag="rJUQrPYncotMcm5cxOa4" version="24.5.4" type="github">
+<mxfile host="app.diagrams.net" modified="2024-06-13T18:52:29.679Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36" etag="cuX2wZnlbkCBG5uOSGOv" version="24.5.4" type="github">
   <diagram name="Page-1" id="iQ5KhEgalkeNzzqRlSKW">
-    <mxGraphModel dx="1434" dy="778" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="860" dy="948" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -218,11 +218,17 @@
         <mxCell id="FURbWRbi5EmWoerNdc4_-55" value="conducts cmd" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0;dx=10;notch=10;" parent="1" vertex="1">
           <mxGeometry x="1625" y="910" width="170" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="5VNwPCp0QN_mZ9YxO_fV-1" value="ssh hosta@10.50.30.99" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fillColor=#d5e8d4;strokeColor=#82b366;" edge="1" parent="1">
+        <mxCell id="5VNwPCp0QN_mZ9YxO_fV-1" value="ssh hosta@10.50.30.99" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="140" y="360" as="sourcePoint" />
             <mxPoint x="530" y="360" as="targetPoint" />
           </mxGeometry>
+        </mxCell>
+        <mxCell id="zYaufa7AniawlpqcD4Tu-1" value="&lt;div&gt;Conduct passive recon on box&lt;/div&gt;&lt;div&gt;./scan&lt;/div&gt;&lt;div&gt;nmap&lt;/div&gt;&lt;div&gt;nc &amp;lt;ip&amp;gt; &amp;lt;port&amp;gt;&lt;/div&gt;&lt;div&gt;ftp&lt;/div&gt;&lt;div&gt;wget -r&lt;/div&gt;&lt;div&gt;curl&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=#82b366;fillColor=#d5e8d4;" vertex="1" parent="1">
+          <mxGeometry x="720" y="10" width="180" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="zYaufa7AniawlpqcD4Tu-2" value="proxychains ./scan.sh&lt;div&gt;proxychains scp [-P &amp;lt;port&amp;gt;] &amp;lt;user&amp;gt;@&amp;lt;ip&amp;gt;:&amp;lt;filepath&amp;gt;&amp;nbsp; &amp;lt;user&amp;gt;@&amp;lt;ip&amp;gt;:&amp;lt;filepath&amp;gt;&lt;/div&gt;&lt;div&gt;eom &amp;lt;file&amp;gt;&lt;/div&gt;&lt;div&gt;eog &amp;lt;file&amp;gt;&lt;/div&gt;&lt;div&gt;proxychains wget -r http/ftp://&amp;lt;ip&amp;gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=#82b366;fillColor=#d5e8d4;" vertex="1" parent="1">
+          <mxGeometry x="100" y="10" width="440" height="100" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
