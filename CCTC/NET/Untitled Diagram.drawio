@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2024-06-13T14:13:20.275Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36" etag="TchtP39EVB52_D2YQODe" version="24.5.3" type="github">
+<mxfile host="app.diagrams.net" modified="2024-06-13T14:20:01.145Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36" etag="w3KPia8QNUlhOkWEwZlk" version="24.5.3" type="github">
   <diagram name="Page-1" id="iQ5KhEgalkeNzzqRlSKW">
-    <mxGraphModel dx="2049" dy="1111" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="989" dy="537" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -73,7 +73,7 @@
             <mxPoint x="430" y="120" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="FURbWRbi5EmWoerNdc4_-13" value="ssh hosta@10.50.30.99 -D 9050 -NT" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fillColor=#d5e8d4;strokeColor=#82b366;" edge="1" parent="1">
+        <mxCell id="FURbWRbi5EmWoerNdc4_-13" value="ssh hosta@10.50.30.99 -D 9050 -NT" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" edge="1" parent="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="140" y="390" as="sourcePoint" />
             <mxPoint x="540" y="390" as="targetPoint" />
@@ -117,7 +117,7 @@
             <mxPoint x="920" y="579" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="FURbWRbi5EmWoerNdc4_-31" value="ssh hostb@localhost -p 6666 -D 9050 -NT" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fillColor=#d5e8d4;strokeColor=#82b366;" edge="1" parent="1">
+        <mxCell id="FURbWRbi5EmWoerNdc4_-31" value="ssh hostb@localhost -p 6666 -D 9050 -NT" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" edge="1" parent="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="150" y="610" as="sourcePoint" />
             <mxPoint x="940" y="610" as="targetPoint" />
@@ -171,7 +171,7 @@
             <mxPoint x="1290" y="750" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="FURbWRbi5EmWoerNdc4_-45" value="ssh hostc@localhost -p 7777 -D 9050 -NT" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fillColor=#d5e8d4;strokeColor=#82b366;" edge="1" parent="1">
+        <mxCell id="FURbWRbi5EmWoerNdc4_-45" value="ssh hostc@localhost -p 7777 -D 9050 -NT" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" edge="1" parent="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="150" y="775" as="sourcePoint" />
             <mxPoint x="1310" y="775" as="targetPoint" />
@@ -206,7 +206,7 @@
             <mxPoint x="1680" y="860" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="FURbWRbi5EmWoerNdc4_-53" value="ssh hostd@localhost -p 5555 -D 9050 -NT" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fillColor=#d5e8d4;strokeColor=#82b366;" edge="1" parent="1">
+        <mxCell id="FURbWRbi5EmWoerNdc4_-53" value="ssh hostd@localhost -p 5555 -D 9050 -NT" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" edge="1" parent="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="150" y="880" as="sourcePoint" />
             <mxPoint x="1700" y="880" as="targetPoint" />
