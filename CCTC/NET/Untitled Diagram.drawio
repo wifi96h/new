@@ -1,9 +1,27 @@
-<mxfile host="app.diagrams.net" modified="2024-06-13T13:46:51.439Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36" etag="0N0Ru4pKYIftmYDncXmk" version="24.5.3" type="github">
+<mxfile host="app.diagrams.net" modified="2024-06-13T14:13:20.275Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36" etag="TchtP39EVB52_D2YQODe" version="24.5.3" type="github">
   <diagram name="Page-1" id="iQ5KhEgalkeNzzqRlSKW">
-    <mxGraphModel dx="1434" dy="778" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="2049" dy="1111" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="FURbWRbi5EmWoerNdc4_-44" value="" style="endArrow=none;dashed=1;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1310" y="1060" as="sourcePoint" />
+            <mxPoint x="1309.5" y="290" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FURbWRbi5EmWoerNdc4_-30" value="" style="endArrow=none;dashed=1;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="950" y="1060" as="sourcePoint" />
+            <mxPoint x="949.5" y="290" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FURbWRbi5EmWoerNdc4_-29" value="" style="endArrow=none;dashed=1;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="550" y="1070" as="sourcePoint" />
+            <mxPoint x="550" y="290" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
         <mxCell id="FURbWRbi5EmWoerNdc4_-1" value="192.168.1.32/27" style="sketch=0;points=[[0.5,0,0],[1,0.5,0],[0.5,1,0],[0,0.5,0],[0.145,0.145,0],[0.8555,0.145,0],[0.855,0.8555,0],[0.145,0.855,0]];verticalLabelPosition=bottom;html=1;verticalAlign=top;aspect=fixed;align=center;pointerEvents=1;shape=mxgraph.cisco19.rect;prIcon=router;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
           <mxGeometry x="730" y="190" width="50" height="50" as="geometry" />
         </mxCell>
@@ -37,7 +55,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="FURbWRbi5EmWoerNdc4_-9" value="scan cidr" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=#82b366;fillColor=#d5e8d4;" vertex="1" parent="1">
-          <mxGeometry x="630" y="350" width="70" height="30" as="geometry" />
+          <mxGeometry x="630" y="290" width="70" height="30" as="geometry" />
         </mxCell>
         <mxCell id="FURbWRbi5EmWoerNdc4_-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.514;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" target="FURbWRbi5EmWoerNdc4_-9">
           <mxGeometry relative="1" as="geometry">
@@ -55,13 +73,13 @@
             <mxPoint x="430" y="120" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="FURbWRbi5EmWoerNdc4_-13" value="ssh hosta@10.50.30.99 -D 9050 -NT" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+        <mxCell id="FURbWRbi5EmWoerNdc4_-13" value="ssh hosta@10.50.30.99 -D 9050 -NT" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fillColor=#d5e8d4;strokeColor=#82b366;" edge="1" parent="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="140" y="390" as="sourcePoint" />
-            <mxPoint x="510" y="390" as="targetPoint" />
+            <mxPoint x="540" y="390" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="FURbWRbi5EmWoerNdc4_-16" value="proxychains &amp;lt;cmd&amp;gt;" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0;dx=10;notch=0;" vertex="1" parent="1">
+        <mxCell id="FURbWRbi5EmWoerNdc4_-16" value="proxychains nmap &amp;lt;stuff&amp;gt;" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0;dx=10;notch=0;" vertex="1" parent="1">
           <mxGeometry x="140" y="422" width="340" height="30" as="geometry" />
         </mxCell>
         <mxCell id="FURbWRbi5EmWoerNdc4_-20" value="conducts cmd" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0;dx=10;notch=10;" vertex="1" parent="1">
@@ -77,6 +95,128 @@
           <mxGeometry x="0.55" y="-1" relative="1" as="geometry">
             <mxPoint as="offset" />
           </mxGeometry>
+        </mxCell>
+        <mxCell id="FURbWRbi5EmWoerNdc4_-24" value="proxychains ssh hostb@192.168.1.39" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0;dx=10;notch=0;" vertex="1" parent="1">
+          <mxGeometry x="140" y="470" width="340" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="FURbWRbi5EmWoerNdc4_-25" value="log in ssh" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0;dx=10;notch=10;" vertex="1" parent="1">
+          <mxGeometry x="470" y="470" width="430" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="FURbWRbi5EmWoerNdc4_-26" value="10.0.0.0/26" style="sketch=0;points=[[0.5,0,0],[1,0.5,0],[0.5,1,0],[0,0.5,0],[0.145,0.145,0],[0.8555,0.145,0],[0.855,0.8555,0],[0.145,0.855,0]];verticalLabelPosition=bottom;html=1;verticalAlign=top;aspect=fixed;align=center;pointerEvents=1;shape=mxgraph.cisco19.rect;prIcon=router;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="1110" y="190" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="FURbWRbi5EmWoerNdc4_-27" value="ssh hosta@10.50.30.99 -D 9050 -NT" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fillColor=#f8cecc;strokeColor=#b85450;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="140" y="540" as="sourcePoint" />
+            <mxPoint x="540" y="540" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FURbWRbi5EmWoerNdc4_-28" value="ssh hosta@10.50.30.99 -L 6666:192.168.1.39:22&amp;nbsp; -NT" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fillColor=#d5e8d4;strokeColor=#82b366;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="140" y="579" as="sourcePoint" />
+            <mxPoint x="920" y="579" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FURbWRbi5EmWoerNdc4_-31" value="ssh hostb@localhost -p 6666 -D 9050 -NT" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fillColor=#d5e8d4;strokeColor=#82b366;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="150" y="610" as="sourcePoint" />
+            <mxPoint x="940" y="610" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FURbWRbi5EmWoerNdc4_-32" value="proxychains ssh hostc@10.0.0.50" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0;dx=10;notch=0;" vertex="1" parent="1">
+          <mxGeometry x="140" y="640" width="770" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="FURbWRbi5EmWoerNdc4_-33" value="conducts cmd" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0;dx=10;notch=10;" vertex="1" parent="1">
+          <mxGeometry x="900" y="640" width="170" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="FURbWRbi5EmWoerNdc4_-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="FURbWRbi5EmWoerNdc4_-21" target="FURbWRbi5EmWoerNdc4_-26">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="FURbWRbi5EmWoerNdc4_-35" value="eth1&lt;div&gt;.10&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="FURbWRbi5EmWoerNdc4_-34">
+          <mxGeometry x="-0.7455" y="-2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FURbWRbi5EmWoerNdc4_-36" value="Host C&lt;div&gt;SSHD: 22&lt;/div&gt;" style="verticalAlign=top;verticalLabelPosition=bottom;labelPosition=center;align=center;html=1;outlineConnect=0;fillColor=#f8cecc;strokeColor=#b85450;gradientDirection=north;strokeWidth=2;shape=mxgraph.networks.pc;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="180" width="100" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="FURbWRbi5EmWoerNdc4_-37" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="FURbWRbi5EmWoerNdc4_-26" target="FURbWRbi5EmWoerNdc4_-36">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="FURbWRbi5EmWoerNdc4_-38" value="50" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="FURbWRbi5EmWoerNdc4_-37">
+          <mxGeometry x="0.66" y="-2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FURbWRbi5EmWoerNdc4_-39" value="172.16.1.0/28" style="sketch=0;points=[[0.5,0,0],[1,0.5,0],[0.5,1,0],[0,0.5,0],[0.145,0.145,0],[0.8555,0.145,0],[0.855,0.8555,0],[0.145,0.855,0]];verticalLabelPosition=bottom;html=1;verticalAlign=top;aspect=fixed;align=center;pointerEvents=1;shape=mxgraph.cisco19.rect;prIcon=router;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="1500" y="190" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="FURbWRbi5EmWoerNdc4_-40" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="FURbWRbi5EmWoerNdc4_-36" target="FURbWRbi5EmWoerNdc4_-39">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="FURbWRbi5EmWoerNdc4_-41" value="eth1&lt;div&gt;.5&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="FURbWRbi5EmWoerNdc4_-40">
+          <mxGeometry x="-0.7571" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FURbWRbi5EmWoerNdc4_-42" value="ssh hostb@localhost -p 6666 -D 9050 -NT" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fillColor=#f8cecc;strokeColor=#b85450;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="150" y="704" as="sourcePoint" />
+            <mxPoint x="940" y="704" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FURbWRbi5EmWoerNdc4_-43" value="ssh hostb@localhost -p 6666 -L 7777:10.0.0.50:22&amp;nbsp; -NT" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fillColor=#d5e8d4;strokeColor=#82b366;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="140" y="750" as="sourcePoint" />
+            <mxPoint x="1290" y="750" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FURbWRbi5EmWoerNdc4_-45" value="ssh hostc@localhost -p 7777 -D 9050 -NT" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fillColor=#d5e8d4;strokeColor=#82b366;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="150" y="775" as="sourcePoint" />
+            <mxPoint x="1310" y="775" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FURbWRbi5EmWoerNdc4_-46" value="Host D&lt;div&gt;SSHD: 22&lt;/div&gt;" style="verticalAlign=top;verticalLabelPosition=bottom;labelPosition=center;align=center;html=1;outlineConnect=0;fillColor=#f8cecc;strokeColor=#b85450;gradientDirection=north;strokeWidth=2;shape=mxgraph.networks.pc;" vertex="1" parent="1">
+          <mxGeometry x="1660" y="180" width="100" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="FURbWRbi5EmWoerNdc4_-47" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="FURbWRbi5EmWoerNdc4_-39" target="FURbWRbi5EmWoerNdc4_-46">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="FURbWRbi5EmWoerNdc4_-52" value="eth0&lt;div&gt;.8&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="FURbWRbi5EmWoerNdc4_-47">
+          <mxGeometry x="0.5455" y="-3" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FURbWRbi5EmWoerNdc4_-48" value="" style="endArrow=none;dashed=1;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1710" y="1060" as="sourcePoint" />
+            <mxPoint x="1709.5" y="290" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FURbWRbi5EmWoerNdc4_-49" value="proxychains ssh hostd@172.16.1.8" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0;dx=10;notch=0;" vertex="1" parent="1">
+          <mxGeometry x="140" y="800" width="1090" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="FURbWRbi5EmWoerNdc4_-50" value="conducts cmd" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0;dx=10;notch=10;" vertex="1" parent="1">
+          <mxGeometry x="1220" y="800" width="170" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="FURbWRbi5EmWoerNdc4_-51" value="ssh hostc@localhost -p 5555 -L 8888:172.16.1.8:22&amp;nbsp; -NT" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fillColor=#d5e8d4;strokeColor=#82b366;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="140" y="860" as="sourcePoint" />
+            <mxPoint x="1680" y="860" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FURbWRbi5EmWoerNdc4_-53" value="ssh hostd@localhost -p 5555 -D 9050 -NT" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fillColor=#d5e8d4;strokeColor=#82b366;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="150" y="880" as="sourcePoint" />
+            <mxPoint x="1700" y="880" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FURbWRbi5EmWoerNdc4_-54" value="proxychains ssh hoste@&amp;lt;ip&amp;gt;" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0;dx=10;notch=0;" vertex="1" parent="1">
+          <mxGeometry x="140" y="910" width="1500" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="FURbWRbi5EmWoerNdc4_-55" value="conducts cmd" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0;dx=10;notch=10;" vertex="1" parent="1">
+          <mxGeometry x="1625" y="910" width="170" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
