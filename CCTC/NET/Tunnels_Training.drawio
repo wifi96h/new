@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2024-06-14T00:47:42.498Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36" etag="iQAuefpjlGK-eXp5FNVr" version="24.5.4" type="github">
+<mxfile host="app.diagrams.net" modified="2024-06-14T01:42:22.729Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36" etag="TDtYxLWWB8UKFMqB-Z-E" version="24.5.4" type="github">
   <diagram name="Page-1" id="i8dF-cm1Uw1nVo0tILhw">
     <mxGraphModel dx="810" dy="2048" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -102,7 +102,7 @@
         <mxCell id="qomQaT_PvQXfD7yi_y0e-32" value="" style="group" vertex="1" connectable="0" parent="qomQaT_PvQXfD7yi_y0e-31">
           <mxGeometry y="20" width="225" height="130" as="geometry" />
         </mxCell>
-        <mxCell id="qomQaT_PvQXfD7yi_y0e-33" value="" style="fontColor=#0066CC;verticalAlign=top;verticalLabelPosition=bottom;labelPosition=center;align=center;html=1;outlineConnect=0;fillColor=#CCCCCC;strokeColor=#6881B3;gradientColor=none;gradientDirection=north;strokeWidth=2;shape=mxgraph.networks.pc;" vertex="1" parent="qomQaT_PvQXfD7yi_y0e-32">
+        <mxCell id="qomQaT_PvQXfD7yi_y0e-33" value="Cortina" style="fontColor=#0066CC;verticalAlign=top;verticalLabelPosition=bottom;labelPosition=center;align=center;html=1;outlineConnect=0;fillColor=#CCCCCC;strokeColor=#6881B3;gradientColor=none;gradientDirection=north;strokeWidth=2;shape=mxgraph.networks.pc;" vertex="1" parent="qomQaT_PvQXfD7yi_y0e-32">
           <mxGeometry x="35" width="100" height="70" as="geometry" />
         </mxCell>
         <mxCell id="qomQaT_PvQXfD7yi_y0e-34" value="21&lt;div&gt;80&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="qomQaT_PvQXfD7yi_y0e-32">
@@ -120,7 +120,7 @@
         <mxCell id="qomQaT_PvQXfD7yi_y0e-39" value="" style="group" vertex="1" connectable="0" parent="qomQaT_PvQXfD7yi_y0e-38">
           <mxGeometry y="20" width="225" height="130" as="geometry" />
         </mxCell>
-        <mxCell id="qomQaT_PvQXfD7yi_y0e-40" value="" style="fontColor=#0066CC;verticalAlign=top;verticalLabelPosition=bottom;labelPosition=center;align=center;html=1;outlineConnect=0;fillColor=#CCCCCC;strokeColor=#6881B3;gradientColor=none;gradientDirection=north;strokeWidth=2;shape=mxgraph.networks.pc;" vertex="1" parent="qomQaT_PvQXfD7yi_y0e-39">
+        <mxCell id="qomQaT_PvQXfD7yi_y0e-40" value="Victoria" style="fontColor=#0066CC;verticalAlign=top;verticalLabelPosition=bottom;labelPosition=center;align=center;html=1;outlineConnect=0;fillColor=#CCCCCC;strokeColor=#6881B3;gradientColor=none;gradientDirection=north;strokeWidth=2;shape=mxgraph.networks.pc;" vertex="1" parent="qomQaT_PvQXfD7yi_y0e-39">
           <mxGeometry x="35" width="100" height="70" as="geometry" />
         </mxCell>
         <mxCell id="qomQaT_PvQXfD7yi_y0e-41" value="21&lt;div&gt;80&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="qomQaT_PvQXfD7yi_y0e-39">
@@ -154,9 +154,9 @@
           <mxGeometry x="530" y="-210" width="320" height="30" as="geometry" />
         </mxCell>
         <mxCell id="qomQaT_PvQXfD7yi_y0e-60" value="#4 $ ssh net3_student11@10.50.20.51 -L 31112:localhost:31111" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0;dx=10;notch=0;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
-          <mxGeometry x="200" y="470" width="300" height="30" as="geometry" />
+          <mxGeometry x="200" y="470" width="400" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="qomQaT_PvQXfD7yi_y0e-61" value="#4 $ ssh net3_student11@localhost -p 31112 -D 9050" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0;dx=10;notch=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+        <mxCell id="qomQaT_PvQXfD7yi_y0e-61" value="#4 $ ssh net3_student11@localhost -p 31112 -D 9050" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0;dx=10;notch=0;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
           <mxGeometry x="180" y="-250" width="670" height="30" as="geometry" />
         </mxCell>
         <mxCell id="qomQaT_PvQXfD7yi_y0e-64" value="" style="group" vertex="1" connectable="0" parent="1">
@@ -165,7 +165,7 @@
         <mxCell id="qomQaT_PvQXfD7yi_y0e-65" value="" style="group" vertex="1" connectable="0" parent="qomQaT_PvQXfD7yi_y0e-64">
           <mxGeometry y="20" width="225" height="130" as="geometry" />
         </mxCell>
-        <mxCell id="qomQaT_PvQXfD7yi_y0e-66" value="" style="fontColor=#0066CC;verticalAlign=top;verticalLabelPosition=bottom;labelPosition=center;align=center;html=1;outlineConnect=0;fillColor=#CCCCCC;strokeColor=#6881B3;gradientColor=none;gradientDirection=north;strokeWidth=2;shape=mxgraph.networks.pc;" vertex="1" parent="qomQaT_PvQXfD7yi_y0e-65">
+        <mxCell id="qomQaT_PvQXfD7yi_y0e-66" value="Mohammad" style="fontColor=#0066CC;verticalAlign=top;verticalLabelPosition=bottom;labelPosition=center;align=center;html=1;outlineConnect=0;fillColor=#CCCCCC;strokeColor=#6881B3;gradientColor=none;gradientDirection=north;strokeWidth=2;shape=mxgraph.networks.pc;" vertex="1" parent="qomQaT_PvQXfD7yi_y0e-65">
           <mxGeometry x="35" width="100" height="70" as="geometry" />
         </mxCell>
         <mxCell id="qomQaT_PvQXfD7yi_y0e-67" value="21&lt;div&gt;80&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="qomQaT_PvQXfD7yi_y0e-65">
