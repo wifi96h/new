@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2024-06-14T14:17:41.471Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36" etag="TPxEACFY_ekR4sOzv03u" version="24.5.4" type="github">
+<mxfile host="app.diagrams.net" modified="2024-06-18T13:36:26.075Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36" etag="JzSO6JelG0ZrsOPYW-z1" version="24.5.4" type="github">
   <diagram name="Page-1" id="iQ5KhEgalkeNzzqRlSKW">
     <mxGraphModel dx="1434" dy="778" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -60,8 +60,8 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="FURbWRbi5EmWoerNdc4_-11" value="Conduct passive recon on box&lt;div&gt;ip addr&lt;/div&gt;&lt;div&gt;netstat/ss -antlp&lt;/div&gt;&lt;div&gt;ip route&lt;/div&gt;&lt;div&gt;ip addr&lt;/div&gt;&lt;div&gt;ip neigh&lt;/div&gt;&lt;div&gt;cd /usr/share/cctc&lt;/div&gt;&lt;div&gt;ps -elf | grep &amp;lt;process&amp;gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=#82b366;fillColor=#d5e8d4;" parent="1" vertex="1">
-          <mxGeometry x="540" y="10" width="180" height="130" as="geometry" />
+        <mxCell id="FURbWRbi5EmWoerNdc4_-11" value="Conduct passive recon on box&lt;div&gt;ip addr&lt;/div&gt;&lt;div&gt;netstat/ss -antlp&lt;/div&gt;&lt;div&gt;ip route&lt;/div&gt;&lt;div&gt;ip addr&lt;/div&gt;&lt;div&gt;ip neigh&lt;/div&gt;&lt;div&gt;cd /usr/share/cctc&lt;/div&gt;&lt;div&gt;ps -elf | grep &amp;lt;process&amp;gt;&lt;/div&gt;&lt;div&gt;arp&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=#82b366;fillColor=#d5e8d4;" parent="1" vertex="1">
+          <mxGeometry x="540" y="10" width="180" height="160" as="geometry" />
         </mxCell>
         <mxCell id="FURbWRbi5EmWoerNdc4_-13" value="ssh hosta@10.50.30.99 -D 9050 -NT" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
@@ -207,7 +207,7 @@
             <mxPoint x="530" y="304.57" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="zYaufa7AniawlpqcD4Tu-1" value="&lt;div&gt;Conduct passive recon on box&lt;/div&gt;&lt;div&gt;./scan&lt;/div&gt;&lt;div&gt;nmap&lt;/div&gt;&lt;div&gt;nc &amp;lt;ip&amp;gt; &amp;lt;port&amp;gt;&lt;/div&gt;&lt;div&gt;ftp&lt;/div&gt;&lt;div&gt;wget -r&lt;/div&gt;&lt;div&gt;curl&lt;/div&gt;&lt;div&gt;cat /etc/ssh/sshd.config&amp;nbsp;&lt;/div&gt;&lt;div&gt;(look for default ports)&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=#82b366;fillColor=#d5e8d4;" parent="1" vertex="1">
+        <mxCell id="zYaufa7AniawlpqcD4Tu-1" value="&lt;div&gt;Conduct passive recon on box&lt;/div&gt;&lt;div&gt;./scan&lt;/div&gt;&lt;div&gt;nmap&lt;/div&gt;&lt;div&gt;nc &amp;lt;ip&amp;gt; &amp;lt;port&amp;gt;&lt;/div&gt;&lt;div&gt;ftp&lt;/div&gt;&lt;div&gt;wget -r&lt;/div&gt;&lt;div&gt;curl&lt;/div&gt;&lt;div&gt;cat /etc/ssh/sshd_config&amp;nbsp;&lt;/div&gt;&lt;div&gt;(look for default ports)&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=#82b366;fillColor=#d5e8d4;" parent="1" vertex="1">
           <mxGeometry x="720" y="10" width="180" height="140" as="geometry" />
         </mxCell>
         <mxCell id="zYaufa7AniawlpqcD4Tu-2" value="proxychains ./scan.sh&lt;div&gt;proxychains scp [-P &amp;lt;port&amp;gt;] &amp;lt;user&amp;gt;@&amp;lt;ip&amp;gt;:&amp;lt;filepath&amp;gt;&amp;nbsp; &amp;lt;user&amp;gt;@&amp;lt;ip&amp;gt;:&amp;lt;filepath&amp;gt;&lt;/div&gt;&lt;div&gt;eom &amp;lt;file&amp;gt;&lt;/div&gt;&lt;div&gt;eog &amp;lt;file&amp;gt;&lt;/div&gt;&lt;div&gt;proxychains wget -r http/ftp://&amp;lt;ip&amp;gt;&lt;/div&gt;&lt;div&gt;nc &amp;lt;ip&amp;gt; [port]&lt;/div&gt;&lt;div&gt;pcmanfm&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=#82b366;fillColor=#d5e8d4;" parent="1" vertex="1">
@@ -242,7 +242,7 @@
         <mxCell id="zYaufa7AniawlpqcD4Tu-14" value="ssh hostc@localhost -p 2222 -L 5555:localhost:4444&amp;nbsp; -NT" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" edge="1">
           <mxGeometry x="-0.0002" width="50" height="50" relative="1" as="geometry">
             <mxPoint x="130" y="990" as="sourcePoint" />
-            <mxPoint x="1700" y="990" as="targetPoint" />
+            <mxPoint x="1310" y="990" as="targetPoint" />
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
