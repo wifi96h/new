@@ -86,7 +86,7 @@ Question 2:
 What is the total number of fragmented packets?
 
 Provide the number of packets converted to BASE64.
-sudo tcpdump -n 'ip[6]&32=32' -r capstone-bpf.pcap | wc -l
+sudo tcpdump -n 'ip[6]&32=32 || ip[6:2]&8191>0' -r capstone-bpf.pcap | wc -l  # found in miro board
 
 -------------------------------------------------------------------------------
 
@@ -104,7 +104,40 @@ Question 4:
 An attacker is targeting the host 10.0.0.104 with either a TCP full or half open scan. Based off the pcap, how many ports are open?
 
 Provide the number of ports converted to BASE64.
-sudo tcpdump -n 'ip[16:4]=0x0a000068 && tcp[13]=2' -r capstone-bpf.pcap | wc -l
+sudo tcpdump -n 'ip[16:4]=0x0a000068 && tcp[13]=2' -r capstone-bpf.pcap | wc -l  # gets attempts on ip
+sudo tcpdump -n 'ip[12:4]=0x0a000068 && tcp[13]=20' -r capstone-bpf.pcap | wc -l # gets denials from ip
+
+attempts - denials = open ports
 
 -------------------------------------------------------------------------------
 
+# RAW Sockets are created in ________ space. Specify the one word BASE64 conversion of your answer in ALL CAPS.
+echo "KERNEL" | base64
+
+# Which module would you need to import to convert data into a corresponding 2-digit hex representation?
+# Specify the module in lowercase and converted to BASE64.
+echo "binascii" | base64
+
+# What is the proper format to pro-grammatically pack the IPv4 RAW header?
+# Specify the answer in the proper case. Include only what is between the single or double quotes and not the quotes themselves or the "!".
+# Provide the answer converted to BASE64.
+echo "BBHHHBBH4s4s" | base64
+
+# What is the default (and most common) encoding used when converting data to be sent over the network.
+# Provide your answer in ALL CAPS and converted to BASE64.
+echo "UTF-8" | base64
+
+# What type of header does TCP build to perform the checksum function?
+# i.e. [ANSWER] Header
+# Provide your answer in ALL CAPS and converted to BASE64.
+echo "PSEUDO" | base64
+
+---------------------------------------------------------------------------------
+
+# Capstone-05 is attempting to attack this box from a different network on a port(s) associated with the W32/Blaster Worm - 135
+# What is the message referenced by “Hint-04a.png”. Provide the message (exactly as you received it) converted to BASE64
+tcpdump -i eth1 port 135 -vn
+
+
+# RIPv2 seems to be running on the 10.1.1.0/25 network sniff the traffic to find what networks is avertising updates IP will be the next environment pivot to access from IH
+tcpdump -i eth0 port 520 -vn
