@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2024-06-18T13:39:47.604Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36" etag="byYCSmtvivoxzzp3V8KF" version="24.5.4" type="github">
+<mxfile host="app.diagrams.net" modified="2024-06-24T13:24:22.457Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36" etag="QCSBQ3Ui4MC_jkKFf09z" version="24.5.5" type="github">
   <diagram name="Page-1" id="iQ5KhEgalkeNzzqRlSKW">
     <mxGraphModel dx="1434" dy="778" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -207,7 +207,7 @@
             <mxPoint x="530" y="304.57" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="zYaufa7AniawlpqcD4Tu-1" value="&lt;div&gt;Conduct passive recon on box&lt;/div&gt;&lt;div&gt;./scan&lt;/div&gt;&lt;div&gt;nmap&lt;/div&gt;&lt;div&gt;nc &amp;lt;ip&amp;gt; &amp;lt;port&amp;gt;&lt;/div&gt;&lt;div&gt;ftp&lt;/div&gt;&lt;div&gt;wget -r&lt;/div&gt;&lt;div&gt;curl&lt;/div&gt;&lt;div&gt;cat /etc/ssh/sshd_config&amp;nbsp;&lt;/div&gt;&lt;div&gt;(look for default ports)&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=#82b366;fillColor=#d5e8d4;" parent="1" vertex="1">
+        <mxCell id="zYaufa7AniawlpqcD4Tu-1" value="&lt;div&gt;Conduct active recon on box&lt;/div&gt;&lt;div&gt;./scan&lt;/div&gt;&lt;div&gt;nmap&lt;/div&gt;&lt;div&gt;nc &amp;lt;ip&amp;gt; &amp;lt;port&amp;gt;&lt;/div&gt;&lt;div&gt;ftp&lt;/div&gt;&lt;div&gt;wget -r&lt;/div&gt;&lt;div&gt;curl&lt;/div&gt;&lt;div&gt;cat /etc/ssh/sshd_config&amp;nbsp;&lt;/div&gt;&lt;div&gt;(look for default ports)&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=#82b366;fillColor=#d5e8d4;" parent="1" vertex="1">
           <mxGeometry x="720" y="10" width="180" height="140" as="geometry" />
         </mxCell>
         <mxCell id="zYaufa7AniawlpqcD4Tu-2" value="proxychains ./scan.sh&lt;div&gt;proxychains scp [-P &amp;lt;port&amp;gt;] &amp;lt;user&amp;gt;@&amp;lt;ip&amp;gt;:&amp;lt;filepath&amp;gt;&amp;nbsp; &amp;lt;user&amp;gt;@&amp;lt;ip&amp;gt;:&amp;lt;filepath&amp;gt;&lt;/div&gt;&lt;div&gt;eom &amp;lt;file&amp;gt;&lt;/div&gt;&lt;div&gt;eog &amp;lt;file&amp;gt;&lt;/div&gt;&lt;div&gt;proxychains wget -r http/ftp://&amp;lt;ip&amp;gt;&lt;/div&gt;&lt;div&gt;nc &amp;lt;ip&amp;gt; [port]&lt;/div&gt;&lt;div&gt;pcmanfm&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=#82b366;fillColor=#d5e8d4;" parent="1" vertex="1">
