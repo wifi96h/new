@@ -176,6 +176,8 @@ echo '301' | base64
 -------------------------------------------------------------------------------
 capstone-09
 
+# There is a web service running on this machine that is the same port that Metasploit uses for its webservice.
+4444
 
 -------------------------------------------------------------------------------
 capstone-10
