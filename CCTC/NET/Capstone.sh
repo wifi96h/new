@@ -31,7 +31,8 @@ echo "CHEESE" | base64
 Q0hFRVNFCg==
 
 flag = capstone
-
+----------------------------------------------------------------------------------------------
+capstone-02
 
 # Using the questions found on Capstone-02 web-page.
 # What is the Answer to Network Fundamentals Question 1?
@@ -67,6 +68,7 @@ Frag_Offset = Max_Data / 8 (1472 / 8 = 184)
 
 
 -------------------------------------------------------------------------------
+capstone-03
 
 Question 1:
 
@@ -133,11 +135,68 @@ echo "UTF-8" | base64
 echo "PSEUDO" | base64
 
 ---------------------------------------------------------------------------------
+capstone-04
 
 # Capstone-05 is attempting to attack this box from a different network on a port(s) associated with the W32/Blaster Worm - 135
 # What is the message referenced by “Hint-04a.png”. Provide the message (exactly as you received it) converted to BASE64
-tcpdump -i eth1 port 135 -vn
-
+tcpdump -i eth1 -vn -X
+echo 'I just want to say LOVE YOU SAN' | base64
 
 # RIPv2 seems to be running on the 10.1.1.0/25 network sniff the traffic to find what networks is avertising updates IP will be the next environment pivot to access from IH
 tcpdump -i eth0 port 520 -vn
+
+----------------------------------------------------------------------------------
+capstone-06
+
+# What is the answer to the question referenced in “Hint-06a”? Provide the answer converted to BASE64.
+# SSH is running on a higher port although it only seems to accept connections when it looks like its coming from a Cisco Device's TTL. Try using iptables to adjust your sending TTL. Flag for this system is the SSH Port number.
+sudo iptables -t mangle -A POSTROUTING -j TTL --ttl-set 255
+nmap -Pn -T5 10.50.38.90 -p-
+
+---------------------------------------------------------------------------------
+capstone-07
+
+# What is the answer to the question referenced in “Hint-07a”? Provide the answer (exactly as you found it) converted to BASE64
+# You will use the phrase as your password for this system only.
+# SSH is running on a higher port but it is not accessable from the outside. It also seems to use different username and password than what the other systems use. How can we intercept these credentials? Maybe another system has a tool that can help us. The flag for this system is the password you find converted to Base64. Credentials for this system will be exactly what you find.
+tcpdump -i eth0 src 10.2.2.7 -nv -X
+net3_comrade11
+H0ld 73h d00r?
+
+--------------------------------------------------------------------------------
+capstone-08
+
+# What is the Answer referenced in “Hint-08a.png”? Provide the answer converted to BASE64.
+# SSH is running on the port that corresponds with the HTTP status code for 'Moved Permanently'. The flag for this system is the port number converted to Base64.
+301
+echo '301' | base64
+
+# This system seems to be a pivot for the Network Reconnaisance section.
+
+-------------------------------------------------------------------------------
+capstone-09
+
+
+-------------------------------------------------------------------------------
+capstone-10
+
+# SSH is running on the port that corresponds with the HTTP status code for 'Not Found'. The flag for this system is the port number converted to Base64.
+404
+echo '404' |base64
+
+# This system seems to be a pivot for the Movement and Redirection section.
+
+-------------------------------------------------------------------------------
+capstone-11
+
+
+-------------------------------------------------------------------------------
+capstone-12
+
+# SSH is running on the port that corresponds with the HTTP status code for 'Gateway Timeout'. The flag for this system is the port number converted to Base64.
+504
+echo '504' |base64
+
+# This system seems to be a pivot for the Network Analysis and Filtering sections.
+
+-------------------------------------------------------------------------------
