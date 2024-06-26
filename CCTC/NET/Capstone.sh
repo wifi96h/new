@@ -137,13 +137,14 @@ echo "PSEUDO" | base64
 ---------------------------------------------------------------------------------
 capstone-04
 
-# Capstone-05 is attempting to attack this box from a different network on a port(s) associated with the W32/Blaster Worm - 135
+# Capstone-05 is attempting to attack this box from a different network on a port(s) associated with the W32/Blaster Worm - 80, 135, 445
 # What is the message referenced by “Hint-04a.png”. Provide the message (exactly as you received it) converted to BASE64
 tcpdump -i eth1 -vn -X
 echo 'I just want to say LOVE YOU SAN' | base64
 
 # RIPv2 seems to be running on the 10.1.1.0/25 network sniff the traffic to find what networks is avertising updates IP will be the next environment pivot to access from IH
 tcpdump -i eth0 port 520 -vn
+tcpdump -i <interface> -p- udp or tcp <port> -vvn -X (-c [for count])
 
 ----------------------------------------------------------------------------------
 capstone-06
