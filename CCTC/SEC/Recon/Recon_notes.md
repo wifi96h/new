@@ -1,4 +1,5 @@
 # Situation
+
 ## SITREP:Your team has been deployed for Operation Golden Nugget, in direct support of Gorgas forces amid the Donovian-Gorgas war. You have been tasked to collect, analyze, and process data utilizing various reconnaissance techniques throughout Donovian and Gorgas Cyberspace.
 
 Maintain 'low visibility' on the wire, as security products may be in place, and document your actions and results as you will be expected to provide OpNotes upon request.
@@ -36,3 +37,97 @@ Known Ports: unknown
 Known URL: consulting.site.donovia
 Known URL: conference.site.donovia
 Action: Reconnaissance to collect intelligence and identify possible avenues of approach in the network.
+
+--------------------------
+
+# 192.168.28.96/27
+
+## 192.168.28.100
+  http:80 
+    /site.css
+    /img/
+      /hammer.png
+    /index.html
+
+## 192.168.28.105
+  ftp:21 
+    /ServerInitialization
+    /XE69kmhTlzDgjEfzXDee
+    /welcome.msg
+
+## 192.168.28.111
+  http:80 
+    /contact.html
+    /css/
+      /style.css
+    /images/
+      /Arms.png
+      /tableft.png
+      /tabright.png
+    /index.html
+    /projects.html
+    /sites/
+      /index.html
+      /NSC-Contacts.html
+ :8080
+   http
+     /about.html
+     /buy-tickets.html
+     /contact.html
+     /css/
+       /aos.css
+       /bootstrap-datepicker.css
+       /bootstrap.min.css
+       /jquery-ui.css
+       /magnific-popup.css
+       /owl.carousel.min.css
+       /owl.theme.default.min.css
+       /style.css
+     /fonts/
+       /flaticon/
+         /font/
+           /Flaticon.eot
+           /'Flaticon.eot?'
+           /Flaticon.svg
+           /Flaticon.ttf
+           /Flaticon.woff
+           /Flaticon.woff2
+           /flaticon.css
+       /icomoon/
+         /fonts/
+           /'icomoon.eot?10si43'
+           /'icomoon.svg?10si43'
+           /'icomoon.ttf?10si43'
+           /'icomoon.woff?10si43'
+         /style.css
+     /images/
+       /hammer.png
+       /hero_1.png
+       /logo_1.png
+       /logo_2.png
+       /logo_3.png
+       /logo_4.png
+       /logo_5.png
+       /logo_6.png
+       /person_1.png
+       /person_2.png
+       /person_3.png
+       /person_4.png
+     /index.html
+     /js/
+       /aos.js
+       /bootstrap-datepicker.min.js
+       /bootstrap.min.js
+       /jquery-3.3.1.min.js
+       /jquery-migrate-3.0.1.min.js
+       /jquery-ui.js
+       /jquery.countdown.min.js
+       /jquery.magnific-popup.min.js
+       /jquery.stellar.min.js
+       /main.js
+       /owl.carousel.min.js
+       /popper.min.js
+     /news.html
+     /speakers.html
+
+
