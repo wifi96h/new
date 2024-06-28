@@ -13,8 +13,6 @@ Section 7.1: Network Scanning and Reconnaissance
 
 ## Table of Contents
 
-## Skills and Objectives.  
-
 - Skills and Objectives.  
 - Facilitation: Open Source Intelligence Gathering.  
    - OSINT Documentation.  
@@ -37,9 +35,8 @@ Section 7.1: Network Scanning and Reconnaissance
       - DEMO: NSE Familiarization.  
 
 
-**Facilitation: Open Source Intelligence**
-
-**Gathering**
+**Facilitation: Open Source Intelligence ## Skills and Objectives.  
+Gathering**
 
 **Outcome** :
 
@@ -524,13 +521,13 @@ Lua is a lightweight language designed for extensibility.
 
 **Script Familiarization**
 
-Scripts are stored in a scripts subdirectory of the Nmap data directory by default:
+Scripts are stored in a `scripts` subdirectory of the Nmap data directory by default:
 
-/usr/share/nmap/scripts
+`/usr/share/nmap/scripts`
 
 For efficiency, scripts are indexed in a database stored in
 
-../scripts/script.db
+`../scripts/script.db`
 
 **DEMO: NSE Familiarization**
 
