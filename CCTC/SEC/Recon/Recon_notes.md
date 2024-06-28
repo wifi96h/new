@@ -69,8 +69,8 @@ Action: Reconnaissance to collect intelligence and identify possible avenues of 
     /sites/
       /index.html
       /NSC-Contacts.html
- :8080
-   http
+ :8080 - Donovian Gov't Conference
+   http:8080
      /about.html
      /buy-tickets.html
      /contact.html
