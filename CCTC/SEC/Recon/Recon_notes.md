@@ -130,4 +130,12 @@ Action: Reconnaissance to collect intelligence and identify possible avenues of 
      /news.html
      /speakers.html
 
+strong tags
+	<td class="f1aG">f1rstpArt@<strong>2tjXu</strong></td>
+	<td class="f1aG" style="opacity: .0;">f0urthpArt@<strong>qXSj5</strong></td>
+	<td class="f1aG" style="opacity: .0;">s3cond0n3@<strong>AtSwO</strong></td>
+	<td class="f1aG" style="opacity: .0;">th3Fifth@<strong></strong></td>
+	<td class="f1aG">th1rd@<strong>4bDmW</strong></td>
+
+  2tjXuAtSwO4bDmWqXSj5
 
