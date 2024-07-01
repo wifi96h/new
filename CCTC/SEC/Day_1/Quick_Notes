@@ -53,7 +53,7 @@ Can help Identify a box based on the ping response
 -------------------------------
 
 proxychains nmap -sT -Pn -T5 -iL ips -p 80 --open
-nmap -sT -Pn -T5 8.8.8.8 -p 135-139,22,80,443,21,8080 â€“open
+nmap -sT -Pn -T5 8.8.8.8 -p 135-139,22,80,443,21,8080 --open
 
 ----------------------------------
 
