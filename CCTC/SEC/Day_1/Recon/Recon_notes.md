@@ -44,6 +44,10 @@ Action: Reconnaissance to collect intelligence and identify possible avenues of 
 
 ## 192.168.28.100
   http:80 
+    /admin/
+      /admin.php
+      /login.css
+      /login.php
     /site.css
     /img/
       /hammer.png
@@ -130,14 +134,25 @@ Action: Reconnaissance to collect intelligence and identify possible avenues of 
      /news.html
      /speakers.html
 
-strong tags
+
+  grep -E '.{20}$' <filename>
+
+contact info
+grep -E 'f1aG' sites/NSC-Contacts.html
 	<td class="f1aG">f1rstpArt@<strong>2tjXu</strong></td>
 	<td class="f1aG" style="opacity: .0;">f0urthpArt@<strong>qXSj5</strong></td>
 	<td class="f1aG" style="opacity: .0;">s3cond0n3@<strong>AtSwO</strong></td>
 	<td class="f1aG" style="opacity: .0;">th3Fifth@<strong></strong></td>
 	<td class="f1aG">th1rd@<strong>4bDmW</strong></td>
 
-  2tjXuAtSwO4bDmWqXSj5
+	2tjXuAtSwO4bDmWqXSj5
 
-contacts
-gre
+'strong' message
+grep -E 'strong' news.html
+
+company message
+	sites/index.html
+
+ key speakers
+ 	buy-tickets.html
+  	speakers.html
