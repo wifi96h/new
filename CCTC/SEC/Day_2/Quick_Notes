@@ -66,5 +66,5 @@ cat /var/www/.ssh/authorized_keys
 
 On opstation
 ssh-keygen -t rsa -b 4096
-cat .ssh/id_rua.pub
+cat .ssh/id_rsa.pub
 ssh www-data@ip  ( or whatever the webuser is)
