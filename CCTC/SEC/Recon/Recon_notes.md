@@ -65,7 +65,7 @@ Action: Reconnaissance to collect intelligence and identify possible avenues of 
       /tableft.png
       /tabright.png
     /index.html
-    /projects.html
+    /projets.html
     /sites/
       /index.html
       /NSC-Contacts.html
@@ -139,3 +139,5 @@ strong tags
 
   2tjXuAtSwO4bDmWqXSj5
 
+contacts
+gre
