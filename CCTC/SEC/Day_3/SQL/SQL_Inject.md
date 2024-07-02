@@ -88,3 +88,6 @@ Joe	vato	2.00
 	flag:	4.00
 hacker	password	3.00
 	flag:	3.00
+
+INSERT INTO members (first_name, last_name, username, password, email, permission) VALUES ('Hacker', 'hack4', 'hacker4', '123', '123@123', 1);#', '123', '123@123', 3) 
+> hacker2', '123', '123@123', 1);#
