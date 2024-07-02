@@ -90,6 +90,10 @@ UNION Combine the result-set of
 two or more equal SELECT
 statements**
 ```
+- runs default on TCP 3306
+- when looking at databases, check out `information_schema` and `session`
+- follow up all commands with `;`
+
 SOURCE: https://www.w3schools.com/sql/sql_syntax.asp
 
 **DEMO: SQL Commands (SQL Demo Box)**
@@ -104,6 +108,10 @@ DESCRIBE car;
 SELECT * FROM car;
 SELECT * FROM car UNION SELECT tireid,name,size,cost,1,2 FROM Tires;
 ```
+**FORMAT**:  
+database > tables > columns > rows  
+select <column(s)> from [<database>.]<table>  
+
 ```
 NOTE ; terminates the command, sending it to the DB for execution.
 ```
