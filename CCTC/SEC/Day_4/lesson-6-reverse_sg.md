@@ -142,11 +142,8 @@ rcx ecx cx cl
 rdx edx dx dl
 rsi esi si sl
 rdi edi di dil
-rbp ebp bp bpl base pointer; start
-of stack
-rsp esp sp spl stack
-pointer;current
-spot on stack
+rbp ebp bp bpl base pointer; start of stack
+rsp esp sp spl stack pointer; current spot on stack
 r8 r8d r8w r8b
 r9 r9d r9w r9b
 r10 r10d r10w r10b
