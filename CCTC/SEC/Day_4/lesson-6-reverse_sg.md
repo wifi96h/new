@@ -686,4 +686,16 @@ Regardless, the binary must go through this cycle: decrypt/unpack, drop/run payl
 cease execution. When analyzing the binary, this should be easy to find/see either in disassembly or
 a debugger.
 
+## Look at the file  
+objdump -p
+- prime headers
 
+strings <file> | more
+
+file <file>
+
+## Ghidra
+easy to import and use. open-source; makes best guess
+
+- most everything is searchable
+- 
