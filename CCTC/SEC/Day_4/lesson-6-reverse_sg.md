@@ -690,9 +690,14 @@ a debugger.
 objdump -p
 - prime headers
 
+objdump -d
+- disassemble
+
 strings <file> | more
 
 file <file>
+
+read elf
 
 ## Ghidra
 easy to import and use. open-source; makes best guess
