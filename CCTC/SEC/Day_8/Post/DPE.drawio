@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2024-07-12T16:57:04.350Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36" etag="bEJ9E_jXLl9sMjkRNeUU" version="24.6.4" type="github">
+<mxfile host="app.diagrams.net" modified="2024-07-12T19:32:58.472Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36" etag="zX2POkqJ3Z_E6YWiem4b" version="24.6.4" type="github">
   <diagram name="Page-1" id="VAzoH1neroOfFK-yLbb0">
     <mxGraphModel dx="2284" dy="1920" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -183,13 +183,13 @@
         <mxCell id="GW55ITMYMbStDCQeQ5jU-31" value="&lt;span style=&quot;background-color: initial;&quot;&gt;192.168.28.97 dev ens3 lladdr fa:16:3e:20:80:87 DELAY&lt;/span&gt;&lt;div&gt;192.168.28.119 dev ens3 lladdr fa:16:3e:13:45:b4 STALE&lt;/div&gt;&lt;div&gt;192.168.28.98 dev ens3 lladdr fa:16:3e:d3:c8:a2 STALE&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
           <mxGeometry x="565" y="483" width="330" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="GW55ITMYMbStDCQeQ5jU-32" value="ssh www-data@127.0.0.1 -p 1111 -D 9050" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" edge="1" parent="1">
+        <mxCell id="GW55ITMYMbStDCQeQ5jU-32" value="ssh www-data@127.0.0.1 -p 1111 -D 9050" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fillColor=#f8cecc;strokeColor=#b85450;" edge="1" parent="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="90" y="410" as="sourcePoint" />
             <mxPoint x="770" y="410" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="GW55ITMYMbStDCQeQ5jU-33" value="ssh student@10.50.41.126 -L 1111:192.168.28.100:2222" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fillColor=#d5e8d4;strokeColor=#82b366;" edge="1" parent="1">
+        <mxCell id="GW55ITMYMbStDCQeQ5jU-33" value="ssh student@10.50.41.126 -L 1111:192.168.28.100:2222" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fillColor=#f8cecc;strokeColor=#b85450;" edge="1" parent="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="90" y="390" as="sourcePoint" />
             <mxPoint x="780" y="390" as="targetPoint" />
@@ -203,6 +203,12 @@
         </mxCell>
         <mxCell id="GW55ITMYMbStDCQeQ5jU-11" value="http 80&lt;div&gt;514&lt;/div&gt;&lt;div&gt;ssh 3201&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
           <mxGeometry x="1020" y="320" width="70" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="GW55ITMYMbStDCQeQ5jU-36" value="ssh www-data@127.0.0.1 -p 1111 -L 2222:192.168.28.9:3389" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fillColor=#f8cecc;strokeColor=#b85450;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="90" y="460" as="sourcePoint" />
+            <mxPoint x="1040" y="460" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>
