@@ -183,3 +183,14 @@ nc -lvnp 12335
 You have been tasked to collect intelligence relating to one of the Donovian General Officers.
 The Gorgas Allied intelligence cell have determined that the 3rd and 4th octet of the the Donovian Internal Network is xxx.xxx.28.9
 
+set up forward tunnel
+use RDP
+- xfreerdp /v:127.0.0.1:<tunnel> /u:comrade /p:<password> /size:1920x1024 +clipboard
+
+### Internal 2
+The Gorgas Government has informed your team that sensitive technology data may be present within their Internal network. Enumerate directories critical to the OS and locate the data.
+
+
+### Internal 3
+You have been tasked to validate whether a persistence mechanism has already been set on this host.
+
