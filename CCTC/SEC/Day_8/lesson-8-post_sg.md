@@ -354,7 +354,7 @@ Feb 25 15:33:10 localhost sshd[3699]: Accepted password for root from 10.50.25.5
 49042 sshd
 ```
 ### NOTE
-
+https://en.wikibooks.org/wiki/OpenSSH/Cookbook/Multiplexing
 ```
 Only the first connection where the control socket was created and is the only
 connection that has a respective established connection and authentication log
@@ -893,7 +893,7 @@ use them as per the system wide, and per-user configuration file or from the
 command line with the ssh option -o 'ControlPath=<control/socket/location>'.
 ```
 **Upload Through Regular Tunnels**
-
+https://en.wikibooks.org/wiki/OpenSSH/Cookbook/Tunnels
 ```
 ssh root@10.50.22.200 -L 1111:10.50.22.211:22
 ```
