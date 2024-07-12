@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2024-07-12T15:47:32.286Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36" etag="eDGvy8tcKysl5d0O4AM2" version="24.6.5" type="github">
+<mxfile host="app.diagrams.net" modified="2024-07-12T16:12:38.381Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36" etag="7u2lHHBReTUB5rDdlLIJ" version="24.6.5" type="github">
   <diagram name="Page-1" id="VAzoH1neroOfFK-yLbb0">
     <mxGraphModel dx="2284" dy="1920" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -54,7 +54,7 @@
             <mxPoint x="340" y="245" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="scS4vU-XQMT1hmCbZy8Z-1" value="CONDUCT PASSIVE RECON&lt;div&gt;ip addr&lt;/div&gt;&lt;div&gt;netstat/ss -antlp&lt;/div&gt;&lt;div&gt;ip route&lt;/div&gt;&lt;div&gt;ip addr&lt;/div&gt;&lt;div&gt;ip neigh&lt;/div&gt;&lt;div&gt;cd /usr/share/cctc&lt;/div&gt;&lt;div&gt;ps -elf | grep &amp;lt;process&amp;gt;&lt;/div&gt;&lt;div&gt;arp&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=#82b366;fillColor=#d5e8d4;" parent="1" vertex="1">
+        <mxCell id="scS4vU-XQMT1hmCbZy8Z-1" value="CONDUCT PASSIVE RECON&lt;div&gt;ip addr&lt;/div&gt;&lt;div&gt;netstat/ss -antlp&lt;/div&gt;&lt;div&gt;ip route&lt;/div&gt;&lt;div&gt;ip addr&lt;/div&gt;&lt;div&gt;ip neigh&lt;/div&gt;&lt;div&gt;cd /usr/share/cctc&lt;/div&gt;&lt;div&gt;ps -elf | grep &amp;lt;process&amp;gt;&lt;/div&gt;&lt;div&gt;arp&lt;/div&gt;&lt;div&gt;cat /etc/hosts&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=#82b366;fillColor=#d5e8d4;" parent="1" vertex="1">
           <mxGeometry x="370" y="-210" width="180" height="160" as="geometry" />
         </mxCell>
         <mxCell id="scS4vU-XQMT1hmCbZy8Z-2" value="&lt;div&gt;CONDUCT ACTIVE RECON&lt;/div&gt;&lt;div&gt;./scan&lt;/div&gt;&lt;div&gt;nmap&lt;/div&gt;&lt;div&gt;nc &amp;lt;ip&amp;gt; &amp;lt;port&amp;gt;&lt;/div&gt;&lt;div&gt;ftp&lt;/div&gt;&lt;div&gt;wget -r&lt;/div&gt;&lt;div&gt;curl&lt;/div&gt;&lt;div&gt;cat /etc/ssh/sshd_config&amp;nbsp;&lt;/div&gt;&lt;div&gt;(look for default ports)&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=#82b366;fillColor=#d5e8d4;" parent="1" vertex="1">
