@@ -185,12 +185,27 @@ The Gorgas Allied intelligence cell have determined that the 3rd and 4th octet o
 
 set up forward tunnel
 use RDP
-- xfreerdp /v:127.0.0.1:<tunnel> /u:comrade /p:<password> /size:1920x1024 +clipboard
+- xfreerdp /v:127.0.0.1:2222 /u:comrade /p:joshIStheMAN /size:1920x1024 +clipboard
+- C:\Users\generalstaz\Downloads\Donovian-Battle-Brief
 
 ### Internal 2
 The Gorgas Government has informed your team that sensitive technology data may be present within their Internal network. Enumerate directories critical to the OS and locate the data.
-
+- search gorgas
+- C:\Windows\System32\01NUCLEAR01\gorgas-missle-platform.txt
 
 ### Internal 3
 You have been tasked to validate whether a persistence mechanism has already been set on this host.
+get-process | format-table id, ppid, name, path
 
+- Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+  - SecurityHealth %ProgramFiles%\Windows Defender\MSASCuiL.exe
+- Computer\HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run
+  - Microsoft Edge Update
+  - OneDrive
+- Computer\HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunOnce
+  - Delete Cached Standalone Update Binary
+  - Delete Cached Update Binary
+- Computer\HKEY_USERS\S-1-5-21-3638085982-1983459979-1030267177-1002\Software\Microsoft\Windows\CurrentVersion\Run
+  - OneDriveSetup  C:\Windows\SysWOW64\OneDriveSetup.exe /thfirstsetup
+- Computer\HKEY_USERS\S-1-5-21-3638085982-1983459979-1030267177-1004\Software\Microsoft\Windows\CurrentVersion\Run
+  - 
