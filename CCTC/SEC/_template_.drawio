@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2024-07-12T16:12:38.381Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36" etag="7u2lHHBReTUB5rDdlLIJ" version="24.6.5" type="github">
+<mxfile host="app.diagrams.net" modified="2024-07-15T18:00:09.092Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36" etag="4_jdK0LuoJsUyhiVdMfa" version="24.6.5" type="github">
   <diagram name="Page-1" id="VAzoH1neroOfFK-yLbb0">
-    <mxGraphModel dx="2284" dy="1920" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="2238" dy="1920" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -66,7 +66,7 @@
         <mxCell id="scS4vU-XQMT1hmCbZy8Z-4" value="&lt;div&gt;NMAP&lt;/div&gt;&lt;div&gt;namp &amp;lt;scan&amp;gt; ip(s) -p &amp;lt;ports&amp;gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;-sP/-sn ping sweep&lt;/span&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;-sT TCP connect&lt;/div&gt;&lt;div&gt;-sU UDP connect&lt;/div&gt;&lt;div&gt;-sL possible hostnames&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;nmap -sT -T5 &amp;lt;ip&amp;gt; -p 1-5000&lt;/div&gt;&lt;div&gt;nmap -T5 &amp;lt;ip&amp;gt; --script http-enum&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=#82b366;fillColor=#d5e8d4;" parent="1" vertex="1">
           <mxGeometry x="730" y="-210" width="200" height="160" as="geometry" />
         </mxCell>
-        <mxCell id="scS4vU-XQMT1hmCbZy8Z-5" value="&lt;div&gt;PROCESS&lt;/div&gt;&lt;div&gt;1) ssh to tgt&lt;/div&gt;&lt;div&gt;2) run &#39;ip a&#39; and &#39;arp -a&#39;&lt;/div&gt;&lt;div&gt;3) run enumeration script against second interface subnet&lt;/div&gt;&lt;div&gt;4) take note of potential targets&lt;/div&gt;&lt;div&gt;5) setup dynamic tunnel to target&lt;/div&gt;&lt;div&gt;6) run &#39;proxychains ./scan.sh&#39; or &#39;proxychains nmap -Pn -T5 -p &amp;lt;ports&amp;gt; against potential tgts&lt;/div&gt;&lt;div&gt;7) take notes of all open ports&lt;/div&gt;&lt;div&gt;8) banner grab everything using the appropriate protocol&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=#82b366;fillColor=#d5e8d4;" parent="1" vertex="1">
+        <mxCell id="scS4vU-XQMT1hmCbZy8Z-5" value="&lt;div&gt;Enum &amp;amp; Connect PROCESS&lt;/div&gt;&lt;div&gt;1) ssh to tgt&lt;/div&gt;&lt;div&gt;2) run &#39;ip a&#39; and &#39;arp -a&#39;&lt;/div&gt;&lt;div&gt;3) run enumeration script against second interface subnet&lt;/div&gt;&lt;div&gt;4) take note of potential targets&lt;/div&gt;&lt;div&gt;5) setup dynamic tunnel to target&lt;/div&gt;&lt;div&gt;6) run &#39;proxychains ./scan.sh&#39; or &#39;proxychains nmap -Pn -T5 -p &amp;lt;ports&amp;gt; against potential tgts&lt;/div&gt;&lt;div&gt;7) take notes of all open ports&lt;/div&gt;&lt;div&gt;8) banner grab everything using the appropriate protocol&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=#82b366;fillColor=#d5e8d4;" parent="1" vertex="1">
           <mxGeometry x="-140" y="-210" width="510" height="140" as="geometry" />
         </mxCell>
         <mxCell id="Tf39NvrSpZ8GJs31GOc9-1" value="" style="group" parent="1" vertex="1" connectable="0">
@@ -92,6 +92,9 @@
         </mxCell>
         <mxCell id="sldUWmz9j1VIk2YLgOAo-6" value="xxx" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="Tf39NvrSpZ8GJs31GOc9-1" vertex="1">
           <mxGeometry y="20" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="tN9Mp4d6bT-lDS7sQ2m_-1" value="LINUX&lt;div&gt;Check cron jobs (/etc/cron*)&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="595" y="23" width="170" height="40" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
