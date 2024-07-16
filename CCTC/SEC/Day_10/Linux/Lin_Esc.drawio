@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2024-07-16T14:16:00.764Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36" etag="EA6i9uxI8IofFf-XFMg9" version="24.6.5" type="github">
+<mxfile host="app.diagrams.net" modified="2024-07-16T18:55:42.634Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36" etag="8abyEmWg0D3coMj3T0Ui" version="24.6.4" type="github">
   <diagram name="Page-1" id="VAzoH1neroOfFK-yLbb0">
     <mxGraphModel dx="2238" dy="1920" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -93,17 +93,158 @@
         <mxCell id="sldUWmz9j1VIk2YLgOAo-6" value="xxx" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="Tf39NvrSpZ8GJs31GOc9-1" vertex="1">
           <mxGeometry y="20" width="40" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="tN9Mp4d6bT-lDS7sQ2m_-1" value="LINUX&lt;div&gt;Check cron jobs (/etc/cron*)&lt;/div&gt;&lt;div&gt;/etc/passwd&lt;/div&gt;&lt;div&gt;/etc/hosts&lt;/div&gt;&lt;div&gt;/var&lt;/div&gt;&lt;div&gt;/usr&lt;/div&gt;&lt;div&gt;/home&lt;/div&gt;&lt;div&gt;&lt;div&gt;systemctl --type=service --state=running&lt;/div&gt;&lt;/div&gt;&lt;div&gt;strings&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=#9673a6;fillColor=#e1d5e7;" vertex="1" parent="1">
+        <mxCell id="tN9Mp4d6bT-lDS7sQ2m_-1" value="LINUX&lt;div&gt;Check cron jobs (/etc/cron*)&lt;/div&gt;&lt;div&gt;/etc/passwd&lt;/div&gt;&lt;div&gt;/etc/hosts&lt;/div&gt;&lt;div&gt;/var&lt;/div&gt;&lt;div&gt;/usr&lt;/div&gt;&lt;div&gt;/home&lt;/div&gt;&lt;div&gt;&lt;div&gt;systemctl --type=service --state=running&lt;/div&gt;&lt;/div&gt;&lt;div&gt;strings&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=#9673a6;fillColor=#e1d5e7;" parent="1" vertex="1">
           <mxGeometry x="20" y="-50" width="240" height="140" as="geometry" />
         </mxCell>
-        <mxCell id="tN9Mp4d6bT-lDS7sQ2m_-2" value="WINDOWS&lt;div&gt;Scheduled Tasks&lt;/div&gt;&lt;div&gt;Registry&lt;/div&gt;&lt;div&gt;Public Directory&lt;/div&gt;&lt;div&gt;Services&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;get-content&lt;/div&gt;&lt;div&gt;get-wmiobject&lt;/div&gt;&lt;div&gt;net users/groups&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=#6c8ebf;fillColor=#dae8fc;" vertex="1" parent="1">
+        <mxCell id="tN9Mp4d6bT-lDS7sQ2m_-2" value="WINDOWS&lt;div&gt;Scheduled Tasks&lt;/div&gt;&lt;div&gt;Registry&lt;/div&gt;&lt;div&gt;Public Directory&lt;/div&gt;&lt;div&gt;Services&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;get-content&lt;/div&gt;&lt;div&gt;get-wmiobject&lt;/div&gt;&lt;div&gt;net users/groups&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=#6c8ebf;fillColor=#dae8fc;" parent="1" vertex="1">
           <mxGeometry x="-90" y="-50" width="110" height="140" as="geometry" />
         </mxCell>
-        <mxCell id="tN9Mp4d6bT-lDS7sQ2m_-3" value="LOGGING&lt;div&gt;syslog&lt;/div&gt;&lt;div&gt;rsyslog&lt;/div&gt;&lt;div&gt;systemd&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;win event viewer&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=#d79b00;fillColor=#ffe6cc;" vertex="1" parent="1">
+        <mxCell id="tN9Mp4d6bT-lDS7sQ2m_-3" value="LOGGING&lt;div&gt;syslog&lt;/div&gt;&lt;div&gt;rsyslog&lt;/div&gt;&lt;div&gt;systemd&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;win event viewer&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=#d79b00;fillColor=#ffe6cc;" parent="1" vertex="1">
           <mxGeometry x="260" y="-50" width="110" height="140" as="geometry" />
         </mxCell>
-        <mxCell id="tN9Mp4d6bT-lDS7sQ2m_-4" value="LINKS&lt;div&gt;blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation&lt;div&gt;https://gtfobins.github.io/&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;div&gt;https://www.dosomethinghere.com/2019/09/09/use-powershell-to-find-all-instances-of-a-dll/&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;https://wiremask.eu/tools/buffer-overflow-pattern-generator/&lt;br&gt;&lt;/div&gt;&lt;div&gt;https://z3r0th.medium.com/a-simple-buffer-overflow-using-vulnserver-86b011eb673b&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=#3A5431;fillColor=#6d8764;fontColor=#ffffff;" vertex="1" parent="1">
+        <mxCell id="tN9Mp4d6bT-lDS7sQ2m_-4" value="LINKS&lt;div&gt;blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation&lt;div&gt;https://gtfobins.github.io/&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;div&gt;https://www.dosomethinghere.com/2019/09/09/use-powershell-to-find-all-instances-of-a-dll/&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;https://wiremask.eu/tools/buffer-overflow-pattern-generator/&lt;br&gt;&lt;/div&gt;&lt;div&gt;https://z3r0th.medium.com/a-simple-buffer-overflow-using-vulnserver-86b011eb673b&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=#3A5431;fillColor=#6d8764;fontColor=#ffffff;" parent="1" vertex="1">
           <mxGeometry x="370" y="-50" width="510" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="WaSeerE4flPI1VO7Nj_m-1" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="640" y="192.5" width="270" height="147.5" as="geometry" />
+        </mxCell>
+        <mxCell id="WaSeerE4flPI1VO7Nj_m-2" value="" style="group" vertex="1" connectable="0" parent="WaSeerE4flPI1VO7Nj_m-1">
+          <mxGeometry x="40.75471698113208" width="229.24528301886792" height="147.5" as="geometry" />
+        </mxCell>
+        <mxCell id="WaSeerE4flPI1VO7Nj_m-3" value="" style="group" vertex="1" connectable="0" parent="WaSeerE4flPI1VO7Nj_m-2">
+          <mxGeometry y="19.666666666666664" width="229.24528301886792" height="127.83333333333333" as="geometry" />
+        </mxCell>
+        <mxCell id="WaSeerE4flPI1VO7Nj_m-4" value="Donovian-Terminal&lt;div&gt;comrade :: StudentReconPassword&lt;/div&gt;" style="verticalAlign=top;verticalLabelPosition=bottom;labelPosition=center;align=center;html=1;outlineConnect=0;fillColor=#f8cecc;strokeColor=#b85450;gradientDirection=north;strokeWidth=2;shape=mxgraph.networks.pc;" vertex="1" parent="WaSeerE4flPI1VO7Nj_m-3">
+          <mxGeometry x="35.660377358490564" width="101.88679245283019" height="68.83333333333333" as="geometry" />
+        </mxCell>
+        <mxCell id="WaSeerE4flPI1VO7Nj_m-5" value="ssh&amp;nbsp;2222" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="WaSeerE4flPI1VO7Nj_m-3">
+          <mxGeometry x="-20.37735849056604" y="98.33333333333333" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="WaSeerE4flPI1VO7Nj_m-6" value="xxx" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="WaSeerE4flPI1VO7Nj_m-3">
+          <mxGeometry x="163.0188679245283" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="WaSeerE4flPI1VO7Nj_m-7" value="xx" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="WaSeerE4flPI1VO7Nj_m-3">
+          <mxGeometry x="137.54716981132074" y="98.33333333333333" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="WaSeerE4flPI1VO7Nj_m-8" value="192.168.28.105" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="WaSeerE4flPI1VO7Nj_m-1">
+          <mxGeometry x="-35.660377358490564" y="19.666666666666664" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="WaSeerE4flPI1VO7Nj_m-9" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="1040" y="192.5" width="265" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="WaSeerE4flPI1VO7Nj_m-10" value="" style="group" vertex="1" connectable="0" parent="WaSeerE4flPI1VO7Nj_m-9">
+          <mxGeometry x="40" width="225" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="WaSeerE4flPI1VO7Nj_m-11" value="" style="group" vertex="1" connectable="0" parent="WaSeerE4flPI1VO7Nj_m-10">
+          <mxGeometry y="20" width="225" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="WaSeerE4flPI1VO7Nj_m-12" value="lin2&lt;div&gt;comrade :: StudentPrivPassword&lt;/div&gt;" style="verticalAlign=top;verticalLabelPosition=bottom;labelPosition=center;align=center;html=1;outlineConnect=0;fillColor=#f8cecc;strokeColor=#b85450;gradientDirection=north;strokeWidth=2;shape=mxgraph.networks.pc;" vertex="1" parent="WaSeerE4flPI1VO7Nj_m-11">
+          <mxGeometry x="35" width="100" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="WaSeerE4flPI1VO7Nj_m-13" value="ssh 22" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="WaSeerE4flPI1VO7Nj_m-11">
+          <mxGeometry x="-15" y="100" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="WaSeerE4flPI1VO7Nj_m-14" value="xxx" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="WaSeerE4flPI1VO7Nj_m-11">
+          <mxGeometry x="160" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="WaSeerE4flPI1VO7Nj_m-15" value="xx" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="WaSeerE4flPI1VO7Nj_m-11">
+          <mxGeometry x="135" y="100" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="WaSeerE4flPI1VO7Nj_m-16" value="192.168.28.27" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="WaSeerE4flPI1VO7Nj_m-9">
+          <mxGeometry x="-30" y="20" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="WaSeerE4flPI1VO7Nj_m-17" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="1040" y="380" width="265" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="WaSeerE4flPI1VO7Nj_m-18" value="" style="group" vertex="1" connectable="0" parent="WaSeerE4flPI1VO7Nj_m-17">
+          <mxGeometry x="40" width="225" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="WaSeerE4flPI1VO7Nj_m-19" value="" style="group" vertex="1" connectable="0" parent="WaSeerE4flPI1VO7Nj_m-18">
+          <mxGeometry y="20" width="225" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="WaSeerE4flPI1VO7Nj_m-20" value="lin1&lt;div&gt;comrade :: StudentPrivPassword&lt;/div&gt;" style="verticalAlign=top;verticalLabelPosition=bottom;labelPosition=center;align=center;html=1;outlineConnect=0;fillColor=#f8cecc;strokeColor=#b85450;gradientDirection=north;strokeWidth=2;shape=mxgraph.networks.pc;" vertex="1" parent="WaSeerE4flPI1VO7Nj_m-19">
+          <mxGeometry x="35" width="100" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="WaSeerE4flPI1VO7Nj_m-21" value="ssh 22" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="WaSeerE4flPI1VO7Nj_m-19">
+          <mxGeometry x="-15" y="100" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="WaSeerE4flPI1VO7Nj_m-22" value="xxx" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="WaSeerE4flPI1VO7Nj_m-19">
+          <mxGeometry x="160" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="WaSeerE4flPI1VO7Nj_m-23" value="xx" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="WaSeerE4flPI1VO7Nj_m-19">
+          <mxGeometry x="135" y="100" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="WaSeerE4flPI1VO7Nj_m-24" value="192.168.28.12" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="WaSeerE4flPI1VO7Nj_m-17">
+          <mxGeometry x="-30" y="20" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="WaSeerE4flPI1VO7Nj_m-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.855;entryY=1.083;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="sldUWmz9j1VIk2YLgOAo-30" target="WaSeerE4flPI1VO7Nj_m-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="WaSeerE4flPI1VO7Nj_m-27" value="" style="edgeStyle=none;orthogonalLoop=1;jettySize=auto;html=1;shape=flexArrow;rounded=1;startSize=8;endSize=8;fillColor=#d5e8d4;strokeColor=#82b366;" edge="1" parent="1">
+          <mxGeometry width="100" relative="1" as="geometry">
+            <mxPoint x="90" y="380" as="sourcePoint" />
+            <mxPoint x="770" y="380" as="targetPoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WaSeerE4flPI1VO7Nj_m-28" value="ssh student@10.50.41.126 -L 1111:10.10.28.42:22" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="WaSeerE4flPI1VO7Nj_m-27">
+          <mxGeometry x="-0.1029" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WaSeerE4flPI1VO7Nj_m-29" value="" style="edgeStyle=none;orthogonalLoop=1;jettySize=auto;html=1;shape=flexArrow;rounded=1;startSize=8;endSize=8;fillColor=#f8cecc;strokeColor=#b85450;" edge="1" parent="1">
+          <mxGeometry width="100" relative="1" as="geometry">
+            <mxPoint x="90" y="400" as="sourcePoint" />
+            <mxPoint x="770" y="400" as="targetPoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WaSeerE4flPI1VO7Nj_m-30" value="&lt;div&gt;ssh comrade@127.0.0.1 -p 1111 -D 9050&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="WaSeerE4flPI1VO7Nj_m-29">
+          <mxGeometry x="-0.1029" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WaSeerE4flPI1VO7Nj_m-31" value="ubuntu&lt;div&gt;comrade - no sudo&lt;/div&gt;&lt;div&gt;billybob - locked&lt;/div&gt;&lt;div&gt;bobby&lt;/div&gt;&lt;div&gt;jerry&lt;/div&gt;&lt;div&gt;jimmy&lt;/div&gt;&lt;div&gt;sarah&lt;/div&gt;&lt;div&gt;wendy&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;zeus&lt;/div&gt;&lt;div&gt;root&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1330" y="158" width="120" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="WaSeerE4flPI1VO7Nj_m-32" value="" style="edgeStyle=none;orthogonalLoop=1;jettySize=auto;html=1;shape=flexArrow;rounded=1;startSize=8;endSize=8;" edge="1" parent="1">
+          <mxGeometry width="100" relative="1" as="geometry">
+            <mxPoint x="790" y="400" as="sourcePoint" />
+            <mxPoint x="1040" y="280" as="targetPoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WaSeerE4flPI1VO7Nj_m-33" value="proxychains ssh" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];rotation=-30;" vertex="1" connectable="0" parent="WaSeerE4flPI1VO7Nj_m-32">
+          <mxGeometry x="-0.2805" y="-3" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WaSeerE4flPI1VO7Nj_m-34" value="zeus&lt;div&gt;root&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;ubuntu&lt;/div&gt;&lt;div&gt;comrade&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1365" y="418" width="70" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="WaSeerE4flPI1VO7Nj_m-35" value="" style="edgeStyle=none;orthogonalLoop=1;jettySize=auto;html=1;shape=flexArrow;rounded=1;startSize=8;endSize=8;fillColor=#d5e8d4;strokeColor=#82b366;" edge="1" parent="1">
+          <mxGeometry width="100" relative="1" as="geometry">
+            <mxPoint x="90" y="430" as="sourcePoint" />
+            <mxPoint x="990" y="430" as="targetPoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WaSeerE4flPI1VO7Nj_m-36" value="ssh comrade@127.0.0.1 -p1111 -L 2222:192.168.28.27:22" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="WaSeerE4flPI1VO7Nj_m-35">
+          <mxGeometry x="-0.1029" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WaSeerE4flPI1VO7Nj_m-37" value="" style="edgeStyle=none;orthogonalLoop=1;jettySize=auto;html=1;shape=flexArrow;rounded=1;startSize=8;endSize=8;fillColor=#f8cecc;strokeColor=#b85450;" edge="1" parent="1">
+          <mxGeometry width="100" relative="1" as="geometry">
+            <mxPoint x="90" y="462.5" as="sourcePoint" />
+            <mxPoint x="980" y="463" as="targetPoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WaSeerE4flPI1VO7Nj_m-38" value="&lt;div&gt;ssh comrade@127.0.0.1 -p 2222 -D 9050&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="WaSeerE4flPI1VO7Nj_m-37">
+          <mxGeometry x="-0.1029" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>
