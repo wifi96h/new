@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2024-07-16T13:21:28.067Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36" etag="z--UI5KT0CwyBxDe3SFW" version="24.6.5" type="github">
+<mxfile host="app.diagrams.net" modified="2024-07-16T13:22:06.085Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36" etag="tgv76W1a8fQsufoXQ1Iq" version="24.6.5" type="github">
   <diagram name="Page-1" id="VAzoH1neroOfFK-yLbb0">
     <mxGraphModel dx="2238" dy="1920" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -93,10 +93,10 @@
         <mxCell id="sldUWmz9j1VIk2YLgOAo-6" value="xxx" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="Tf39NvrSpZ8GJs31GOc9-1" vertex="1">
           <mxGeometry y="20" width="40" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="tN9Mp4d6bT-lDS7sQ2m_-1" value="LINUX&lt;div&gt;Check cron jobs (/etc/cron*)&lt;/div&gt;&lt;div&gt;/etc/passwd&lt;/div&gt;&lt;div&gt;/etc/hosts&lt;/div&gt;&lt;div&gt;/var&lt;/div&gt;&lt;div&gt;/usr&lt;/div&gt;&lt;div&gt;/home&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+        <mxCell id="tN9Mp4d6bT-lDS7sQ2m_-1" value="LINUX&lt;div&gt;Check cron jobs (/etc/cron*)&lt;/div&gt;&lt;div&gt;/etc/passwd&lt;/div&gt;&lt;div&gt;/etc/hosts&lt;/div&gt;&lt;div&gt;/var&lt;/div&gt;&lt;div&gt;/usr&lt;/div&gt;&lt;div&gt;/home&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=#9673a6;fillColor=#e1d5e7;" vertex="1" parent="1">
           <mxGeometry x="150" y="-70" width="170" height="110" as="geometry" />
         </mxCell>
-        <mxCell id="tN9Mp4d6bT-lDS7sQ2m_-2" value="WINDOWS&lt;div&gt;Scheduled Tasks&lt;/div&gt;&lt;div&gt;Registry&lt;/div&gt;&lt;div&gt;Public Directory&lt;/div&gt;&lt;div&gt;Services&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;get-content&lt;/div&gt;&lt;div&gt;get-wmiobject&lt;/div&gt;&lt;div&gt;net users/groups&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+        <mxCell id="tN9Mp4d6bT-lDS7sQ2m_-2" value="WINDOWS&lt;div&gt;Scheduled Tasks&lt;/div&gt;&lt;div&gt;Registry&lt;/div&gt;&lt;div&gt;Public Directory&lt;/div&gt;&lt;div&gt;Services&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;get-content&lt;/div&gt;&lt;div&gt;get-wmiobject&lt;/div&gt;&lt;div&gt;net users/groups&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=#6c8ebf;fillColor=#dae8fc;" vertex="1" parent="1">
           <mxGeometry x="-60" y="-70" width="110" height="140" as="geometry" />
         </mxCell>
       </root>
